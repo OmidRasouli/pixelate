@@ -23,6 +23,7 @@ body {
       input[type="number"],
       .pen,
       .eraser,
+      .color-picker,
       button {
         height: 30px;
         flex-grow: 0;
@@ -74,6 +75,28 @@ body {
 
       .eraser {
         background-image: url("../images/eraser.svg");
+      }
+
+      .color-picker {
+        width: 50px;
+        flex-basis: 50px;
+        padding: 0;
+
+        input[type="color"] {
+          width: 100%;
+          -webkit-appearance: none;
+          height: 100%;
+          outline: none;
+          border: none;
+
+          &::-webkit-color-swatch-wrapper {
+            padding: 0;
+          }
+
+          &::-webkit-color-swatch {
+            border: none;
+          }
+        }
       }
     }
 

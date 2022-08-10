@@ -127,5 +127,11 @@ body .board .artboard {
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
+  display: -ms-grid;
+  display: grid;
+}
+
+body .board .artboard .cell {
+  border: 1px solid #fff;
 }
 /*# sourceMappingURL=main.css.map */

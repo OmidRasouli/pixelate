@@ -14,15 +14,15 @@
           type="number"
           id="width"
           placeholder="Width"
-          value="100"
-          min="10"
+          value="10"
+          min="1"
         />
         <input
           type="number"
           id="height"
           placeholder="Height"
-          value="100"
-          min="10"
+          value="10"
+          min="1"
         />
         <input
           type="number"
@@ -52,7 +52,9 @@
           <input type="color" name="color" id="color" value="#000000" />
         </div>
       </div>
-      <div class="artboard"></div>
+      <div class="artboard" id="artboard">
+        <div class="canvas" id="canvas"></div>
+      </div>
     </div>
 
     <script src="./scripts/main.js"></script>

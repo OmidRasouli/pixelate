@@ -13,16 +13,18 @@ const cells = [];
 createBoard.addEventListener("click", () => {
   const canvasStyle = `grid-template-columns:repeat(${
     width.value
-  },auto);height:${height.value * thickness.value + 1}px;width:${
-    width.value * thickness.value + 1
-  }px`;
+  },auto);height:${
+    height.value * thickness.value + +height.value - 1
+  }px;width:${width.value * thickness.value + +width.value - 1}px;opacity:1;`;
   canvas.style.cssText = canvasStyle;
   createCells();
 });
 
 function createCells() {
   canvas.innerHTML = "";
-  canvas.style.backgroundSize = `${thickness.value}px ${thickness.value}px`;
+  canvas.style.backgroundSize = `${+thickness.value + 1}px ${
+    +thickness.value + 1
+  }px`;
   const count = width.value * height.value;
   for (let i = 0; i < count; i++) {
     const div = document.createElement("div");

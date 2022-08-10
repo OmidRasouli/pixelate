@@ -149,5 +149,8 @@ body .board .artboard .canvas {
   display: -ms-grid;
   display: grid;
   background-image: repeating-linear-gradient(#00c8ff 0 1px, transparent 1px 100%), repeating-linear-gradient(90deg, #00c8ff 0 1px, transparent 1px 100%);
+  gap: 1px;
+  padding: 1px;
+  opacity: 0;
 }
 /*# sourceMappingURL=main.css.map */

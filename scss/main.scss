@@ -119,6 +119,9 @@ body {
             rgb(0, 200, 255) 0 1px,
             transparent 1px 100%
           );
+        gap: 1px;
+        padding: 1px;
+        opacity: 0;
 
         .cell {
         }

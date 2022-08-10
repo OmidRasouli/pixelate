@@ -10,9 +10,35 @@
   <body>
     <div class="board">
       <div class="tools">
-        <input type="number" id="width" placeholder="Width" value="100" />
-        <input type="number" id="height" placeholder="Height" value="100" />
-        <input type="number" id="thickness" placeholder="Thickness" value="1" />
+        <input
+          type="number"
+          id="width"
+          placeholder="Width"
+          value="10"
+          min="1"
+        />
+        <input
+          type="number"
+          id="height"
+          placeholder="Height"
+          value="10"
+          min="1"
+        />
+        <input
+          type="number"
+          id="thickness"
+          placeholder="Thickness"
+          value="1"
+          min="1"
+        />
+        <input
+          type="number"
+          id="roundness"
+          placeholder="Roundness"
+          value="0"
+          min="0"
+          max="100"
+        />
         <button id="create">Create board</button>
         <div class="pen">
           <input type="radio" checked name="draw" id="pen" />
@@ -26,7 +52,11 @@
           <input type="color" name="color" id="color" value="#000000" />
         </div>
       </div>
-      <div class="artboard"></div>
+      <div class="artboard" id="artboard">
+        <div class="canvas" id="canvas"></div>
+      </div>
     </div>
+
+    <script src="./scripts/main.js"></script>
   </body>
 </html>

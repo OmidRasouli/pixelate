@@ -7,8 +7,15 @@ const pen = document.querySelector("#pen");
 const eraser = document.querySelector("#eraser");
 const colorPicker = document.querySelector("#color");
 const canvas = document.querySelector("#canvas");
+let drawMode = "draw";
+let drawable = false;
 
 const cells = [];
+
+(function () {
+  canvas.addEventListener("mousedown", () => (drawable = true));
+  document.addEventListener("mouseup", () => (drawable = false));
+})();
 
 createBoard.addEventListener("click", () => {
   const canvasStyle = `grid-template-columns:repeat(${
@@ -37,6 +44,18 @@ function createCells() {
     div.id = `cell${i}`;
     div.setAttribute("row", Math.floor(i / width.value));
     div.setAttribute("col", Math.floor(i % width.value));
+    div.addEventListener("mousemove", (e) => {
+      if (drawable) {
+        fillCell(e.currentTarget);
+      }
+    });
+
     canvas.append(div);
   }
+}
+
+function fillCell(cell) {
+  console.log(colorPicker.value);
+  cell.style.backgroundColor =
+    drawMode === "draw" ? colorPicker.value : "transparent";
 }

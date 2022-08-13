@@ -15,6 +15,22 @@ const cells = [];
 (function () {
   canvas.addEventListener("mousedown", () => (drawable = true));
   document.addEventListener("mouseup", () => (drawable = false));
+  thickness.addEventListener("change", () => {
+    canvas.style.width = `${
+      width.value * thickness.value + +width.value - 1
+    }px`;
+    canvas.style.height = `${
+      height.value * thickness.value + +height.value - 1
+    }px`;
+    canvas.style.backgroundSize = `${+thickness.value + 1}px ${
+      +thickness.value + 1
+    }px`;
+
+    for (const cell of canvas.childNodes) {
+      cell.style.width = `${thickness.value}px`;
+      cell.style.height = `${thickness.value}px`;
+    }
+  });
 })();
 
 createBoard.addEventListener("click", () => {

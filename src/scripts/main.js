@@ -10,7 +10,7 @@ const canvas = document.querySelector("#canvas");
 let drawMode = "draw";
 let drawable = false;
 
-const cells = [];
+let cells = {};
 
 (function () {
   canvas.addEventListener("mousedown", () => (drawable = true));
@@ -44,7 +44,6 @@ createBoard.addEventListener("click", () => {
 });
 
 function createCells() {
-  canvas.innerHTML = "";
   canvas.style.backgroundSize = `${+thickness.value + 1}px ${
     +thickness.value + 1
   }px`;
@@ -55,15 +54,16 @@ function createCells() {
     let styles = `width:${thickness.value}px;height:${
       thickness.value
     }px;border-radius:${roundness.value % 101}%`;
-    console.log(styles);
     div.style.cssText = styles;
     div.id = `cell${i}`;
     div.setAttribute("row", Math.floor(i / width.value));
     div.setAttribute("col", Math.floor(i % width.value));
+    div.setAttribute("index", i);
     div.addEventListener("mousemove", (e) => {
-      if (drawable) {
-        fillCell(e.currentTarget);
-      }
+      drawable && fillCell(e.currentTarget);
+    });
+    div.addEventListener("mousedown", (e) => {
+      fillCell(e.currentTarget);
     });
 
     canvas.append(div);
@@ -71,7 +71,17 @@ function createCells() {
 }
 
 function fillCell(cell) {
-  console.log(colorPicker.value);
   cell.style.backgroundColor =
     drawMode === "draw" ? colorPicker.value : "transparent";
+  cells[cell.getAttribute("index")] = {
+    row: cell.getAttribute("row"),
+    col: cell.getAttribute("col"),
+    color: colorPicker.value,
+  };
+  console.log(cells);
+}
+
+function cleanData() {
+  canvas.innerHTML = "";
+  cells = {};
 }

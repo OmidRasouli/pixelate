@@ -7,17 +7,41 @@ const pen = document.querySelector("#pen");
 const eraser = document.querySelector("#eraser");
 const colorPicker = document.querySelector("#color");
 const canvas = document.querySelector("#canvas");
+const exporter = document.querySelector("#export");
 let drawMode = "draw";
 let drawable = false;
 
-const cells = [];
+let cells = {};
 
 (function () {
+  cleanData();
   canvas.addEventListener("mousedown", () => (drawable = true));
+  pen.addEventListener("click", () => (drawMode = "draw"));
+  eraser.addEventListener("click", () => (drawMode = "erase"));
+  exporter.addEventListener("click", () => {
+    exportPixelArt();
+  });
   document.addEventListener("mouseup", () => (drawable = false));
+  thickness.addEventListener("change", () => {
+    canvas.style.width = `${
+      width.value * thickness.value + +width.value - 1
+    }px`;
+    canvas.style.height = `${
+      height.value * thickness.value + +height.value - 1
+    }px`;
+    canvas.style.backgroundSize = `${+thickness.value + 1}px ${
+      +thickness.value + 1
+    }px`;
+
+    for (const cell of canvas.childNodes) {
+      cell.style.width = `${thickness.value}px`;
+      cell.style.height = `${thickness.value}px`;
+    }
+  });
 })();
 
 createBoard.addEventListener("click", () => {
+  cleanData();
   const canvasStyle = `grid-template-columns:repeat(${
     width.value
   },auto);height:${
@@ -28,7 +52,6 @@ createBoard.addEventListener("click", () => {
 });
 
 function createCells() {
-  canvas.innerHTML = "";
   canvas.style.backgroundSize = `${+thickness.value + 1}px ${
     +thickness.value + 1
   }px`;
@@ -39,15 +62,16 @@ function createCells() {
     let styles = `width:${thickness.value}px;height:${
       thickness.value
     }px;border-radius:${roundness.value % 101}%`;
-    console.log(styles);
     div.style.cssText = styles;
     div.id = `cell${i}`;
     div.setAttribute("row", Math.floor(i / width.value));
     div.setAttribute("col", Math.floor(i % width.value));
+    div.setAttribute("index", i);
     div.addEventListener("mousemove", (e) => {
-      if (drawable) {
-        fillCell(e.currentTarget);
-      }
+      drawable && fillCell(e.currentTarget);
+    });
+    div.addEventListener("mousedown", (e) => {
+      fillCell(e.currentTarget);
     });
 
     canvas.append(div);
@@ -55,7 +79,40 @@ function createCells() {
 }
 
 function fillCell(cell) {
-  console.log(colorPicker.value);
-  cell.style.backgroundColor =
-    drawMode === "draw" ? colorPicker.value : "transparent";
+  if (drawMode === "draw") {
+    cell.style.backgroundColor = colorPicker.value;
+    cells[cell.getAttribute("index")] = {
+      row: cell.getAttribute("row"),
+      col: cell.getAttribute("col"),
+      color: colorPicker.value,
+    };
+  } else {
+    cell.style.backgroundColor = "transparent";
+    delete cells[cell.getAttribute("index")];
+  }
+}
+
+function cleanData() {
+  canvas.innerHTML = "";
+  cells = {};
+}
+
+function exportPixelArt() {
+  let data = [];
+
+  for (const shadow of Object.keys(cells)) {
+    data.push(
+      `${cells[shadow].col * thickness.value + +thickness.value}px ${
+        cells[shadow].row * thickness.value + +thickness.value
+      }px 0 0 ${cells[shadow].color}`
+    );
+  }
+
+  const boxShadow = "box-shadow:" + data.join(", ");
+  let style = `width: ${thickness.value}px;\nheight: ${thickness.value}px;\n${boxShadow};`;
+  console.log(+roundness.value > 0);
+  if (+roundness.value > 0) {
+    style += `\nborder-radius: ${+roundness.value}%;`;
+  }
+  console.log(style);
 }

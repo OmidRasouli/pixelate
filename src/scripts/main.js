@@ -15,7 +15,6 @@ let cells = {};
 
 (function () {
   cleanData();
-  canvas.addEventListener("mousedown", () => (drawable = true));
   pen.addEventListener("click", () => (drawMode = "draw"));
   eraser.addEventListener("click", () => (drawMode = "erase"));
   exporter.addEventListener("click", () => {
@@ -73,6 +72,7 @@ function createCells() {
     div.addEventListener("mousedown", (e) => {
       fillCell(e.currentTarget);
     });
+    div.addEventListener("mousedown", () => (drawable = true));
 
     canvas.append(div);
   }

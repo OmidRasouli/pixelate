@@ -5,6 +5,8 @@ const roundness = document.querySelector("#roundness");
 const createBoard = document.querySelector("#create");
 const pen = document.querySelector("#pen");
 const eraser = document.querySelector("#eraser");
+const eyedropper = document.querySelector("#eyedropper");
+const fill = document.querySelector("#fill");
 const colorPicker = document.querySelector("#color");
 const canvas = document.querySelector("#canvas");
 const sample = document.querySelector("#sample");
@@ -19,6 +21,7 @@ let cells = {};
   cleanData();
   pen.addEventListener("click", () => (drawMode = "draw"));
   eraser.addEventListener("click", () => (drawMode = "erase"));
+  eyedropper.addEventListener("click", () => (drawMode = "eyeDropper"));
   document.addEventListener("mouseup", () => (drawable = false));
   thickness.addEventListener("change", () => {
     canvas.style.width = `${
@@ -67,6 +70,7 @@ function createCells() {
     div.setAttribute("index", i);
     div.addEventListener("mousemove", (e) => {
       drawable && fillCell(e.currentTarget);
+      drawable && eyeDropper(e);
     });
     div.addEventListener("mousedown", (e) => {
       fillCell(e.currentTarget);
@@ -85,7 +89,7 @@ function fillCell(cell) {
       col: cell.getAttribute("col"),
       color: colorPicker.value,
     };
-  } else {
+  } else if (drawMode === "eraser") {
     cell.style.backgroundColor = "transparent";
     delete cells[cell.getAttribute("index")];
   }
@@ -136,7 +140,6 @@ function shadowCalculation() {
 
 function showSample(data) {
   const ratio = findRatio(width.value, height.value, thickness.value);
-  console.log(ratio);
   const scaledPixel = Math.max(thickness.value * ratio);
 
   const boxShadow =
@@ -160,4 +163,24 @@ function findRatio(row, col, pixel) {
   }
 
   return 1;
+}
+
+function eyeDropper(e) {
+  if (
+    drawMode === "eyeDropper" &&
+    e.currentTarget.style.backgroundColor !== ""
+  ) {
+    color.value = rgb2hex(e.currentTarget.style.backgroundColor);
+  }
+}
+
+function rgb2hex(rgb) {
+  rgb = rgb.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(,\s*\d+\.*\d+)?\)$/);
+  console.log(rgb);
+  console.log("#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]));
+  return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+}
+
+function hex(x) {
+  return ("0" + parseInt(x).toString(16)).slice(-2);
 }

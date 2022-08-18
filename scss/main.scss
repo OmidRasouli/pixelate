@@ -24,8 +24,7 @@ body {
         opacity: 0;
       }
       input[type="number"],
-      .pen,
-      .eraser,
+      .tools,
       .color-picker,
       button {
         height: 30px;
@@ -47,8 +46,7 @@ body {
         cursor: pointer;
       }
 
-      .pen,
-      .eraser {
+      .tools {
         background-image: url("../images/pen.svg");
         width: 50px;
         flex-basis: 50px;
@@ -80,6 +78,14 @@ body {
         background-image: url("../images/eraser.svg");
       }
 
+      .eyedropper {
+        background-image: url("../images/eye-dropper.svg");
+      }
+
+      .fill {
+        background-image: url("../images/fill-drip.svg");
+      }
+
       .color-picker {
         width: 50px;
         flex-basis: 50px;
@@ -91,6 +97,8 @@ body {
           height: 100%;
           outline: none;
           border: none;
+          padding: 0;
+          background-color: transparent;
 
           &::-webkit-color-swatch-wrapper {
             padding: 0;

@@ -1,7 +1,7 @@
-const width = document.querySelector("#width");
-const height = document.querySelector("#height");
-const thickness = document.querySelector("#thickness");
-const roundness = document.querySelector("#roundness");
+const widthEl = document.querySelector("#width");
+const heightEl = document.querySelector("#height");
+const thicknessEl = document.querySelector("#thickness");
+const roundnessEl = document.querySelector("#roundness");
 const createBoard = document.querySelector("#create");
 const pen = document.querySelector("#pen");
 const eraser = document.querySelector("#eraser");
@@ -11,6 +11,11 @@ const colorPicker = document.querySelector("#color");
 const canvas = document.querySelector("#canvas");
 const sample = document.querySelector("#sample");
 const output = document.querySelector("#output");
+
+let width = parseInt(widthEl.value);
+let height = parseInt(heightEl.value);
+let thickness = parseInt(thicknessEl.value);
+let roundness = parseInt(roundnessEl.value);
 
 let drawMode = "draw";
 let drawable = false;
@@ -22,76 +27,99 @@ let cells = {};
   pen.addEventListener("click", () => (drawMode = "draw"));
   eraser.addEventListener("click", () => (drawMode = "erase"));
   eyedropper.addEventListener("click", () => (drawMode = "eyeDropper"));
-  document.addEventListener("mouseup", () => (drawable = false));
-  thickness.addEventListener("change", () => {
-    canvas.style.width = `${
-      width.value * thickness.value + +width.value - 1
-    }px`;
-    canvas.style.height = `${
-      height.value * thickness.value + +height.value - 1
-    }px`;
-    canvas.style.backgroundSize = `${+thickness.value + 1}px ${
-      +thickness.value + 1
-    }px`;
+  fill.addEventListener("click", () => (drawMode = "fill"));
+  document.addEventListener("mouseup", () => {
+    drawable = false;
+  });
+  thicknessEl.addEventListener("change", () => {
+    thickness = parseInt(thicknessEl.value);
+    canvas.style.width = `${width * thickness + width - 1}px`;
+    canvas.style.height = `${height * thickness + height - 1}px`;
+    canvas.style.backgroundSize = `${thickness + 1}px ${thickness + 1}px`;
 
     for (const cell of canvas.childNodes) {
-      cell.style.width = `${thickness.value}px`;
-      cell.style.height = `${thickness.value}px`;
+      cell.style.width = `${thickness}px`;
+      cell.style.height = `${thickness}px`;
     }
+    exportPixelArt();
+  });
+  roundnessEl.addEventListener("change", () => {
+    roundness = parseInt(roundnessEl.value);
+    for (const cell of canvas.childNodes) {
+      cell.style.borderRadius = `${roundness % 101}%`;
+    }
+    exportPixelArt();
   });
 })();
 
 createBoard.addEventListener("click", () => {
   cleanData();
-  const canvasStyle = `grid-template-columns:repeat(${
-    width.value
-  },auto);height:${
-    height.value * thickness.value + +height.value - 1
-  }px;width:${width.value * thickness.value + +width.value - 1}px;opacity:1;`;
+  const canvasStyle = `grid-template-columns:repeat(${width},auto);height:${
+    height * thickness + height - 1
+  }px;width:${width * thickness + width - 1}px;opacity:1;`;
   canvas.style.cssText = canvasStyle;
   createCells();
 });
 
 function createCells() {
-  canvas.style.backgroundSize = `${+thickness.value + 1}px ${
-    +thickness.value + 1
-  }px`;
-  const count = width.value * height.value;
+  canvas.style.backgroundSize = `${thickness + 1}px ${thickness + 1}px`;
+  width = parseInt(widthEl.value);
+  height = parseInt(heightEl.value);
+  thickness = parseInt(thicknessEl.value);
+  roundness = parseInt(roundnessEl.value);
+  const count = width * height;
   for (let i = 0; i < count; i++) {
     const div = document.createElement("div");
     div.classList.add("cell");
-    let styles = `width:${thickness.value}px;height:${
-      thickness.value
-    }px;border-radius:${roundness.value % 101}%`;
+    let styles = `width:${thickness}px;height:${thickness}px;border-radius:${
+      roundness % 101
+    }%`;
     div.style.cssText = styles;
     div.id = `cell${i}`;
-    div.setAttribute("row", Math.floor(i / width.value));
-    div.setAttribute("col", Math.floor(i % width.value));
-    div.setAttribute("index", i);
+    div.setAttribute("data-row", Math.floor(i / width));
+    div.setAttribute("data-col", Math.floor(i % width));
+    div.setAttribute("data-index", i);
     div.addEventListener("mousemove", (e) => {
-      drawable && fillCell(e.currentTarget);
+      drawable && fillCell(e.currentTarget, colorPicker.value, "draw");
       drawable && eyeDropper(e);
     });
     div.addEventListener("mousedown", (e) => {
-      fillCell(e.currentTarget);
+      eyeDropper(e);
+      if (drawMode === "draw" || drawMode === "erase") {
+        fillCell(e.currentTarget, colorPicker.value, "draw");
+      }
+    });
+    div.addEventListener("mouseup", (e) => {
+      if (drawMode === "fill") {
+        findCells(
+          parseInt(e.currentTarget.getAttribute("data-row")),
+          parseInt(e.currentTarget.getAttribute("data-col")),
+          rgb2hex(e.currentTarget.style.backgroundColor)
+        );
+      }
     });
     div.addEventListener("mousedown", () => (drawable = true));
+    fillCell(div, "transparent", "draw");
 
     canvas.append(div);
   }
 }
 
-function fillCell(cell) {
-  if (drawMode === "draw") {
-    cell.style.backgroundColor = colorPicker.value;
-    cells[cell.getAttribute("index")] = {
-      row: cell.getAttribute("row"),
-      col: cell.getAttribute("col"),
-      color: colorPicker.value,
+function fillCell(cell, color = "transparent", ev = "draw") {
+  if (
+    (drawMode === "draw" && ev === "draw") ||
+    (drawMode === "fill" && ev === "fill")
+  ) {
+    cell.style.backgroundColor = color;
+    cells[cell.getAttribute("data-index")] = {
+      row: parseInt(cell.getAttribute("data-row")),
+      col: parseInt(cell.getAttribute("data-col")),
+      color: color,
+      element: cell,
     };
-  } else if (drawMode === "eraser") {
+  } else if (drawMode === "erase") {
     cell.style.backgroundColor = "transparent";
-    delete cells[cell.getAttribute("index")];
+    cells[cell.getAttribute("data-index")].color = "transparent";
   }
   exportPixelArt();
 }
@@ -107,9 +135,9 @@ function exportPixelArt() {
 
   const boxShadow =
     "box-shadow:" + data.reduce((prev, current) => prev + current.join(), "");
-  let style = `width: ${thickness.value}px;\nheight: ${thickness.value}px;\n${boxShadow};`;
-  if (+roundness.value > 0) {
-    style += `\nborder-radius: ${+roundness.value}%;`;
+  let style = `width: ${thickness}px;\nheight: ${thickness}px;\n${boxShadow};`;
+  if (roundness > 0) {
+    style += `\nborder-radius: ${roundness}%;`;
   }
   output.textContent = style;
 
@@ -121,8 +149,8 @@ function shadowCalculation() {
 
   for (const shadow of Object.keys(cells)) {
     data.push({
-      x: cells[shadow].col * thickness.value + +thickness.value,
-      y: cells[shadow].row * thickness.value + +thickness.value,
+      x: cells[shadow].col * thickness + thickness,
+      y: cells[shadow].row * thickness + thickness,
       color: cells[shadow].color,
       join: function () {
         return `${this.x}px ${this.y}px 0 0 ${this.color},`;
@@ -139,13 +167,15 @@ function shadowCalculation() {
 }
 
 function showSample(data) {
-  const ratio = findRatio(width.value, height.value, thickness.value);
-  const scaledPixel = Math.max(thickness.value * ratio);
+  const ratio = findRatio(width, height, thickness);
+  const scaledPixel = Math.max(thickness * ratio);
 
   const boxShadow =
     "box-shadow:" +
     data.reduce((prev, current) => prev + current.scaleAndJoin(ratio), "");
-  let style = `width: ${scaledPixel}px;\nheight: ${scaledPixel}px;\n${boxShadow};`;
+  let style = `width: ${scaledPixel}px;height: ${scaledPixel}px;border-radius: ${
+    roundness % 101
+  }%;${boxShadow};`;
 
   sample.style = `${style.substring(
     0,
@@ -170,17 +200,53 @@ function eyeDropper(e) {
     drawMode === "eyeDropper" &&
     e.currentTarget.style.backgroundColor !== ""
   ) {
-    color.value = rgb2hex(e.currentTarget.style.backgroundColor);
+    colorPicker.value = rgb2hex(e.currentTarget.style.backgroundColor);
   }
 }
 
 function rgb2hex(rgb) {
+  if (rgb === "transparent") return rgb;
+
   rgb = rgb.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(,\s*\d+\.*\d+)?\)$/);
-  console.log(rgb);
-  console.log("#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]));
   return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
 }
 
 function hex(x) {
   return ("0" + parseInt(x).toString(16)).slice(-2);
+}
+
+function findCells(i, j, color, indexes = [], direction = "Null", last = null) {
+  let index = findInex(i, j);
+  if (
+    indexes.includes(index) ||
+    i < 0 ||
+    i >= width ||
+    j < 0 ||
+    j >= height ||
+    cells[index].color === colorPicker.value ||
+    cells[index].color !== color
+  )
+    return;
+
+  indexes.push(index);
+  if (cells[index].color === color) {
+    fillCell(cells[index].element, colorPicker.value, "fill");
+  }
+
+  if (direction !== "Down") {
+    findCells(i - 1, j, color, indexes, "Up", index);
+  }
+  if (direction !== "Left") {
+    findCells(i, j + 1, color, indexes, "Right", index);
+  }
+  if (direction !== "Up") {
+    findCells(i + 1, j, color, indexes, "Down", index);
+  }
+  if (direction !== "Right") {
+    findCells(i, j - 1, color, indexes, "Left", index);
+  }
+}
+
+function findInex(i, j) {
+  return (i * width + j).toString();
 }

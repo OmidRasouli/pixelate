@@ -7,9 +7,9 @@ function shadowCalculation() {
 
   for (const shadow of Object.keys(board.cells)) {
     data.push({
-      x: board.cells[shadow].col * board.Thickness + board.Thickness,
-      y: board.cells[shadow].row * board.Thickness + board.Thickness,
-      color: board.cells[shadow].backgroundColor,
+      x: board.cells[shadow].Col * board.Thickness + board.Thickness,
+      y: board.cells[shadow].Row * board.Thickness + board.Thickness,
+      color: board.cells[shadow].BackgroundColor,
       join: function () {
         return `${this.x}px ${this.y}px 0 0 ${this.color},`;
       },

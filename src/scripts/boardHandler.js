@@ -1,4 +1,9 @@
 class Board {
+  #width;
+  #height;
+  #thickness;
+  #roundness;
+
   constructor(width, height, thickness, roundness, canvas) {
     this.DefineSize(width, height, thickness, roundness);
     this.canvas = canvas;
@@ -25,64 +30,64 @@ class Board {
    * @param {Cell} cell
    */
   Add(cell) {
-    this.cells[cell.id] = cell;
-    this.canvas.append(cell.cellElement);
+    this.cells[cell.ID] = cell;
+    this.canvas.append(cell.Element);
   }
 
   /**
    * @param {int} width
    */
   set Width(width) {
-    this._width = width;
+    this.#width = width;
   }
 
   /**
    * @param {int} height
    */
   set Height(height) {
-    this._height = height;
+    this.#height = height;
   }
 
   /**
    * @param {int} thickness
    */
   set Thickness(thickness) {
-    this._thickness = thickness;
+    this.#thickness = thickness;
   }
 
   /**
    * @param {int} roundness
    */
   set Roundness(roundness) {
-    this._roundness = roundness;
+    this.#roundness = roundness;
   }
 
   /**
    * return integer width
    */
   get Width() {
-    return this._width;
+    return this.#width;
   }
 
   /**
    * return integer height
    */
   get Height() {
-    return this._height;
+    return this.#height;
   }
 
   /**
    * return integer thickness
    */
   get Thickness() {
-    return this._thickness;
+    return this.#thickness;
   }
 
   /**
    * return integer roundness
    */
   get Roundness() {
-    return this._roundness;
+    return this.#roundness;
   }
 
   /**
@@ -154,13 +159,13 @@ class Board {
       row >= this.Width ||
       col < 0 ||
       col >= this.Height ||
-      this.cells[index].backgroundColor === colorPicker.value ||
-      this.cells[index].backgroundColor !== color
+      this.cells[index].BackgroundColor === colorPicker.value ||
+      this.cells[index].BackgroundColor !== color
     )
       return;
 
     indexes.push(index);
-    if (this.cells[index].backgroundColor === color) {
+    if (this.cells[index].BackgroundColor === color) {
       this.cells[index].FillCell(colorPicker.value, "fill");
     }
 

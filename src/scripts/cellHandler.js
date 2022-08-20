@@ -1,5 +1,54 @@
 class Cell {
+  #cellElement;
+  #backgroundColor;
+  #row;
+  #col;
+  #index;
+  #id;
+
   constructor() {}
+
+  /**
+   * return HTMLElement of the cell
+   */
+  get Element() {
+    return this.#cellElement;
+  }
+
+  /**
+   * return string background color
+   */
+  get BackgroundColor() {
+    return this.#backgroundColor;
+  }
+
+  /**
+   * return int row
+   */
+  get Row() {
+    return this.#row;
+  }
+
+  /**
+   * return int col
+   */
+  get Col() {
+    return this.#col;
+  }
+
+  /**
+   * return int index
+   */
+  get Index() {
+    return this.#index;
+  }
+
+  /**
+   * return string id
+   */
+  get ID() {
+    return this.#id;
+  }
 
   CreateCell(index) {
     //Create div element
@@ -7,14 +56,14 @@ class Cell {
 
     //Set id for each cell(pixel)
     cellElement.id = `cell${index}`;
-    this.id = `cell${index}`;
+    this.#id = `cell${index}`;
 
     //Set the Row
-    this.row = Math.floor(index / board.Width);
+    this.#row = Math.floor(index / board.Width);
     //Set the Col
-    this.col = Math.floor(index % board.Width);
+    this.#col = Math.floor(index % board.Width);
     //Set the Index
-    this.index = index;
+    this.#index = index;
 
     //MouseMove event
     cellElement.addEventListener("mousemove", (e) => {
@@ -40,12 +89,12 @@ class Cell {
       //If drawMode is fill
       if (drawMode === "fill") {
         //Find possible cells to fill
-        board.FindCells(this.row, this.col, rgb2hex(this.backgroundColor));
+        board.FindCells(this.#row, this.#col, rgb2hex(this.#backgroundColor));
       }
     });
 
     //Hold element to the class
-    this.cellElement = cellElement;
+    this.#cellElement = cellElement;
 
     //Fill the cell with transparent color
     this.FillCell("transparent", "draw");
@@ -61,7 +110,7 @@ class Cell {
   UpdateStyle() {
     //Add the style
     setStyle(
-      this.cellElement,
+      this.#cellElement,
       ["width", "height", "border-radius"],
       [
         `${board.Thickness}px`,
@@ -90,17 +139,17 @@ class Cell {
    * Change the color of the cell(pixel)
    */
   ChangeColor(color) {
-    this.backgroundColor = color;
-    setStyle(this.cellElement, ["background-color"], [color]);
+    this.#backgroundColor = color;
+    setStyle(this.#cellElement, ["background-color"], [color]);
   }
 
   //Eye dropper return the color of cell
   EyeDropper() {
     if (
       drawMode === "eyeDropper" &&
-      this.cellElement.style.backgroundColor !== ""
+      this.#cellElement.style.#backgroundColor !== ""
     ) {
-      colorPicker.value = rgb2hex(this.cellElement.style.backgroundColor);
+      colorPicker.value = rgb2hex(this.#cellElement.style.#backgroundColor);
     }
   }
 }

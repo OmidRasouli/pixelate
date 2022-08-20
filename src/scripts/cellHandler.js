@@ -21,17 +21,18 @@ class Cell {
       //Fill the cell
       drawable && this.FillCell(colorPicker.value, "draw");
       //Eye Dropper
-      drawable && this.EyeDropper(e);
+      drawable && this.EyeDropper();
     });
 
     //MouseDown event
     cellElement.addEventListener("mousedown", (e) => {
       //Eye Dropper
-      this.EyeDropper(e);
+      this.EyeDropper();
       //Fill the cell if the drawMode is draw or erase
       if (drawMode === "draw" || drawMode === "erase") {
         this.FillCell(colorPicker.value, "draw");
       }
+      drawable = true;
     });
 
     //MouseUp event
@@ -43,8 +44,7 @@ class Cell {
       }
     });
 
-    cellElement.addEventListener("mousedown", () => (drawable = true));
-
+    //Hold element to the class
     this.cellElement = cellElement;
 
     //Fill the cell with transparent color
@@ -57,6 +57,7 @@ class Cell {
     board.Add(this);
   }
 
+  //This function update the style
   UpdateStyle() {
     //Add the style
     setStyle(
@@ -70,6 +71,8 @@ class Cell {
     );
   }
 
+  //Fill the cell
+  //Needs to refactor
   FillCell(color = "transparent", ev = "draw") {
     if (
       (drawMode === "draw" && ev === "draw") ||
@@ -81,17 +84,23 @@ class Cell {
     exportAndShow();
   }
 
+  /**
+   *
+   * @param {String} color
+   * Change the color of the cell(pixel)
+   */
   ChangeColor(color) {
     this.backgroundColor = color;
     setStyle(this.cellElement, ["background-color"], [color]);
   }
 
-  EyeDropper(e) {
+  //Eye dropper return the color of cell
+  EyeDropper() {
     if (
       drawMode === "eyeDropper" &&
-      e.currentTarget.style.backgroundColor !== ""
+      this.cellElement.style.backgroundColor !== ""
     ) {
-      colorPicker.value = rgb2hex(e.currentTarget.style.backgroundColor);
+      colorPicker.value = rgb2hex(this.cellElement.style.backgroundColor);
     }
   }
 }

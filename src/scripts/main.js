@@ -1,7 +1,7 @@
-const widthEl = document.querySelector("#width");
-const heightEl = document.querySelector("#height");
-const thicknessEl = document.querySelector("#thickness");
-const roundnessEl = document.querySelector("#roundness");
+const width = () => parseInt(document.querySelector("#width").value);
+const height = () => parseInt(document.querySelector("#height").value);
+const thickness = () => parseInt(document.querySelector("#thickness").value);
+const roundness = () => parseInt(document.querySelector("#roundness").value);
 const createBoard = document.querySelector("#create");
 const pen = document.querySelector("#pen");
 const eraser = document.querySelector("#eraser");
@@ -21,13 +21,7 @@ let cells = {};
 (function () {
   cleanData();
   startupEvents();
-  board = new Board(
-    +widthEl.value,
-    +heightEl.value,
-    +thicknessEl.value,
-    +roundnessEl.value,
-    canvas
-  );
+  board = new Board(width(), height(), thickness(), roundness(), canvas);
 })();
 
 function cleanData() {

@@ -13,9 +13,9 @@ function startupEvents() {
   });
 
   //Change the value of Thickness
-  thicknessEl.addEventListener("change", () => {
+  document.querySelector("#thickness").addEventListener("change", () => {
     //Get the value and parse to int
-    board.Thickness = parseInt(thicknessEl.value);
+    board.Thickness = parseInt(thickness());
 
     //Update styles for cell and board
     board.UpdateStyle();
@@ -25,9 +25,9 @@ function startupEvents() {
   });
 
   //Change the value of Roundness
-  roundnessEl.addEventListener("change", () => {
+  document.querySelector("#roundness").addEventListener("change", () => {
     //Get the value and parse to int
-    board.Roundness = parseInt(roundnessEl.value);
+    board.Roundness = parseInt(roundness());
 
     //Update styles for cell and board
     board.UpdateStyle();
@@ -41,13 +41,7 @@ function startupEvents() {
     //Remove data
     cleanData();
 
-    board.DefineSize(
-      +widthEl.value,
-      +heightEl.value,
-      +thicknessEl.value,
-      +roundnessEl.value,
-      canvas
-    );
+    board.DefineSize(width(), height(), thickness(), roundness(), canvas);
 
     //Create cells
     board.BoardCreator();

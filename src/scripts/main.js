@@ -24,42 +24,8 @@ let cells = {};
 
 (function () {
   cleanData();
-  pen.addEventListener("click", () => (drawMode = "draw"));
-  eraser.addEventListener("click", () => (drawMode = "erase"));
-  eyedropper.addEventListener("click", () => (drawMode = "eyeDropper"));
-  fill.addEventListener("click", () => (drawMode = "fill"));
-  document.addEventListener("mouseup", () => {
-    drawable = false;
-  });
-  thicknessEl.addEventListener("change", () => {
-    thickness = parseInt(thicknessEl.value);
-    canvas.style.width = `${width * thickness + width - 1}px`;
-    canvas.style.height = `${height * thickness + height - 1}px`;
-    canvas.style.backgroundSize = `${thickness + 1}px ${thickness + 1}px`;
-
-    for (const cell of canvas.childNodes) {
-      cell.style.width = `${thickness}px`;
-      cell.style.height = `${thickness}px`;
-    }
-    exportPixelArt();
-  });
-  roundnessEl.addEventListener("change", () => {
-    roundness = parseInt(roundnessEl.value);
-    for (const cell of canvas.childNodes) {
-      cell.style.borderRadius = `${roundness % 101}%`;
-    }
-    exportPixelArt();
-  });
+  startupEvents();
 })();
-
-createBoard.addEventListener("click", () => {
-  cleanData();
-  const canvasStyle = `grid-template-columns:repeat(${width},auto);height:${
-    height * thickness + height - 1
-  }px;width:${width * thickness + width - 1}px;opacity:1;`;
-  canvas.style.cssText = canvasStyle;
-  createCells();
-});
 
 function createCells() {
   canvas.style.backgroundSize = `${thickness + 1}px ${thickness + 1}px`;

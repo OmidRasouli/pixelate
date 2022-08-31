@@ -11,7 +11,7 @@ function setStyle(element, property, style) {
 
 function rgb2hex(rgb) {
   const regex = new RegExp(/^rgba?/);
-  if (!regex.test(rgb)) return rgb;
+  if (!regex.test(rgb)) return "#000000";
 
   rgb = rgb.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(,\s*\d+\.*\d+)?\)$/);
   return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);

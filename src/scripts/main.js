@@ -11,10 +11,8 @@ const colorPicker = document.querySelector("#color");
 const canvas = document.querySelector("#canvas");
 const sample = document.querySelector("#sample");
 const output = document.querySelector("#output");
+const tools = new Tools();
 let board = new Board();
-
-let drawMode = "draw";
-let drawable = false;
 
 let cells = {};
 

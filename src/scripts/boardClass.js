@@ -166,7 +166,11 @@ class Board {
 
     indexes.push(index);
     if (this.cells[index].BackgroundColor === color) {
-      this.cells[index].FillCell(colorPicker.value, "fill");
+      tools.IsDrawing(true);
+      tools.PickTools(tools.Types.Pencil);
+      tools.Draw(this.cells[index], colorPicker.value, "mouseup");
+      tools.PickTools(tools.Types.Fill);
+      tools.IsDrawing(false);
     }
 
     if (direction !== "Down") {

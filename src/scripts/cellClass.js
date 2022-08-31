@@ -67,37 +67,27 @@ class Cell {
 
     //MouseMove event
     cellElement.addEventListener("mousemove", (e) => {
-      //Fill the cell
-      drawable && this.FillCell(colorPicker.value, "draw");
-      //Eye Dropper
-      drawable && this.EyeDropper();
+      tools.Draw(this, colorPicker.value, "mousemove");
     });
 
     //MouseDown event
     cellElement.addEventListener("mousedown", (e) => {
-      //Eye Dropper
-      this.EyeDropper();
-      //Fill the cell if the drawMode is draw or erase
-      if (drawMode === "draw" || drawMode === "erase") {
-        this.FillCell(colorPicker.value, "draw");
-      }
-      drawable = true;
+      tools.IsDrawing(true);
+      tools.Draw(this, colorPicker.value, "mousedown");
     });
 
     //MouseUp event
     cellElement.addEventListener("mouseup", (e) => {
-      //If drawMode is fill
-      if (drawMode === "fill") {
-        //Find possible cells to fill
-        board.FindCells(this.#row, this.#col, rgb2hex(this.#backgroundColor));
-      }
+      tools.Draw(this, colorPicker.value, "mouseup");
     });
 
     //Hold element to the class
     this.#cellElement = cellElement;
 
+    tools.IsDrawing(true);
     //Fill the cell with transparent color
-    this.FillCell("transparent", "draw");
+    tools.Draw(this, "transparent", "mousedown");
+    tools.IsDrawing(false);
 
     //Update the style
     this.UpdateStyle();
@@ -110,7 +100,7 @@ class Cell {
   UpdateStyle() {
     //Add the style
     setStyle(
-      this.#cellElement,
+      this.Element,
       ["width", "height", "border-radius"],
       [
         `${board.Thickness}px`,
@@ -120,19 +110,6 @@ class Cell {
     );
   }
 
-  //Fill the cell
-  //Needs to refactor
-  FillCell(color = "transparent", ev = "draw") {
-    if (
-      (drawMode === "draw" && ev === "draw") ||
-      (drawMode === "fill" && ev === "fill") ||
-      drawMode === "erase"
-    ) {
-      this.ChangeColor(color);
-    }
-    exportAndShow();
-  }
-
   /**
    *
    * @param {String} color
@@ -140,16 +117,6 @@ class Cell {
    */
   ChangeColor(color) {
     this.#backgroundColor = color;
-    setStyle(this.#cellElement, ["background-color"], [color]);
-  }
-
-  //Eye dropper return the color of cell
-  EyeDropper() {
-    if (
-      drawMode === "eyeDropper" &&
-      this.#cellElement.style.#backgroundColor !== ""
-    ) {
-      colorPicker.value = rgb2hex(this.#cellElement.style.#backgroundColor);
-    }
+    setStyle(this.Element, ["background-color"], [color]);
   }
 }

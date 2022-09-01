@@ -39,10 +39,12 @@ class Tools {
    * @param {Color} color
    * @param {MouseEvent} event
    */
-  Draw(cell, color = "transparent", event = "none") {
-    if (!this.#isDrawing) return;
+  Draw(cell, color = "transparent", event = "none", type = null) {
+    if (!this.#isDrawing && type === null) return;
 
-    switch (this.#type) {
+    type = type || this.#type;
+
+    switch (type) {
       case this.Types.Fill:
         //When mouse up and mouse move triggered it will be called
         if (event === "mouseup" || event === "mousemove") {

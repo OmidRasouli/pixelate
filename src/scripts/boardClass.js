@@ -3,11 +3,35 @@ class Board {
   #height;
   #thickness;
   #roundness;
+  cells = {
+    ToJSON: function () {
+      const stringCells = {};
+      const functions = {};
+      for (const cell of Object.keys(this)) {
+        if (typeof this[cell] != "function") {
+          stringCells[cell] = this[cell].ToJSON();
+        } else {
+          functions[cell] = this[cell];
+        }
+      }
+      const data = {
+        cells: JSON.stringify(stringCells),
+        functions: { ...functions },
+      };
+      return data;
+    },
+    FromJSON: function (json) {
+      const cells = JSON.parse(json);
+      for (const cell of Object.keys(cells)) {
+        const newCell = new Cell();
+        board.cells[cell] = newCell.FromJSON(cells[cell]);
+      }
+    },
+  };
 
   constructor(width, height, thickness, roundness, canvas) {
     this.DefineSize(width, height, thickness, roundness);
     this.canvas = canvas;
-    this.cells = {};
   }
 
   //Define sizes
@@ -23,15 +47,6 @@ class Board {
     this.Height = height;
     this.Thickness = thickness;
     this.Roundness = roundness;
-  }
-
-  /**
-   *
-   * @param {Cell} cell
-   */
-  Add(cell) {
-    this.cells[cell.ID] = cell;
-    this.canvas.append(cell.Element);
   }
 
   /**
@@ -119,7 +134,11 @@ class Board {
     for (let i = 0; i < count; i++) {
       const cell = new Cell();
       cell.CreateCell(i);
+      this.cells[cell.ID] = cell;
+      this.canvas.append(cell.Element);
     }
+
+    histories.SaveHistory(this.cells);
   }
 
   ChangeCanvasStyle(property, style) {
@@ -138,7 +157,7 @@ class Board {
 
     //Change the size of cells in the canvas
     for (const cell of Object.keys(this.cells)) {
-      this.cells[cell].UpdateStyle();
+      if (typeof this.cells[cell] != "function") this.cells[cell].UpdateStyle();
     }
   }
 
@@ -166,7 +185,12 @@ class Board {
 
     indexes.push(index);
     if (this.cells[index].BackgroundColor === color) {
-      this.cells[index].FillCell(colorPicker.value, "fill");
+      tools.Draw(
+        this.cells[index],
+        colorPicker.value,
+        "mouseup",
+        tools.Types.Pencil
+      );
     }
 
     if (direction !== "Down") {

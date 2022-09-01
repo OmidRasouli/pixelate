@@ -8,6 +8,28 @@ class Cell {
 
   constructor() {}
 
+  ToJSON() {
+    return JSON.stringify({
+      backgroundColor: this.#backgroundColor,
+      row: this.#row,
+      col: this.#col,
+      index: this.#index,
+      id: this.#id,
+    });
+  }
+
+  FromJSON(cell) {
+    const newCell = JSON.parse(cell);
+    this.#cellElement = document.querySelector(`#${newCell.id}`);
+    this.#backgroundColor = newCell.backgroundColor;
+    this.#row = newCell.row;
+    this.#col = newCell.col;
+    this.#index = newCell.index;
+    this.#id = newCell.id;
+    tools.Draw(this, this.BackgroundColor, "mousedown", tools.Types.Pencil);
+    return this;
+  }
+
   /**
    * return HTMLElement of the cell
    */
@@ -67,50 +89,47 @@ class Cell {
 
     //MouseMove event
     cellElement.addEventListener("mousemove", (e) => {
-      //Fill the cell
-      drawable && this.FillCell(colorPicker.value, "draw");
-      //Eye Dropper
-      drawable && this.EyeDropper();
+      tools.Draw(
+        board.cells[e.target.getAttribute("id")],
+        colorPicker.value,
+        "mousemove"
+      );
     });
 
     //MouseDown event
     cellElement.addEventListener("mousedown", (e) => {
-      //Eye Dropper
-      this.EyeDropper();
-      //Fill the cell if the drawMode is draw or erase
-      if (drawMode === "draw" || drawMode === "erase") {
-        this.FillCell(colorPicker.value, "draw");
-      }
-      drawable = true;
+      tools.IsDrawing(true);
+      tools.Draw(
+        board.cells[e.target.getAttribute("id")],
+        colorPicker.value,
+        "mousedown"
+      );
     });
 
     //MouseUp event
     cellElement.addEventListener("mouseup", (e) => {
-      //If drawMode is fill
-      if (drawMode === "fill") {
-        //Find possible cells to fill
-        board.FindCells(this.#row, this.#col, rgb2hex(this.#backgroundColor));
-      }
+      tools.Draw(
+        board.cells[e.target.getAttribute("id")],
+        colorPicker.value,
+        "mouseup"
+      );
     });
 
     //Hold element to the class
     this.#cellElement = cellElement;
 
     //Fill the cell with transparent color
-    this.FillCell("transparent", "draw");
+    tools.Draw(this, "transparent", "mousedown", tools.Types.Pencil);
 
     //Update the style
     this.UpdateStyle();
-
-    //Add cell to the canvas element
-    board.Add(this);
   }
 
   //This function update the style
   UpdateStyle() {
     //Add the style
     setStyle(
-      this.#cellElement,
+      this.Element,
       ["width", "height", "border-radius"],
       [
         `${board.Thickness}px`,
@@ -120,19 +139,6 @@ class Cell {
     );
   }
 
-  //Fill the cell
-  //Needs to refactor
-  FillCell(color = "transparent", ev = "draw") {
-    if (
-      (drawMode === "draw" && ev === "draw") ||
-      (drawMode === "fill" && ev === "fill") ||
-      drawMode === "erase"
-    ) {
-      this.ChangeColor(color);
-    }
-    exportAndShow();
-  }
-
   /**
    *
    * @param {String} color
@@ -140,16 +146,6 @@ class Cell {
    */
   ChangeColor(color) {
     this.#backgroundColor = color;
-    setStyle(this.#cellElement, ["background-color"], [color]);
-  }
-
-  //Eye dropper return the color of cell
-  EyeDropper() {
-    if (
-      drawMode === "eyeDropper" &&
-      this.#cellElement.style.#backgroundColor !== ""
-    ) {
-      colorPicker.value = rgb2hex(this.#cellElement.style.#backgroundColor);
-    }
+    setStyle(this.Element, ["background-color"], [color]);
   }
 }

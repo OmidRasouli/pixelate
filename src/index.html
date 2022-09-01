@@ -59,6 +59,12 @@
         <div class="color-picker">
           <input type="color" name="color" id="color" value="#000000" />
         </div>
+        <div class="history">
+          <input type="button" class="undo" name="undo" id="undo" />
+        </div>
+        <div class="history">
+          <input type="button" class="redo" name="redo" id="redo" />
+        </div>
       </div>
       <div class="app-layout">
         <div class="result">
@@ -75,6 +81,8 @@
     </div>
 
     <script src="./scripts/scriptHandler.js"></script>
+    <script src="./scripts/history.js"></script>
+    <script src="./scripts/tools.js"></script>
     <script src="./scripts/cellClass.js"></script>
     <script src="./scripts/boardClass.js"></script>
     <script src="./scripts/eventHandler.js"></script>

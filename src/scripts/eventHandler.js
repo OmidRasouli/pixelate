@@ -1,16 +1,27 @@
 function startupEvents() {
   //Click on pen tools
-  pen.addEventListener("click", () => (drawMode = "draw"));
+  pen.addEventListener("click", () => tools.PickTools(tools.Types.Pencil));
   //Click on eraser tools
-  eraser.addEventListener("click", () => (drawMode = "erase"));
+  eraser.addEventListener("click", () => tools.PickTools(tools.Types.Eraser));
   //Click on eye dropper tools
-  eyedropper.addEventListener("click", () => (drawMode = "eyeDropper"));
+  eyedropper.addEventListener("click", () =>
+    tools.PickTools(tools.Types.EyeDropper)
+  );
   //Click on fill tools
-  fill.addEventListener("click", () => (drawMode = "fill"));
+  fill.addEventListener("click", () => tools.PickTools(tools.Types.Fill));
   //Mouse up anywhere on document
   document.addEventListener("mouseup", () => {
-    drawable = false;
+    if (tools.isDrawing) {
+      histories.SaveHistory(board.cells);
+    }
+    tools.IsDrawing(false);
   });
+
+  //Click on undo
+  undo.addEventListener("click", () => histories.Undo());
+
+  //Click on redo
+  redo.addEventListener("click", () => histories.Redo());
 
   //Change the value of Thickness
   document.querySelector("#thickness").addEventListener("change", () => {

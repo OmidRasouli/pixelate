@@ -41,6 +41,7 @@ body .board .tools input[type="radio"] {
 }
 
 body .board .tools input[type="number"],
+body .board .tools .history,
 body .board .tools .tools,
 body .board .tools .color-picker,
 body .board .tools button {
@@ -107,6 +108,32 @@ body .board .tools .eyedropper {
 
 body .board .tools .fill {
   background-image: url("../images/fill-drip.svg");
+}
+
+body .board .tools .history {
+  width: 50px;
+  -ms-flex-preferred-size: 50px;
+      flex-basis: 50px;
+  padding: 0;
+}
+
+body .board .tools .history input[type="button"] {
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  border: none;
+  background-size: 18px;
+  padding: 0;
+}
+
+body .board .tools .history .undo {
+  background-image: url("../images/undo.svg");
+}
+
+body .board .tools .history .redo {
+  background-image: url("../images/redo.svg");
 }
 
 body .board .tools .color-picker {

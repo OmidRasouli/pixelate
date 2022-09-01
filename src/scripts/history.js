@@ -24,14 +24,14 @@ class History {
   }
 
   SaveHistory(action) {
-    const test = action.ToJSON();
+    const jsonAction = action.ToJSON();
     if (
       this.#historyStack.length > 0 &&
-      test === this.#historyStack[this.#historyStack.length - 1]
+      jsonAction === this.#historyStack[this.#historyStack.length - 1]
     )
       return;
 
-    this.#historyStack.push(test);
+    this.#historyStack.push(jsonAction);
     this.#tempHistoryStack = [];
     console.log(this.#historyStack);
   }

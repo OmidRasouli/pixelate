@@ -8,6 +8,27 @@ class Cell {
 
   constructor() {}
 
+  ToJSON() {
+    return JSON.stringify({
+      cellElement: this.#cellElement,
+      backgroundColor: this.#backgroundColor,
+      row: this.#row,
+      col: this.#col,
+      index: this.#index,
+      id: this.#id,
+    });
+  }
+
+  FromJSON(cell) {
+    const newCell = JSON.parse(cell);
+    this.#cellElement = newCell.cellElement;
+    this.#backgroundColor = newCell.backgroundColor;
+    this.#row = newCell.row;
+    this.#col = newCell.col;
+    this.#index = newCell.index;
+    this.#id = newCell.id;
+  }
+
   /**
    * return HTMLElement of the cell
    */

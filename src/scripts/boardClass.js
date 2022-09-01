@@ -3,11 +3,29 @@ class Board {
   #height;
   #thickness;
   #roundness;
+  cells = {
+    ToJSON: function () {
+      const stringCells = {};
+      for (const cell of Object.keys(this)) {
+        if (typeof this[cell] != "function") {
+          stringCells[cell] = this[cell].ToJSON();
+        }
+      }
+      return JSON.stringify(stringCells);
+    },
+    FromJSON: function (json) {
+      const cells = JSON.parse(json);
+      const newCells = {};
+      for (const cell of Object.keys(cells)) {
+        newCells[cell] = cells[cell].FromJSON(cells[cell]);
+      }
+      board.cells = { ...newCells };
+    },
+  };
 
   constructor(width, height, thickness, roundness, canvas) {
     this.DefineSize(width, height, thickness, roundness);
     this.canvas = canvas;
-    this.cells = {};
   }
 
   //Define sizes
@@ -138,7 +156,7 @@ class Board {
 
     //Change the size of cells in the canvas
     for (const cell of Object.keys(this.cells)) {
-      this.cells[cell].UpdateStyle();
+      if (typeof this.cells[cell] != "function") this.cells[cell].UpdateStyle();
     }
   }
 

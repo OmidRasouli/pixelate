@@ -88,18 +88,30 @@ class Cell {
 
     //MouseMove event
     cellElement.addEventListener("mousemove", (e) => {
-      tools.Draw(this, colorPicker.value, "mousemove");
+      tools.Draw(
+        board.cells[e.target.getAttribute("id")],
+        colorPicker.value,
+        "mousemove"
+      );
     });
 
     //MouseDown event
     cellElement.addEventListener("mousedown", (e) => {
       tools.IsDrawing(true);
-      tools.Draw(this, colorPicker.value, "mousedown");
+      tools.Draw(
+        board.cells[e.target.getAttribute("id")],
+        colorPicker.value,
+        "mousedown"
+      );
     });
 
     //MouseUp event
     cellElement.addEventListener("mouseup", (e) => {
-      tools.Draw(this, colorPicker.value, "mouseup");
+      tools.Draw(
+        board.cells[e.target.getAttribute("id")],
+        colorPicker.value,
+        "mouseup"
+      );
     });
 
     //Hold element to the class

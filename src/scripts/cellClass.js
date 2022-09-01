@@ -10,7 +10,6 @@ class Cell {
 
   ToJSON() {
     return JSON.stringify({
-      cellElement: this.#cellElement,
       backgroundColor: this.#backgroundColor,
       row: this.#row,
       col: this.#col,
@@ -21,12 +20,14 @@ class Cell {
 
   FromJSON(cell) {
     const newCell = JSON.parse(cell);
-    this.#cellElement = newCell.cellElement;
+    this.#cellElement = document.querySelector(`#${newCell.id}`);
     this.#backgroundColor = newCell.backgroundColor;
     this.#row = newCell.row;
     this.#col = newCell.col;
     this.#index = newCell.index;
     this.#id = newCell.id;
+    tools.Draw(this, this.BackgroundColor, "mousedown", tools.Types.Pencil);
+    return this;
   }
 
   /**
@@ -117,15 +118,11 @@ class Cell {
     //Hold element to the class
     this.#cellElement = cellElement;
 
-    tools.IsDrawing(true);
     //Fill the cell with transparent color
     tools.Draw(this, "transparent", "mousedown", tools.Types.Pencil);
 
     //Update the style
     this.UpdateStyle();
-
-    //Add cell to the canvas element
-    board.Add(this);
   }
 
   //This function update the style

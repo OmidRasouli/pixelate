@@ -8,11 +8,12 @@ class History {
   }
 
   Undo() {
-    if (this.#historyStack.length === 0) return;
+    if (this.#historyStack.length === 1) return;
 
     const lastAction = this.#historyStack.pop();
+    const currentAction = this.#historyStack[this.#historyStack.length - 1];
     this.#tempHistoryStack.push(lastAction);
-    return lastAction.FromJson();
+    return currentAction.functions.FromJSON(currentAction.cells);
   }
 
   Redo() {
@@ -20,7 +21,7 @@ class History {
 
     const lastAction = this.#tempHistoryStack.pop();
     this.#historyStack.push(lastAction);
-    return lastAction.FromJson;
+    return lastAction.functions.FromJSON(lastAction.cells);
   }
 
   SaveHistory(action) {
@@ -33,7 +34,6 @@ class History {
 
     this.#historyStack.push(jsonAction);
     this.#tempHistoryStack = [];
-    console.log(this.#historyStack);
   }
 
   Clear() {

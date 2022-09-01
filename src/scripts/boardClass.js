@@ -6,20 +6,26 @@ class Board {
   cells = {
     ToJSON: function () {
       const stringCells = {};
+      const functions = {};
       for (const cell of Object.keys(this)) {
         if (typeof this[cell] != "function") {
           stringCells[cell] = this[cell].ToJSON();
+        } else {
+          functions[cell] = this[cell];
         }
       }
-      return JSON.stringify(stringCells);
+      const data = {
+        cells: JSON.stringify(stringCells),
+        functions: { ...functions },
+      };
+      return data;
     },
     FromJSON: function (json) {
       const cells = JSON.parse(json);
-      const newCells = {};
       for (const cell of Object.keys(cells)) {
-        newCells[cell] = cells[cell].FromJSON(cells[cell]);
+        const newCell = new Cell();
+        board.cells[cell] = newCell.FromJSON(cells[cell]);
       }
-      board.cells = { ...newCells };
     },
   };
 
@@ -41,15 +47,6 @@ class Board {
     this.Height = height;
     this.Thickness = thickness;
     this.Roundness = roundness;
-  }
-
-  /**
-   *
-   * @param {Cell} cell
-   */
-  Add(cell) {
-    this.cells[cell.ID] = cell;
-    this.canvas.append(cell.Element);
   }
 
   /**
@@ -137,7 +134,11 @@ class Board {
     for (let i = 0; i < count; i++) {
       const cell = new Cell();
       cell.CreateCell(i);
+      this.cells[cell.ID] = cell;
+      this.canvas.append(cell.Element);
     }
+
+    histories.SaveHistory(this.cells);
   }
 
   ChangeCanvasStyle(property, style) {

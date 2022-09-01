@@ -23,6 +23,10 @@ class Tools {
     this.#type = tools;
   }
 
+  get isDrawing() {
+    return this.#isDrawing;
+  }
+
   //Set if drawing
   IsDrawing(state) {
     this.#isDrawing = state;
@@ -58,6 +62,7 @@ class Tools {
       default:
         break;
     }
+
     exportAndShow();
   }
 

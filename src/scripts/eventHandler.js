@@ -17,6 +17,12 @@ function startupEvents() {
     tools.IsDrawing(false);
   });
 
+  //Click on undo
+  undo.addEventListener("click", () => histories.Undo());
+
+  //Click on redo
+  redo.addEventListener("click", () => histories.Redo());
+
   //Change the value of Thickness
   document.querySelector("#thickness").addEventListener("change", () => {
     //Get the value and parse to int

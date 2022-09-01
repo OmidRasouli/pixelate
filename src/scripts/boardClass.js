@@ -184,11 +184,12 @@ class Board {
 
     indexes.push(index);
     if (this.cells[index].BackgroundColor === color) {
-      tools.IsDrawing(true);
-      tools.PickTools(tools.Types.Pencil);
-      tools.Draw(this.cells[index], colorPicker.value, "mouseup");
-      tools.PickTools(tools.Types.Fill);
-      tools.IsDrawing(false);
+      tools.Draw(
+        this.cells[index],
+        colorPicker.value,
+        "mouseup",
+        tools.Types.Pencil
+      );
     }
 
     if (direction !== "Down") {

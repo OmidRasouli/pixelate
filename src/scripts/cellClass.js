@@ -119,8 +119,7 @@ class Cell {
 
     tools.IsDrawing(true);
     //Fill the cell with transparent color
-    tools.Draw(this, "transparent", "mousedown");
-    tools.IsDrawing(false);
+    tools.Draw(this, "transparent", "mousedown", tools.Types.Pencil);
 
     //Update the style
     this.UpdateStyle();

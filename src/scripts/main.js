@@ -11,10 +11,9 @@ const colorPicker = document.querySelector("#color");
 const canvas = document.querySelector("#canvas");
 const sample = document.querySelector("#sample");
 const output = document.querySelector("#output");
+const histories = new History();
 const tools = new Tools();
 let board = new Board();
-
-let cells = {};
 
 (function () {
   cleanData();
@@ -23,7 +22,7 @@ let cells = {};
 })();
 
 function cleanData() {
+  histories.Clear();
   canvas.innerHTML = "";
-  cells = {};
   exportAndShow();
 }

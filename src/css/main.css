@@ -16,6 +16,57 @@ body {
   flex-direction: column;
   font-family: "Press Start 2P";
 }
+body #create {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 20000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+body #create .window {
+  max-width: 500px;
+  max-height: 500px;
+  width: 90%;
+  height: 90%;
+  background-color: #404040;
+  display: flex;
+  flex-direction: column;
+  border-radius: 3px;
+  overflow: hidden;
+}
+body #create .window .header {
+  background-color: #303030;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+}
+body #create .window .header .title {
+  font-size: 0.6em;
+  color: #fff;
+}
+body #create .window .header .close {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #171717;
+  cursor: pointer;
+  background-size: 10px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-image: url("../images/xmark.svg");
+}
+body #create .window .header .close:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
 body header.header {
   height: 25px;
   line-height: 25px;

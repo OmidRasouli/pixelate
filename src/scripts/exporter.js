@@ -38,7 +38,7 @@ function exportPixelArt() {
   const boxShadow =
     shadows.length === 0
       ? ""
-      : `box-shadow: ${shadows.substring(0, shadows.length - 2)};`;
+      : `box-shadow: ${shadows.substring(0, shadows.length - 1)};`;
   let style = `width: ${board.Thickness}px;\nheight: ${board.Thickness}px;\n${boxShadow}`;
   if (board.Roundness > 0) {
     style += `\nborder-radius: ${board.Roundness}%;`;

@@ -2,7 +2,10 @@ function startupEvents() {
   //Click on submenu (new)
   menuNew.addEventListener("click", () => (createWindow.style.display = ""));
   //Click on close create window
-  closeWindow.addEventListener("click", () => (createWindow.style.display = "none"));
+  closeWindow.addEventListener(
+    "click",
+    () => (createWindow.style.display = "none")
+  );
   //Click on pen tools
   pen.addEventListener("click", () => tools.PickTools(tools.Types.Pencil));
   //Click on eraser tools
@@ -60,5 +63,7 @@ function startupEvents() {
 
     //Create cells
     board.BoardCreator();
+
+    createWindow.style.display = "none";
   });
 }

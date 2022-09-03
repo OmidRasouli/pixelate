@@ -56,6 +56,26 @@
       </div>
       </div>
     </div>
+  <div id="optionsWindow" class="popup-window">
+    <div class="window">
+      <div class="header">
+        <div class="title">Options</div>
+        <div class="close" id="closeOptions"></div>
+      </div>
+      <div class="body">
+        <div class="input">
+          <label for="thickness">Cell size</label>
+          <input type="number" id="thickness" placeholder="Thickness" value="1" min="1" />
+        </div>
+        <div class="input">
+          <label for="roundness">Border radius</label>
+          <input type="number" id="roundness" placeholder="Roundness" value="0" min="0" max="100" />
+        </div>
+      </div>
+      <div class="footer">
+        <button class="button" id="saveOptions">Save</button>
+      </div>
+    </div>
   </div>
   <main class="main">
     <div class="toolbar">

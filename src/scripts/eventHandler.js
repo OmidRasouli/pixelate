@@ -1,4 +1,28 @@
 function startupEvents() {
+  //Click on submenu (new)
+  menuNew.addEventListener("click", () => (createWindow.style.display = ""));
+  //Click on submenu (options)
+  menuOptions.addEventListener(
+    "click",
+    () => (optionsWindow.style.display = "")
+  );
+  //Click on close create window
+  closeWindow.addEventListener(
+    "click",
+    () => (createWindow.style.display = "none")
+  );
+  //Click on close options window
+  closeOptions.addEventListener(
+    "click",
+    () => (optionsWindow.style.display = "none")
+  );
+  //Click on close options window
+  saveOptions.addEventListener("click", () => {
+    thicknessEl.value = thicknessOpt.value;
+    roundnessEl.value = roundnessOpt.value;
+    UpdateOptions();
+    optionsWindow.style.display = "none";
+  });
   //Click on pen tools
   pen.addEventListener("click", () => tools.PickTools(tools.Types.Pencil));
   //Click on eraser tools
@@ -24,19 +48,12 @@ function startupEvents() {
   redo.addEventListener("click", () => histories.Redo());
 
   //Change the value of Thickness
-  document.querySelector("#thickness").addEventListener("change", () => {
-    //Get the value and parse to int
-    board.Thickness = parseInt(thickness());
-
-    //Update styles for cell and board
-    board.UpdateStyle();
-
-    //Export them, then show the sample and replace the code
-    exportAndShow();
+  thicknessEl.addEventListener("change", () => {
+    UpdateOptions();
   });
 
   //Change the value of Roundness
-  document.querySelector("#roundness").addEventListener("change", () => {
+  roundnessEl.addEventListener("change", () => {
     //Get the value and parse to int
     board.Roundness = parseInt(roundness());
 
@@ -49,6 +66,8 @@ function startupEvents() {
 
   //Click on the create board button
   createBoard.addEventListener("click", () => {
+    thicknessOpt.value = thicknessEl.value;
+    roundnessOpt.value = roundnessEl.value;
     //Remove data
     cleanData();
 
@@ -56,5 +75,18 @@ function startupEvents() {
 
     //Create cells
     board.BoardCreator();
+
+    createWindow.style.display = "none";
   });
+}
+
+function UpdateOptions() {
+  //Get the value and parse to int
+  board.Thickness = parseInt(thickness());
+
+  //Update styles for cell and board
+  board.UpdateStyle();
+
+  //Export them, then show the sample and replace the code
+  exportAndShow();
 }

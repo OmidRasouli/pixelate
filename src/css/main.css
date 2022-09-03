@@ -6,6 +6,14 @@
   font-style: normal;
   font-display: swap;
 }
+* {
+  font-family: "Press Start 2P";
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+      user-select: none;
+}
+
 body {
   background-color: #404040;
   width: 100vw;
@@ -14,9 +22,8 @@ body {
   margin: 0;
   display: flex;
   flex-direction: column;
-  font-family: "Press Start 2P";
 }
-body #create {
+body .popup-window {
   width: 100%;
   height: 100%;
   position: absolute;
@@ -30,33 +37,32 @@ body #create {
   justify-content: center;
   align-items: center;
 }
-body #create .window {
-  max-width: 500px;
-  max-height: 500px;
+body .popup-window .window {
+  max-width: 300px;
+  height: auto;
   width: 90%;
-  height: 90%;
   background-color: #404040;
   display: flex;
   flex-direction: column;
   border-radius: 3px;
   overflow: hidden;
 }
-body #create .window .header {
+body .popup-window .window .header {
   background-color: #303030;
-  height: 25px;
+  height: 35px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 10px;
 }
-body #create .window .header .title {
+body .popup-window .window .header .title {
   font-size: 0.6em;
   color: #fff;
 }
-body #create .window .header .close {
+body .popup-window .window .header .close {
   width: 20px;
   height: 20px;
-  border-radius: 50%;
+  border-radius: 3px;
   background-color: #171717;
   cursor: pointer;
   background-size: 10px;
@@ -64,8 +70,63 @@ body #create .window .header .close {
   background-position: center center;
   background-image: url("../images/xmark.svg");
 }
-body #create .window .header .close:hover {
+body .popup-window .window .header .close:hover {
   background-color: rgba(0, 0, 0, 0.8);
+}
+body .popup-window .window .body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-grow: 1;
+  padding: 20px 0;
+}
+body .popup-window .window .body .input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px;
+}
+body .popup-window .window .body .input label {
+  font-size: 0.6em;
+  color: #fff;
+}
+body .popup-window .window .body .input input[type=text],
+body .popup-window .window .body .input input[type=number] {
+  background-color: #303030;
+  color: #fff;
+  font-family: "Press Start 2P";
+  font-size: 0.5em;
+  padding: 5px 3px;
+  box-sizing: border-box;
+  flex-grow: 0;
+  width: 40px;
+}
+body .popup-window .window .body .input input[type=text]:focus,
+body .popup-window .window .body .input input[type=number]:focus {
+  border-radius: 0;
+  outline: none;
+}
+body .popup-window .window .body .input input::-webkit-outer-spin-button,
+body .popup-window .window .body .input input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+body .popup-window .window .footer {
+  height: 40px;
+  display: flex;
+  padding: 0 30px 15px;
+  box-sizing: border-box;
+  flex-direction: row-reverse;
+}
+body .popup-window .window .footer .button {
+  border-radius: 0;
+  background-color: #404040;
+  color: #fff;
+  font-size: 0.5em;
 }
 body header.header {
   height: 25px;
@@ -141,6 +202,7 @@ body main.main .toolbar {
   padding: 10px 0;
   width: 40px;
   background-color: #303030;
+  border-right: 1px solid #171717;
   box-sizing: border-box;
   gap: 5px;
 }
@@ -247,162 +309,66 @@ body main.main .toolbar .color-picker input[type=color]::-webkit-color-swatch-wr
 body main.main .toolbar .color-picker input[type=color]::-webkit-color-swatch {
   border: none;
 }
-body .board {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  height: 100%;
-}
-body .board .tools {
-  width: 100vw;
-  height: 50px;
-  border-bottom: 1px solid #fff;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  padding: 10px;
-  box-sizing: border-box;
-}
-body .board .tools input[type=radio] {
-  opacity: 0;
-}
-body .board .tools input[type=number],
-body .board .tools .history,
-body .board .tools .tools,
-body .board .tools .color-picker,
-body .board .tools button {
-  height: 30px;
-  flex-grow: 0;
-  padding: 5px;
-  box-sizing: border-box;
-  border-radius: 0;
-  background-color: transparent;
-  outline: none;
-  border: 1px solid #fff;
-  color: #fff;
-  flex-basis: 100px;
-  width: 100px;
-}
-body .board .tools button {
-  background-color: #fff;
-  color: rgb(18, 18, 33);
-  cursor: pointer;
-}
-body .board .tools .tools {
-  background-image: url("../images/pen.svg");
-  width: 50px;
-  flex-basis: 50px;
-  padding: 0;
-  background-size: 18px;
-  background-position: center;
-  background-repeat: no-repeat;
-  position: relative;
-  border: none;
-}
-body .board .tools .tools label,
-body .board .tools .tools input[type=radio] {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  box-sizing: border-box;
-}
-body .board .tools .tools label {
-  border: 1px solid #fff;
-}
-body .board .tools .tools input[type=radio]:checked + label {
-  background-color: rgba(255, 255, 255, 0.4);
-}
-body .board .tools .eraser {
-  background-image: url("../images/eraser.svg");
-}
-body .board .tools .eyedropper {
-  background-image: url("../images/eye-dropper.svg");
-}
-body .board .tools .fill {
-  background-image: url("../images/fill-drip.svg");
-}
-body .board .tools .history {
-  width: 50px;
-  flex-basis: 50px;
-  padding: 0;
-}
-body .board .tools .history input[type=button] {
-  width: 100%;
-  height: 100%;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-color: transparent;
-  border: none;
-  background-size: 18px;
-  padding: 0;
-}
-body .board .tools .history .undo {
-  background-image: url("../images/undo.svg");
-}
-body .board .tools .history .redo {
-  background-image: url("../images/redo.svg");
-}
-body .board .tools .color-picker {
-  width: 50px;
-  flex-basis: 50px;
-  padding: 0;
-}
-body .board .tools .color-picker input[type=color] {
-  width: 100%;
-  -webkit-appearance: none;
-  height: 100%;
-  outline: none;
-  border: none;
-  padding: 0;
-  background-color: transparent;
-}
-body .board .tools .color-picker input[type=color]::-webkit-color-swatch-wrapper {
-  padding: 0;
-}
-body .board .tools .color-picker input[type=color]::-webkit-color-swatch {
-  border: none;
-}
-body .board .app-layout {
-  flex-grow: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-body .board .app-layout .result {
-  flex-basis: 300px;
-  height: 100%;
-  padding: 5px 10px;
-}
-body .board .app-layout .result > div {
-  height: 330px;
-  position: relative;
-}
-body .board .app-layout .result > div > div {
-  height: 30px;
-  line-height: 30px;
-  color: #fff;
-}
-body .board .app-layout .result > div:after {
-  display: block;
-  content: "";
-  width: 300px;
-  height: 300px;
-  border: 1px solid #fff;
-  position: absolute;
-  top: 30px;
-  box-sizing: border-box;
-}
-body .board .app-layout .artboard {
+body main.main .artboard {
   flex-grow: 1;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
 }
-body .board .app-layout .artboard .canvas {
+body main.main .artboard .canvas {
   display: grid;
   background-image: repeating-linear-gradient(rgb(0, 200, 255) 0 1px, transparent 1px 100%), repeating-linear-gradient(90deg, rgb(0, 200, 255) 0 1px, transparent 1px 100%);
   gap: 1px;
   padding: 1px;
   opacity: 0;
+  cursor: cell;
+}
+body main.main .result {
+  flex-basis: 350px;
+  height: 100%;
+  background-color: #303030;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  border-left: 1px solid #171717;
+  gap: 10px;
+  padding: 10px 20px;
+  font-size: 0.7em;
+}
+body main.main .result > div {
+  height: 330px;
+  position: relative;
+}
+body main.main .result > div > div {
+  height: 30px;
+  width: 100%;
+  line-height: 30px;
+  color: #fff;
+}
+body main.main .result > div:before {
+  display: block;
+  content: "";
+  width: 100%;
+  height: 300px;
+  position: absolute;
+  top: 30px;
+  box-sizing: border-box;
+  background-color: #171717;
+}
+body main.main .result #output {
+  flex-grow: 1;
+  color: #fff;
+  background-color: transparent;
+  border: none;
+  resize: none;
+  background-color: #171717;
+  font-size: 0.7em;
+  line-height: 1.7em;
+  padding: 10px;
+}
+body main.main .result #output:focus {
+  border-radius: 0;
+  outline: none;
 }/*# sourceMappingURL=main.css.map */

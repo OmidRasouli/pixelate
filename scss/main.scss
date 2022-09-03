@@ -13,6 +13,13 @@
   font-display: swap;
 }
 
+* {
+  font-family: "Press Start 2P";
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
 body {
   background-color: $body_bg;
   width: 100vw;
@@ -21,9 +28,8 @@ body {
   margin: 0;
   display: flex;
   flex-direction: column;
-  font-family: "Press Start 2P";
 
-  #create {
+  .popup-window {
     width: 100%;
     height: 100%;
     position: absolute;
@@ -38,10 +44,9 @@ body {
     align-items: center;
 
     .window {
-      max-width: 500px;
-      max-height: 500px;
+      max-width: 300px;
+      height: auto;
       width: 90%;
-      height: 90%;
       background-color: $body_bg;
       display: flex;
       flex-direction: column;
@@ -50,7 +55,7 @@ body {
 
       .header {
         background-color: $header_bg;
-        height: 25px;
+        height: 35px;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -64,7 +69,7 @@ body {
         .close {
           width: 20px;
           height: 20px;
-          border-radius: 50%;
+          border-radius: 3px;
           background-color: $selected_tools;
           cursor: pointer;
           background-size: 10px;
@@ -75,6 +80,68 @@ body {
           &:hover {
             background-color: $overlay;
           }
+        }
+      }
+
+      .body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+        flex-grow: 1;
+        padding: 20px 0;
+
+        .input {
+          width: 100%;
+          box-sizing: border-box;
+          padding: 0 30px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          height: 40px;
+
+          label {
+            font-size: 0.6em;
+            color: $main_f;
+          }
+
+          input[type="text"],
+          input[type="number"] {
+            background-color: $header_bg;
+            color: $main_f;
+            font-family: "Press Start 2P";
+            font-size: 0.5em;
+            padding: 5px 3px;
+            box-sizing: border-box;
+            flex-grow: 0;
+            width: 40px;
+
+            &:focus {
+              border-radius: 0;
+              outline: none;
+            }
+          }
+
+          input::-webkit-outer-spin-button,
+          input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+          }
+        }
+      }
+
+      .footer {
+        height: 40px;
+        display: flex;
+        padding: 0 30px 15px;
+        box-sizing: border-box;
+        flex-direction: row-reverse;
+
+        .button {
+          border-radius: 0;
+          background-color: $body_bg;
+          color: $main_f;
+          font-size: 0.5em;
         }
       }
     }
@@ -166,6 +233,7 @@ body {
       padding: 10px 0;
       width: 40px;
       background-color: $toolbar_bg;
+      border-right: 1px solid $separator;
       box-sizing: border-box;
       gap: 5px;
 
@@ -291,202 +359,89 @@ body {
         }
       }
     }
-  }
 
-  footer.footer {
-  }
-
-  .board {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    height: 100%;
-
-    .tools {
-      width: 100vw;
-      height: 50px;
-      border-bottom: 1px solid #fff;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      padding: 10px;
-      box-sizing: border-box;
-
-      input[type="radio"] {
-        opacity: 0;
-      }
-      input[type="number"],
-      .history,
-      .tools,
-      .color-picker,
-      button {
-        height: 30px;
-        flex-grow: 0;
-        padding: 5px;
-        box-sizing: border-box;
-        border-radius: 0;
-        background-color: transparent;
-        outline: none;
-        border: 1px solid #fff;
-        color: #fff;
-        flex-basis: 100px;
-        width: 100px;
-      }
-
-      button {
-        background-color: #fff;
-        color: rgb(18, 18, 33);
-        cursor: pointer;
-      }
-
-      .tools {
-        background-image: url("../images/pen.svg");
-        width: 50px;
-        flex-basis: 50px;
-        padding: 0;
-        background-size: 18px;
-        background-position: center;
-        background-repeat: no-repeat;
-        position: relative;
-        border: none;
-
-        label,
-        input[type="radio"] {
-          width: 100%;
-          height: 100%;
-          position: absolute;
-          box-sizing: border-box;
-        }
-
-        label {
-          border: 1px solid #fff;
-        }
-
-        input[type="radio"]:checked + label {
-          background-color: rgba(255, 255, 255, 0.4);
-        }
-      }
-
-      .eraser {
-        background-image: url("../images/eraser.svg");
-      }
-
-      .eyedropper {
-        background-image: url("../images/eye-dropper.svg");
-      }
-
-      .fill {
-        background-image: url("../images/fill-drip.svg");
-      }
-
-      .history {
-        width: 50px;
-        flex-basis: 50px;
-        padding: 0;
-
-        input[type="button"] {
-          width: 100%;
-          height: 100%;
-          background-position: center;
-          background-repeat: no-repeat;
-          background-color: transparent;
-          border: none;
-          background-size: 18px;
-          padding: 0;
-        }
-
-        .undo {
-          background-image: url("../images/undo.svg");
-        }
-
-        .redo {
-          background-image: url("../images/redo.svg");
-        }
-      }
-
-      .color-picker {
-        width: 50px;
-        flex-basis: 50px;
-        padding: 0;
-
-        input[type="color"] {
-          width: 100%;
-          -webkit-appearance: none;
-          height: 100%;
-          outline: none;
-          border: none;
-          padding: 0;
-          background-color: transparent;
-
-          &::-webkit-color-swatch-wrapper {
-            padding: 0;
-          }
-
-          &::-webkit-color-swatch {
-            border: none;
-          }
-        }
-      }
-    }
-
-    .app-layout {
+    .artboard {
       flex-grow: 1;
       display: flex;
       justify-content: center;
       align-items: center;
+      height: 100%;
 
-      .result {
-        flex-basis: 300px;
-        height: 100%;
-        padding: 5px 10px;
+      .canvas {
+        display: grid;
+        background-image: repeating-linear-gradient(
+            rgb(0, 200, 255) 0 1px,
+            transparent 1px 100%
+          ),
+          repeating-linear-gradient(
+            90deg,
+            rgb(0, 200, 255) 0 1px,
+            transparent 1px 100%
+          );
+        gap: 1px;
+        padding: 1px;
+        opacity: 0;
+        cursor: cell;
 
-        & > div {
-          height: 330px;
-          position: relative;
-          & > div {
-            height: 30px;
-            line-height: 30px;
-            color: #fff;
-          }
-          &:after {
-            display: block;
-            content: "";
-            width: 300px;
-            height: 300px;
-            border: 1px solid #fff;
-            position: absolute;
-            top: 30px;
-            box-sizing: border-box;
-          }
-        }
-      }
-
-      .artboard {
-        flex-grow: 1;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100%;
-
-        .canvas {
-          display: grid;
-          background-image: repeating-linear-gradient(
-              rgb(0, 200, 255) 0 1px,
-              transparent 1px 100%
-            ),
-            repeating-linear-gradient(
-              90deg,
-              rgb(0, 200, 255) 0 1px,
-              transparent 1px 100%
-            );
-          gap: 1px;
-          padding: 1px;
-          opacity: 0;
-
-          .cell {
-          }
+        .cell {
         }
       }
     }
+    .result {
+      flex-basis: 350px;
+      height: 100%;
+      background-color: $toolbar_bg;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      border-left: 1px solid $separator;
+      gap: 10px;
+      padding: 10px 20px;
+      font-size: 0.7em;
+
+      & > div {
+        height: 330px;
+        position: relative;
+
+        & > div {
+          height: 30px;
+          width: 100%;
+          line-height: 30px;
+          color: $main_f;
+        }
+
+        &:before {
+          display: block;
+          content: "";
+          width: 100%;
+          height: 300px;
+          position: absolute;
+          top: 30px;
+          box-sizing: border-box;
+          background-color: $selected_tools;
+        }
+      }
+
+      #output {
+        flex-grow: 1;
+        color: $main_f;
+        background-color: transparent;
+        border: none;
+        resize: none;
+        background-color: $selected_tools;
+        font-size: 0.7em;
+        line-height: 1.7em;
+        padding: 10px;
+
+        &:focus {
+          border-radius: 0;
+          outline: none;
+        }
+      }
+    }
+  }
+
+  footer.footer {
   }
 }

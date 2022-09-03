@@ -63,19 +63,21 @@ function showSample(data) {
     board.Roundness % 101
   }%;${boxShadow};`;
 
+  const width = 150 - board.Width * 0.5 * scaledPixel - scaledPixel;
+  const height = 150 - board.Height * 0.5 * scaledPixel - scaledPixel;
+
   sample.style = `${style.substring(
     0,
     style.length - 2
-  )}; transform:translate(${-scaledPixel}px,${-scaledPixel}px);`;
+  )}; transform:translate(${width}px,${height}px);`;
 }
 
 function findRatio(row, col, pixel) {
   const width = col * pixel;
   const height = row * pixel;
-  let ratio = 0;
 
   if (width > 300 || height > 300) {
-    return (ratio = 300 / (width > height ? width : height));
+    return 300 / (width > height ? width : height);
   }
 
   return 1;

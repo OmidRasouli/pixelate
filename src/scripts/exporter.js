@@ -63,10 +63,13 @@ function showSample(data) {
     board.Roundness % 101
   }%;${boxShadow};`;
 
+  const width = 150 - board.Width * 0.5 * scaledPixel - scaledPixel;
+  const height = 150 - board.Height * 0.5 * scaledPixel - scaledPixel;
+
   sample.style = `${style.substring(
     0,
     style.length - 2
-  )}; transform:translate(${-scaledPixel}px,${-scaledPixel}px);`;
+  )}; transform:translate(${width}px,${height}px);`;
 }
 
 function findRatio(row, col, pixel) {

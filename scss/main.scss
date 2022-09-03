@@ -233,6 +233,7 @@ body {
       padding: 10px 0;
       width: 40px;
       background-color: $toolbar_bg;
+      border-right: 1px solid $separator;
       box-sizing: border-box;
       gap: 5px;
 
@@ -385,6 +386,58 @@ body {
         .cell {
         }
       }
+    }
+    .result {
+      flex-basis: 350px;
+      height: 100%;
+      background-color: $toolbar_bg;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      border-left: 1px solid $separator;
+      gap: 10px;
+      padding: 10px 20px;
+      font-size: 0.7em;
+
+      & > div {
+        height: 330px;
+        position: relative;
+
+        & > div {
+          height: 30px;
+          width: 100%;
+          line-height: 30px;
+          color: $main_f;
+        }
+        &:after {
+          display: block;
+          content: "";
+          width: 100%;
+          height: 300px;
+          position: absolute;
+          top: 30px;
+          box-sizing: border-box;
+          background-color: $selected_tools;
+        }
+      }
+
+        #output {
+          flex-grow: 1;
+          color: $main_f;
+          background-color: transparent;
+          border: none;
+          resize: none;
+          background-color: $selected_tools;
+          font-size: 0.7em;
+          line-height: 1.7em;
+          padding: 10px;
+
+          &:focus {
+            border-radius: 0;
+            outline: none;
+          }
+        }
     }
   }
 

@@ -80,6 +80,9 @@ class Cell {
     cellElement.id = `cell${index}`;
     this.#id = `cell${index}`;
 
+    //Add class
+    cellElement.classList.add("cell");
+
     //Set the Row
     this.#row = Math.floor(index / board.Width);
     //Set the Col

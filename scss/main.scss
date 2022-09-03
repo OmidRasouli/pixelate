@@ -358,6 +358,34 @@ body {
         }
       }
     }
+
+    .artboard {
+      flex-grow: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+
+      .canvas {
+        display: grid;
+        background-image: repeating-linear-gradient(
+            rgb(0, 200, 255) 0 1px,
+            transparent 1px 100%
+          ),
+          repeating-linear-gradient(
+            90deg,
+            rgb(0, 200, 255) 0 1px,
+            transparent 1px 100%
+          );
+        gap: 1px;
+        padding: 1px;
+        opacity: 0;
+        cursor: cell;
+
+        .cell {
+        }
+      }
+    }
   }
 
   footer.footer {
@@ -524,33 +552,6 @@ body {
             position: absolute;
             top: 30px;
             box-sizing: border-box;
-          }
-        }
-      }
-
-      .artboard {
-        flex-grow: 1;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100%;
-
-        .canvas {
-          display: grid;
-          background-image: repeating-linear-gradient(
-              rgb(0, 200, 255) 0 1px,
-              transparent 1px 100%
-            ),
-            repeating-linear-gradient(
-              90deg,
-              rgb(0, 200, 255) 0 1px,
-              transparent 1px 100%
-            );
-          gap: 1px;
-          padding: 1px;
-          opacity: 0;
-
-          .cell {
           }
         }
       }

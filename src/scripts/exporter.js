@@ -72,10 +72,9 @@ function showSample(data) {
 function findRatio(row, col, pixel) {
   const width = col * pixel;
   const height = row * pixel;
-  let ratio = 0;
 
   if (width > 300 || height > 300) {
-    return (ratio = 300 / (width > height ? width : height));
+    return 300 / (width > height ? width : height);
   }
 
   return 1;

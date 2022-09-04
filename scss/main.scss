@@ -242,6 +242,7 @@ body {
         margin: 0;
         padding: 0;
       }
+
       input[type="number"],
       .history,
       button {
@@ -300,6 +301,10 @@ body {
 
       .fill label {
         background-image: url("../images/fill-drip.svg");
+      }
+
+      .crop label {
+        background-image: url("../images/crop.svg");
       }
 
       .history {

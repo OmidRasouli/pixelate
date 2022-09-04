@@ -261,6 +261,9 @@ body main.main .toolbar .eyedropper label {
 body main.main .toolbar .fill label {
   background-image: url("../images/fill-drip.svg");
 }
+body main.main .toolbar .crop label {
+  background-image: url("../images/crop.svg");
+}
 body main.main .toolbar .history {
   width: 30px;
   flex-basis: 30px;

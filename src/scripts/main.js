@@ -26,7 +26,7 @@ const output = document.querySelector("#output");
 const undo = document.querySelector("#undo");
 const redo = document.querySelector("#redo");
 const histories = new History();
-const crop = new Crop();
+const crop = new Crop(document.querySelector("#cropperHint"));
 const tools = new Tools();
 let board = new Board();
 

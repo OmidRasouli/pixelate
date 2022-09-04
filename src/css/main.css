@@ -318,6 +318,12 @@ body main.main .artboard {
   justify-content: center;
   align-items: center;
   height: 100%;
+  position: relative;
+}
+body main.main .artboard .cropperHint {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5333333333);
+  pointer-events: none;
 }
 body main.main .artboard .canvas {
   display: grid;

@@ -64,9 +64,11 @@ class Tools {
       case this.Types.Crop:
         //When mouse up triggered it will be called
         if (event === "mousedown") {
-          this.#StartCrop(cell);
+          this.#Crop(cell, "start");
         } else if (event === "mouseup") {
-          this.#Crop(cell);
+          this.#Crop(cell, "end");
+        } else if (event === "mousemove") {
+          this.#Crop(cell, "move");
         }
         break;
 
@@ -100,12 +102,7 @@ class Tools {
   }
 
   //Crop the cells
-  #Crop(cell) {
-    crop.Crop(cell);
-  }
-
-  //Crop the cells
-  #StartCrop(cell) {
-    crop.SetStart(cell);
+  #Crop(cell, state) {
+    crop.Crop(cell, state);
   }
 }

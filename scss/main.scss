@@ -371,6 +371,13 @@ body {
       justify-content: center;
       align-items: center;
       height: 100%;
+      position: relative;
+
+      .cropperHint {
+        position: absolute;
+        background-color: #00000088;
+        pointer-events: none;
+      }
 
       .canvas {
         display: grid;

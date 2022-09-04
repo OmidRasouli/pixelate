@@ -10,6 +10,7 @@ class Crop {
     if (state === "start") {
       this.#fromCell = cell;
     } else if (state === "end") {
+        this.UpdateHint(cell);
     } else if (state === "move") {
       this.UpdateHint(cell);
     }

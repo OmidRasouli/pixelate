@@ -18,6 +18,7 @@ const pen = document.querySelector("#pen");
 const eraser = document.querySelector("#eraser");
 const eyedropper = document.querySelector("#eyedropper");
 const fill = document.querySelector("#fill");
+const cropper = document.querySelector("#crop");
 const colorPicker = document.querySelector("#color");
 const canvas = document.querySelector("#canvas");
 const sample = document.querySelector("#sample");
@@ -25,6 +26,7 @@ const output = document.querySelector("#output");
 const undo = document.querySelector("#undo");
 const redo = document.querySelector("#redo");
 const histories = new History();
+const crop = new Crop();
 const tools = new Tools();
 let board = new Board();
 

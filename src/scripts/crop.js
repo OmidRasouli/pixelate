@@ -1,7 +1,14 @@
 class Crop {
   constructor() {}
 
-  Crop({ from, to }) {
-    console.log(from + " " + to);
+  #fromCell;
+
+  SetStart(fromCell) {
+    this.#fromCell = fromCell;
+  }
+
+  Crop(toCell) {
+    console.log(this.#fromCell);
+    console.log(toCell);
   }
 }

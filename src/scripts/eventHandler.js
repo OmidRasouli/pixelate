@@ -33,6 +33,8 @@ function startupEvents() {
   );
   //Click on fill tools
   fill.addEventListener("click", () => tools.PickTools(tools.Types.Fill));
+  //Click on cropper tools
+  cropper.addEventListener("click", () => tools.PickTools(tools.Types.Crop));
   //Mouse up anywhere on document
   document.addEventListener("mouseup", () => {
     if (tools.isDrawing) {

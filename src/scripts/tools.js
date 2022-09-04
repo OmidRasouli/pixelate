@@ -10,6 +10,7 @@ class Tools {
     Fill: "fill",
     Eraser: "eraser",
     EyeDropper: "eyeDropper",
+    Crop: "crop",
   };
 
   //Default values
@@ -60,6 +61,14 @@ class Tools {
       case this.Types.EyeDropper:
         this.#EyeDropper(cell);
         break;
+      case this.Types.Crop:
+        //When mouse up triggered it will be called
+        if (event === "mousedown") {
+          this.#StartCrop(cell);
+        } else if (event === "mouseup") {
+          this.#Crop(cell);
+        }
+        break;
 
       default:
         break;
@@ -88,5 +97,15 @@ class Tools {
     if (cell.Element.style.BackgroundColor !== "") {
       colorPicker.value = rgb2hex(cell.Element.style.backgroundColor);
     }
+  }
+
+  //Crop the cells
+  #Crop(cell) {
+    crop.Crop(cell);
+  }
+
+  //Crop the cells
+  #StartCrop(cell) {
+    crop.SetStart(cell);
   }
 }

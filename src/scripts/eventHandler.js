@@ -54,14 +54,7 @@ function startupEvents() {
 
   //Change the value of Roundness
   roundnessEl.addEventListener("change", () => {
-    //Get the value and parse to int
-    board.Roundness = parseInt(roundness());
-
-    //Update styles for cell and board
-    board.UpdateStyle();
-
-    //Export them, then show the sample and replace the code
-    exportAndShow();
+    UpdateOptions();
   });
 
   //Click on the create board button
@@ -83,6 +76,8 @@ function startupEvents() {
 function UpdateOptions() {
   //Get the value and parse to int
   board.Thickness = parseInt(thickness());
+  //Get the value and parse to int
+  board.Roundness = parseInt(roundness());
 
   //Update styles for cell and board
   board.UpdateStyle();

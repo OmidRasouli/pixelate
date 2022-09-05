@@ -72,7 +72,7 @@ body {
           border-radius: 3px;
           background-color: $selected_tools;
           cursor: pointer;
-          background-size: 10px;
+          background-size: 15px;
           background-repeat: no-repeat;
           background-position: center center;
           background-image: url("../images/xmark.svg");
@@ -262,6 +262,18 @@ body {
         flex-basis: 30px;
         position: relative;
 
+        &:has(.confirm)::after {
+          content: "";
+          border-bottom: 3px solid $main_f;
+          border-left: 3px solid transparent;
+          display: block;
+          width: 0;
+          height: 0;
+          position: absolute;
+          right: 3px;
+          bottom: 3px;
+        }
+
         label,
         input[type="radio"] {
           width: 100%;
@@ -282,8 +294,41 @@ body {
           }
         }
 
-        input[type="radio"]:checked + label {
-          background-color: $selected_tools;
+        input[type="radio"]:checked {
+          & + label {
+            background-color: $selected_tools;
+          }
+
+          & ~ .confirm {
+            height: 100%;
+            background-color: $selected_tools;
+            box-sizing: border-box;
+            position: relative;
+            z-index: 30000;
+            display: flex;
+            width: 70px;
+            margin-left: 40px;
+            border-radius: 3px;
+            justify-content: space-evenly;
+
+            .accept,
+            .cancel {
+              height: 100%;
+              cursor: pointer;
+              background-size: 18px;
+              background-repeat: no-repeat;
+              background-position: center center;
+              flex-basis: 30px;
+            }
+
+            .accept {
+              background-image: url("../images/check.svg");
+            }
+
+            .cancel {
+              background-image: url("../images/xmark.svg");
+            }
+          }
         }
       }
 
@@ -377,6 +422,9 @@ body {
         position: absolute;
         background-color: #00000088;
         pointer-events: none;
+        border: 2px solid $main_f;
+        box-sizing: border-box;
+        display: none;
       }
 
       .canvas {
@@ -399,6 +447,7 @@ body {
         }
       }
     }
+
     .result {
       flex-basis: 350px;
       height: 100%;

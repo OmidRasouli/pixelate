@@ -65,7 +65,7 @@ body .popup-window .window .header .close {
   border-radius: 3px;
   background-color: #171717;
   cursor: pointer;
-  background-size: 10px;
+  background-size: 15px;
   background-repeat: no-repeat;
   background-position: center center;
   background-image: url("../images/xmark.svg");
@@ -229,6 +229,17 @@ body main.main .toolbar .tools {
   flex-basis: 30px;
   position: relative;
 }
+body main.main .toolbar .tools:has(.confirm)::after {
+  content: "";
+  border-bottom: 3px solid #fff;
+  border-left: 3px solid transparent;
+  display: block;
+  width: 0;
+  height: 0;
+  position: absolute;
+  right: 3px;
+  bottom: 3px;
+}
 body main.main .toolbar .tools label,
 body main.main .toolbar .tools input[type=radio] {
   width: 100%;
@@ -248,6 +259,33 @@ body main.main .toolbar .tools label:hover {
 }
 body main.main .toolbar .tools input[type=radio]:checked + label {
   background-color: #171717;
+}
+body main.main .toolbar .tools input[type=radio]:checked ~ .confirm {
+  height: 100%;
+  background-color: #171717;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 30000;
+  display: flex;
+  width: 70px;
+  margin-left: 40px;
+  border-radius: 3px;
+  justify-content: space-evenly;
+}
+body main.main .toolbar .tools input[type=radio]:checked ~ .confirm .accept,
+body main.main .toolbar .tools input[type=radio]:checked ~ .confirm .cancel {
+  height: 100%;
+  cursor: pointer;
+  background-size: 18px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  flex-basis: 30px;
+}
+body main.main .toolbar .tools input[type=radio]:checked ~ .confirm .accept {
+  background-image: url("../images/check.svg");
+}
+body main.main .toolbar .tools input[type=radio]:checked ~ .confirm .cancel {
+  background-image: url("../images/xmark.svg");
 }
 body main.main .toolbar .pen label {
   background-image: url("../images/pen.svg");
@@ -324,6 +362,9 @@ body main.main .artboard .cropperHint {
   position: absolute;
   background-color: rgba(0, 0, 0, 0.5333333333);
   pointer-events: none;
+  border: 2px solid #fff;
+  box-sizing: border-box;
+  display: none;
 }
 body main.main .artboard .canvas {
   display: grid;

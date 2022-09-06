@@ -83,7 +83,6 @@ class Cell {
     //Set id for each cell(pixel)
     cellElement.id = `cell${index}`;
     this.#id = `cell${index}`;
-    cellElement.innerHTML = index;
 
     //Add class
     cellElement.classList.add("cell");
@@ -131,6 +130,19 @@ class Cell {
 
     //Update the style
     this.UpdateStyle();
+  }
+
+  Assign(index) {
+    //Set id for each cell(pixel)
+    this.#cellElement.id = `cell${index}`;
+    this.#id = `cell${index}`;
+
+    //Set the Row
+    this.#row = Math.floor(index / board.Width);
+    //Set the Col
+    this.#col = Math.floor(index % board.Width);
+    //Set the Index
+    this.#index = index;
   }
 
   //This function update the style

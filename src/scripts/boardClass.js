@@ -37,7 +37,10 @@ class Board {
       );
       const cells = JSON.parse(json);
 
-      board.cells = { FromJSON:board.cells.FromJSON, ToJSON:board.cells.ToJSON };
+      board.cells = {
+        FromJSON: board.cells.FromJSON,
+        ToJSON: board.cells.ToJSON,
+      };
       for (const cell of Object.keys(cells)) {
         const newCell = new Cell();
         board.cells[cell] = newCell.FromJSON(cells[cell]);
@@ -206,9 +209,10 @@ class Board {
     if (
       indexes.includes(index) ||
       row < 0 ||
-      row >= this.Width ||
+      row >= this.Height ||
       col < 0 ||
-      col >= this.Height ||
+      col >= this.Width ||
+      this.cells[index] === null ||
       this.cells[index].BackgroundColor === colorPicker.value ||
       this.cells[index].BackgroundColor !== color
     )
@@ -219,7 +223,7 @@ class Board {
       tools.Draw(
         this.cells[index],
         colorPicker.value,
-        "mouseup",
+        "mousemove",
         tools.Types.Pencil
       );
     }
@@ -240,8 +244,8 @@ class Board {
 
   CropCells(from, to) {
     const cellsInRange = new Set();
-    const row = to.row - from.row + 1;
-    const col = to.col - from.col + 1;
+    const row = Math.abs(to.row - from.row) + 1;
+    const col = Math.abs(to.col - from.col) + 1;
 
     for (let i = 0; i < row; i++) {
       for (let j = 0; j < col; j++) {
@@ -260,8 +264,20 @@ class Board {
         delete this.cells[cell];
       }
     }
-
     this.DefineSize(col, row, this.Thickness);
+
+    const cells = [...cellsInRange];
+    const newCells = {
+      ToJSON: this.cells.ToJSON,
+      FromJSON: this.cells.FromJSON,
+    };
+
+    for (let i = 0; i < cells.length; i++) {
+      this.cells[cells[i]].Assign(i);
+      newCells[this.cells[cells[i]].ID] = this.cells[cells[i]];
+    }
+
+    this.cells = { ...newCells };
     this.UpdateStyle();
     exportAndShow();
     histories.SaveHistory(this.cells);

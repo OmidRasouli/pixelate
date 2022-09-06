@@ -13,7 +13,6 @@ const canvas = document.querySelector("#canvas");
 const sample = document.querySelector("#sample");
 const output = document.querySelector("#output");
 const histories = new History();
-const crop = new Crop(document.querySelector("#cropperHint"));
 const tools = new Tools();
 let board = new Board();
 const crop = new Crop(

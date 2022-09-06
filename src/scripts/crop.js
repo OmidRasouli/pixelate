@@ -78,11 +78,20 @@ class Crop {
     if (trim) {
       let from = { row: this.#fromCell.Row, col: this.#fromCell.Col };
       let to = { row: this.#toCell.Row, col: this.#toCell.Col };
-      if (from.row > to.row || from.col > to.col) {
+      if (from.row > to.row && from.col > to.col) {
         let temp = { ...from };
-        to = { ...from };
-        from = { ...temp };
+        from = { ...to };
+        to = { ...temp };
+      } else if (from.row > to.row) {
+        let temp = from.row;
+        from.row = to.row;
+        to.row = temp;
+      } else if (from.col > to.col) {
+        let temp = from.col;
+        from.col = to.col;
+        to.col = temp;
       }
+
       board.CropCells(from, to);
       this.#callback;
     } else {

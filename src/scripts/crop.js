@@ -17,9 +17,9 @@ class Crop {
       setStyle(document.querySelector("#confirmCrop"), ["display"], [""]);
       setStyle(this.#cropperHint, ["display"], ["block"]);
     } else if (state === "end") {
-      this.#toCell = cell;
       this.UpdateHint(cell);
     } else if (state === "move") {
+      this.#toCell = cell;
       this.UpdateHint(cell);
     }
   }

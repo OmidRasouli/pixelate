@@ -6,27 +6,21 @@ const thickness = () => parseInt(thicknessEl.value);
 const roundness = () => parseInt(roundnessEl.value);
 const thicknessOpt = document.querySelector("#thicknessOpt");
 const roundnessOpt = document.querySelector("#roundnessOpt");
-const saveOptions = document.querySelector("#saveOptions");
-const menuNew = document.querySelector("#new");
-const menuOptions = document.querySelector("#options");
 const createWindow = document.querySelector("#createWindow");
-const closeWindow = document.querySelector("#closeWindow");
 const optionsWindow = document.querySelector("#optionsWindow");
-const closeOptions = document.querySelector("#closeOptions");
-const createBoard = document.querySelector("#create");
-const pen = document.querySelector("#pen");
-const eraser = document.querySelector("#eraser");
-const eyedropper = document.querySelector("#eyedropper");
-const fill = document.querySelector("#fill");
+const replaceColorWindow = document.querySelector("#replaceColorWindow");
 const colorPicker = document.querySelector("#color");
 const canvas = document.querySelector("#canvas");
 const sample = document.querySelector("#sample");
 const output = document.querySelector("#output");
-const undo = document.querySelector("#undo");
-const redo = document.querySelector("#redo");
 const histories = new History();
 const tools = new Tools();
 let board = new Board();
+let palette = new Color(document.querySelector("#palettes"));
+const crop = new Crop(
+  document.querySelector("#cropperHint"),
+  histories.SaveHistory(board.cells)
+);
 
 (function () {
   cleanData();

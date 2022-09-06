@@ -10,6 +10,7 @@ class Tools {
     Fill: "fill",
     Eraser: "eraser",
     EyeDropper: "eyeDropper",
+    Crop: "crop",
   };
 
   //Default values
@@ -49,16 +50,33 @@ class Tools {
         //When mouse up and mouse move triggered it will be called
         if (event === "mouseup" || event === "mousemove") {
           this.#Fill(cell);
+          histories.SaveHistory(board.cells);
         }
         break;
       case this.Types.Pencil:
         this.#Pencil(cell, color);
+        if (event === "mouseup") {
+          histories.SaveHistory(board.cells);
+        }
         break;
       case this.Types.Eraser:
         this.#Eraser(cell);
+        if (event === "mouseup") {
+          histories.SaveHistory(board.cells);
+        }
         break;
       case this.Types.EyeDropper:
         this.#EyeDropper(cell);
+        break;
+      case this.Types.Crop:
+        //When mouse up triggered it will be called
+        if (event === "mousedown") {
+          this.#Crop(cell, "start");
+        } else if (event === "mouseup") {
+          this.#Crop(cell, "end");
+        } else if (event === "mousemove") {
+          this.#Crop(cell, "move");
+        }
         break;
 
       default:
@@ -88,5 +106,10 @@ class Tools {
     if (cell.Element.style.BackgroundColor !== "") {
       colorPicker.value = rgb2hex(cell.Element.style.backgroundColor);
     }
+  }
+
+  //Crop the cells
+  #Crop(cell, state) {
+    crop.Crop(cell, state);
   }
 }

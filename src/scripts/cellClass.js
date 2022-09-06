@@ -21,6 +21,10 @@ class Cell {
   FromJSON(cell) {
     const newCell = JSON.parse(cell);
     this.#cellElement = document.querySelector(`#${newCell.id}`);
+    if (this.#cellElement === null) {
+      this.CreateCell(newCell.index);
+      board.AddToCanvas(this);
+    }
     this.#backgroundColor = newCell.backgroundColor;
     this.#row = newCell.row;
     this.#col = newCell.col;
@@ -126,6 +130,19 @@ class Cell {
 
     //Update the style
     this.UpdateStyle();
+  }
+
+  Assign(index) {
+    //Set id for each cell(pixel)
+    this.#cellElement.id = `cell${index}`;
+    this.#id = `cell${index}`;
+
+    //Set the Row
+    this.#row = Math.floor(index / board.Width);
+    //Set the Col
+    this.#col = Math.floor(index % board.Width);
+    //Set the Index
+    this.#index = index;
   }
 
   //This function update the style

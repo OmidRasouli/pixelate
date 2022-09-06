@@ -76,6 +76,29 @@
       </div>
     </div>
   </div>
+  <div id="replaceColorWindow" class="popup-window" style="display: none;">
+    <div class="window">
+      <div class="header">
+        <div class="title">Replace color</div>
+        <div class="close" id="closeReplaceColor"></div>
+      </div>
+      <div class="body">
+        <div class="input color-picker">
+          <label for="fromColor">From:</label>
+          <div class="replacePalette" id="replacePalette">
+            <div class="palettes" id="palettes"></div>
+          </div>
+        </div>
+        <div class="input color-picker">
+          <label for="toColor">To:</label>
+          <input type="color" name="color" id="toColor" value="#000000" />
+        </div>
+      </div>
+      <div class="footer">
+        <button class="button" id="saveReplaceColor">Replace</button>
+      </div>
+    </div>
+  </div>
   <main class="main">
     <div class="toolbar">
       <div class="pen tools">
@@ -94,17 +117,29 @@
         <input type="radio" name="draw" id="fill" />
         <label for="fill"></label>
       </div>
-      <div class="history">
-        <input type="button" class="undo" name="undo" id="undo" />
+      <div class="crop tools">
+        <input type="radio" name="draw" id="crop" />
+        <label for="crop"></label>
+        <div class="confirm" id="confirmCrop">
+          <div class="accept" id="acceptCrop"></div>
+          <div class="cancel" id="cancelCrop"></div>
+        </div>
       </div>
       <div class="history">
-        <input type="button" class="redo" name="redo" id="redo" />
+        <input type="button" class="undo" id="undo" />
+      </div>
+      <div class="history">
+        <input type="button" class="redo" id="redo" />
+      </div>
+      <div class="replace-color tools">
+        <input type="button" class="replace-color" id="replaceColor" />
       </div>
       <div class="color-picker">
-        <input type="color" name="color" id="color" value="#000000" />
+        <input type="color" class="colorPicker" name="color" id="color" value="#000000" />
       </div>
     </div>
     <div class="artboard" id="artboard">
+      <div class="cropperHint" id="cropperHint"></div>
       <div class="canvas" id="canvas"></div>
     </div>
     <div class="result">
@@ -119,6 +154,8 @@
 
   <script src="./scripts/scriptHandler.js"></script>
   <script src="./scripts/history.js"></script>
+  <script src="./scripts/crop.js"></script>
+  <script src="./scripts/colorPalette.js"></script>
   <script src="./scripts/tools.js"></script>
   <script src="./scripts/cellClass.js"></script>
   <script src="./scripts/boardClass.js"></script>

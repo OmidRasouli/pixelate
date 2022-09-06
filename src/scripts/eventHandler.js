@@ -1,51 +1,92 @@
 function startupEvents() {
   //Click on submenu (new)
-  menuNew.addEventListener("click", () => (createWindow.style.display = ""));
+  document
+    .querySelector("#new")
+    .addEventListener("click", () => (createWindow.style.display = ""));
   //Click on submenu (options)
-  menuOptions.addEventListener(
-    "click",
-    () => (optionsWindow.style.display = "")
-  );
+  document
+    .querySelector("#options")
+    .addEventListener("click", () => (optionsWindow.style.display = ""));
   //Click on close create window
-  closeWindow.addEventListener(
-    "click",
-    () => (createWindow.style.display = "none")
-  );
+  document
+    .querySelector("#closeWindow")
+    .addEventListener("click", () => (createWindow.style.display = "none"));
   //Click on close options window
-  closeOptions.addEventListener(
-    "click",
-    () => (optionsWindow.style.display = "none")
-  );
+  document
+    .querySelector("#closeOptions")
+    .addEventListener("click", () => (optionsWindow.style.display = "none"));
+  //Click on close replace color window
+  document
+    .querySelector("#closeReplaceColor")
+    .addEventListener(
+      "click",
+      () => (replaceColorWindow.style.display = "none")
+    );
+  //Click on replace color window
+  document.querySelector("#saveReplaceColor").addEventListener("click", () => {
+    replaceColorWindow.style.display = "none";
+    palette.ReplaceColor();
+  });
   //Click on close options window
-  saveOptions.addEventListener("click", () => {
+  document.querySelector("#saveOptions").addEventListener("click", () => {
     thicknessEl.value = thicknessOpt.value;
     roundnessEl.value = roundnessOpt.value;
     UpdateOptions();
     optionsWindow.style.display = "none";
   });
   //Click on pen tools
-  pen.addEventListener("click", () => tools.PickTools(tools.Types.Pencil));
+  document.querySelector("#pen").addEventListener("click", () => {
+    tools.PickTools(tools.Types.Pencil);
+    crop.SaveChanges(false);
+  });
   //Click on eraser tools
-  eraser.addEventListener("click", () => tools.PickTools(tools.Types.Eraser));
+  document.querySelector("#eraser").addEventListener("click", () => {
+    tools.PickTools(tools.Types.Eraser);
+    crop.SaveChanges(false);
+  });
   //Click on eye dropper tools
-  eyedropper.addEventListener("click", () =>
-    tools.PickTools(tools.Types.EyeDropper)
-  );
+  document.querySelector("#eyedropper").addEventListener("click", () => {
+    tools.PickTools(tools.Types.EyeDropper);
+  });
   //Click on fill tools
-  fill.addEventListener("click", () => tools.PickTools(tools.Types.Fill));
+  document.querySelector("#fill").addEventListener("click", () => {
+    tools.PickTools(tools.Types.Fill);
+    crop.SaveChanges(false);
+  });
+  //Click on cropper tools
+  document
+    .querySelector("#crop")
+    .addEventListener("click", () => tools.PickTools(tools.Types.Crop));
   //Mouse up anywhere on document
   document.addEventListener("mouseup", () => {
-    if (tools.isDrawing) {
-      histories.SaveHistory(board.cells);
-    }
     tools.IsDrawing(false);
   });
 
   //Click on undo
-  undo.addEventListener("click", () => histories.Undo());
+  document
+    .querySelector("#undo")
+    .addEventListener("click", () => histories.Undo());
 
   //Click on redo
-  redo.addEventListener("click", () => histories.Redo());
+  document
+    .querySelector("#redo")
+    .addEventListener("click", () => histories.Redo());
+
+  //Click on replace color
+  document.querySelector("#replaceColor").addEventListener("click", () => {
+    replaceColorWindow.style.display = "";
+    palette.CheckColors();
+  });
+
+  //Click on accept crop
+  document
+    .querySelector("#acceptCrop")
+    .addEventListener("click", () => crop.SaveChanges(true));
+
+  //Click on cancel crop
+  document
+    .querySelector("#cancelCrop")
+    .addEventListener("click", () => crop.SaveChanges(false));
 
   //Change the value of Thickness
   thicknessEl.addEventListener("change", () => {
@@ -54,18 +95,11 @@ function startupEvents() {
 
   //Change the value of Roundness
   roundnessEl.addEventListener("change", () => {
-    //Get the value and parse to int
-    board.Roundness = parseInt(roundness());
-
-    //Update styles for cell and board
-    board.UpdateStyle();
-
-    //Export them, then show the sample and replace the code
-    exportAndShow();
+    UpdateOptions();
   });
 
   //Click on the create board button
-  createBoard.addEventListener("click", () => {
+  document.querySelector("#create").addEventListener("click", () => {
     thicknessOpt.value = thicknessEl.value;
     roundnessOpt.value = roundnessEl.value;
     //Remove data
@@ -83,6 +117,8 @@ function startupEvents() {
 function UpdateOptions() {
   //Get the value and parse to int
   board.Thickness = parseInt(thickness());
+  //Get the value and parse to int
+  board.Roundness = parseInt(roundness());
 
   //Update styles for cell and board
   board.UpdateStyle();

@@ -45,7 +45,6 @@ body .popup-window .window {
   display: flex;
   flex-direction: column;
   border-radius: 3px;
-  overflow: hidden;
 }
 body .popup-window .window .header {
   background-color: #303030;
@@ -54,6 +53,7 @@ body .popup-window .window .header {
   align-items: center;
   justify-content: space-between;
   padding: 0 10px;
+  border-radius: 3px 3px 0 0;
 }
 body .popup-window .window .header .title {
   font-size: 0.6em;
@@ -65,7 +65,7 @@ body .popup-window .window .header .close {
   border-radius: 3px;
   background-color: #171717;
   cursor: pointer;
-  background-size: 10px;
+  background-size: 15px;
   background-repeat: no-repeat;
   background-position: center center;
   background-image: url("../images/xmark.svg");
@@ -114,6 +114,73 @@ body .popup-window .window .body .input input::-webkit-outer-spin-button,
 body .popup-window .window .body .input input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+body .popup-window .window .body .input input[type=color],
+body .popup-window .window .body .input .replacePalette {
+  width: 50px;
+  height: 27px;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  outline: 1px solid #181818;
+  border: 2px solid #ebebeb;
+  border-radius: 3px;
+  padding: 0;
+  background-color: transparent;
+  cursor: cell;
+}
+body .popup-window .window .body .input input[type=color]::-webkit-color-swatch-wrapper,
+body .popup-window .window .body .input .replacePalette::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+body .popup-window .window .body .input input[type=color]::-webkit-color-swatch,
+body .popup-window .window .body .input .replacePalette::-webkit-color-swatch {
+  border: none;
+}
+body .popup-window .window .body .input .replacePalette {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  cursor: default;
+}
+body .popup-window .window .body .input .replacePalette:hover .palettes {
+  display: flex;
+}
+body .popup-window .window .body .input .replacePalette .palettes {
+  position: absolute;
+  width: 300px;
+  height: 100px;
+  display: none;
+  top: -3px;
+  gap: 5px;
+  z-index: 999999;
+  padding: 10px;
+  box-sizing: border-box;
+  background-color: #404040;
+  border-radius: 3px;
+  border: 1px solid #171717;
+}
+body .popup-window .window .body .input .replacePalette .palettes .color-button {
+  width: 20px;
+  height: 20px;
+  position: relative;
+}
+body .popup-window .window .body .input .replacePalette .palettes .color-button label,
+body .popup-window .window .body .input .replacePalette .palettes .color-button .palette {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  box-sizing: border-box;
+  cursor: pointer;
+  border-radius: 3px;
+  display: block;
+  padding: 0;
+  margin: 0;
+}
+body .popup-window .window .body .input .replacePalette .palettes .color-button input[type=radio] {
+  opacity: 0;
+}
+body .popup-window .window .body .input .replacePalette .palettes .color-button input[type=radio]:checked + label {
+  border: 1px solid #fff;
 }
 body .popup-window .window .footer {
   height: 40px;
@@ -211,6 +278,7 @@ body main.main .toolbar input[type=radio] {
   margin: 0;
   padding: 0;
 }
+body main.main .toolbar input[type=button],
 body main.main .toolbar input[type=number],
 body main.main .toolbar .history,
 body main.main .toolbar button {
@@ -224,10 +292,33 @@ body main.main .toolbar button {
   flex-basis: 30px;
   width: 30px;
 }
+body main.main .toolbar input[type=button] {
+  outline: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 3px;
+  background-size: 18px;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+body main.main .toolbar input[type=button]:hover {
+  background-color: #171717;
+}
 body main.main .toolbar .tools {
   width: 30px;
   flex-basis: 30px;
   position: relative;
+}
+body main.main .toolbar .tools:has(.confirm)::after {
+  content: "";
+  border-bottom: 3px solid #fff;
+  border-left: 3px solid transparent;
+  display: block;
+  width: 0;
+  height: 0;
+  position: absolute;
+  right: 3px;
+  bottom: 3px;
 }
 body main.main .toolbar .tools label,
 body main.main .toolbar .tools input[type=radio] {
@@ -249,6 +340,33 @@ body main.main .toolbar .tools label:hover {
 body main.main .toolbar .tools input[type=radio]:checked + label {
   background-color: #171717;
 }
+body main.main .toolbar .tools input[type=radio]:checked ~ .confirm {
+  height: 100%;
+  background-color: #171717;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 30000;
+  display: flex;
+  width: 70px;
+  margin-left: 40px;
+  border-radius: 3px;
+  justify-content: space-evenly;
+}
+body main.main .toolbar .tools input[type=radio]:checked ~ .confirm .accept,
+body main.main .toolbar .tools input[type=radio]:checked ~ .confirm .cancel {
+  height: 100%;
+  cursor: pointer;
+  background-size: 18px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  flex-basis: 30px;
+}
+body main.main .toolbar .tools input[type=radio]:checked ~ .confirm .accept {
+  background-image: url("../images/check.svg");
+}
+body main.main .toolbar .tools input[type=radio]:checked ~ .confirm .cancel {
+  background-image: url("../images/xmark.svg");
+}
 body main.main .toolbar .pen label {
   background-image: url("../images/pen.svg");
 }
@@ -260,6 +378,12 @@ body main.main .toolbar .eyedropper label {
 }
 body main.main .toolbar .fill label {
   background-image: url("../images/fill-drip.svg");
+}
+body main.main .toolbar .crop label {
+  background-image: url("../images/crop.svg");
+}
+body main.main .toolbar .replace-color input {
+  background-image: url("../images/replace.svg");
 }
 body main.main .toolbar .history {
   width: 30px;
@@ -315,6 +439,15 @@ body main.main .artboard {
   justify-content: center;
   align-items: center;
   height: 100%;
+  position: relative;
+}
+body main.main .artboard .cropperHint {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5333333333);
+  pointer-events: none;
+  border: 2px solid #fff;
+  box-sizing: border-box;
+  display: none;
 }
 body main.main .artboard .canvas {
   display: grid;

@@ -21,15 +21,15 @@ class Cell {
   FromJSON(cell) {
     const newCell = JSON.parse(cell);
     this.#cellElement = document.querySelector(`#${newCell.id}`);
+    if (this.#cellElement === null) {
+      this.CreateCell(newCell.index);
+      board.AddToCanvas(this);
+    }
     this.#backgroundColor = newCell.backgroundColor;
     this.#row = newCell.row;
     this.#col = newCell.col;
     this.#index = newCell.index;
     this.#id = newCell.id;
-    if (this.#cellElement === null) {
-      this.CreateCell(newCell.index);
-      board.AddToCanvas(this.Element);
-    }
     tools.Draw(this, this.BackgroundColor, "mousedown", tools.Types.Pencil);
     return this;
   }

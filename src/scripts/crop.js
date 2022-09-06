@@ -2,9 +2,11 @@ class Crop {
   #fromCell;
   #toCell;
   #cropperHint;
+  #callback;
 
-  constructor(cropperHint) {
+  constructor(cropperHint, callback) {
     this.#cropperHint = cropperHint;
+    this.callback = callback;
     setStyle(document.querySelector("#confirmCrop"), ["display"], ["none"]);
   }
 
@@ -82,6 +84,7 @@ class Crop {
         from = { ...temp };
       }
       board.CropCells(from, to);
+      this.#callback;
     } else {
       this.#fromCell = null;
       this.#toCell = null;

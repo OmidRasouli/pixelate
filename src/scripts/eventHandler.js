@@ -47,9 +47,6 @@ function startupEvents() {
     .addEventListener("click", () => tools.PickTools(tools.Types.Crop));
   //Mouse up anywhere on document
   document.addEventListener("mouseup", () => {
-    if (tools.isDrawing) {
-      histories.SaveHistory(board.cells);
-    }
     tools.IsDrawing(false);
   });
 

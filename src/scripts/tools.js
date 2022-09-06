@@ -50,13 +50,20 @@ class Tools {
         //When mouse up and mouse move triggered it will be called
         if (event === "mouseup" || event === "mousemove") {
           this.#Fill(cell);
+          histories.SaveHistory(board.cells);
         }
         break;
       case this.Types.Pencil:
         this.#Pencil(cell, color);
+        if (event === "mouseup") {
+          histories.SaveHistory(board.cells);
+        }
         break;
       case this.Types.Eraser:
         this.#Eraser(cell);
+        if (event === "mouseup") {
+          histories.SaveHistory(board.cells);
+        }
         break;
       case this.Types.EyeDropper:
         this.#EyeDropper(cell);

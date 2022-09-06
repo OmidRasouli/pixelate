@@ -28,7 +28,7 @@ class Board {
       return data;
     },
     FromJSON: function (json, config) {
-      console.log(config);
+      canvas.innerHTML = "";
       board.DefineSize(
         config.width,
         config.height,
@@ -36,6 +36,8 @@ class Board {
         config.roundness
       );
       const cells = JSON.parse(json);
+
+      board.cells = { FromJSON:board.cells.FromJSON, ToJSON:board.cells.ToJSON };
       for (const cell of Object.keys(cells)) {
         const newCell = new Cell();
         board.cells[cell] = newCell.FromJSON(cells[cell]);
@@ -150,14 +152,23 @@ class Board {
       const cell = new Cell();
       cell.CreateCell(i);
       this.cells[cell.ID] = cell;
-      this.AddToCanvas(cell.Element);
+      this.AddToCanvas(cell);
     }
 
     histories.SaveHistory(this.cells);
   }
 
-  AddToCanvas(Element) {
-    this.canvas.append(Element);
+  AddToCanvas(cell) {
+    const sibling = this.canvas.querySelector(`#cell${cell.Index - 1}`);
+    if (sibling === null) {
+      if (this.canvas.lastChild === null) {
+        this.canvas.prepend(cell.Element);
+      } else {
+        this.canvas.append(cell.Element);
+      }
+    } else {
+      sibling.insertAdjacentElement("afterend", cell.Element);
+    }
   }
 
   ChangeCanvasStyle(property, style) {

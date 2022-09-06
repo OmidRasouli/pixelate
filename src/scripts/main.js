@@ -16,6 +16,10 @@ const histories = new History();
 const crop = new Crop(document.querySelector("#cropperHint"));
 const tools = new Tools();
 let board = new Board();
+const crop = new Crop(
+  document.querySelector("#cropperHint"),
+  histories.SaveHistory(board.cells)
+);
 
 (function () {
   cleanData();

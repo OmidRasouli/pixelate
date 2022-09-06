@@ -282,4 +282,33 @@ class Board {
     exportAndShow();
     histories.SaveHistory(this.cells);
   }
+
+  GetColors() {
+    const colors = new Set();
+    for (const cell of Object.keys(this.cells)) {
+      if (
+        typeof this.cells[cell] != "function" &&
+        this.cells[cell].BackgroundColor !== "transparent"
+      ) {
+        colors.add(this.cells[cell].BackgroundColor);
+      }
+    }
+
+    return [...colors];
+  }
+
+  ReplaceColors(from, to) {
+    const colors = new Set();
+    for (const cell of Object.keys(this.cells)) {
+      if (
+        typeof this.cells[cell] != "function" &&
+        this.cells[cell].BackgroundColor === rgb2hex(from)
+      ) {
+        this.cells[cell].ChangeColor(rgb2hex(to));
+      }
+    }
+
+    exportAndShow();
+    histories.SaveHistory(this.cells)
+  }
 }

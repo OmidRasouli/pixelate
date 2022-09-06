@@ -51,7 +51,6 @@ body {
       display: flex;
       flex-direction: column;
       border-radius: 3px;
-      overflow: hidden;
 
       .header {
         background-color: $header_bg;
@@ -60,6 +59,7 @@ body {
         align-items: center;
         justify-content: space-between;
         padding: 0 10px;
+        border-radius: 3px 3px 0 0;
 
         .title {
           font-size: 0.6em;
@@ -126,6 +126,83 @@ body {
           input::-webkit-inner-spin-button {
             -webkit-appearance: none;
             margin: 0;
+          }
+
+          input[type="color"],
+          .replacePalette {
+            width: 50px;
+            height: 27px;
+            box-sizing: border-box;
+            -webkit-appearance: none;
+            outline: 1px solid $color_outline;
+            border: 2px solid $color_border;
+            border-radius: 3px;
+            padding: 0;
+            background-color: transparent;
+            cursor: cell;
+
+            &::-webkit-color-swatch-wrapper {
+              padding: 0;
+            }
+
+            &::-webkit-color-swatch {
+              border: none;
+            }
+          }
+
+          .replacePalette {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            cursor: default;
+
+            &:hover .palettes{
+              display: flex;
+            }
+
+            .palettes {
+              position: absolute;
+              width: 300px;
+              height: 100px;
+              display: none;
+              top: -3px;
+              gap: 5px;
+              z-index: 999999;
+              padding: 10px;
+              box-sizing: border-box;
+              background-color: $body_bg;
+              border-radius: 3px;
+              border: 1px solid $separator;
+
+              .color-button {
+                width: 20px;
+                height: 20px;
+                position: relative;
+
+                label,
+                .palette {
+                  width: 100%;
+                  height: 100%;
+                  position: absolute;
+                  box-sizing: border-box;
+                  cursor: pointer;
+                  border-radius: 3px;
+                  display: block;
+                  padding: 0;
+                  margin: 0;
+                }
+
+                input[type="radio"] {
+                  opacity: 0;
+                }
+
+                input[type="radio"]:checked {
+                  & + label {
+                    border: 1px solid $main_f;
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -243,6 +320,7 @@ body {
         padding: 0;
       }
 
+      input[type="button"],
       input[type="number"],
       .history,
       button {
@@ -255,6 +333,20 @@ body {
         outline: none;
         flex-basis: 30px;
         width: 30px;
+      }
+
+      input[type="button"] {
+        outline: none;
+        border: none;
+        cursor: pointer;
+        border-radius: 3px;
+        background-size: 18px;
+        background-repeat: no-repeat;
+        background-position: center center;
+
+        &:hover {
+          background-color: $selected_tools;
+        }
       }
 
       .tools {
@@ -350,6 +442,10 @@ body {
 
       .crop label {
         background-image: url("../images/crop.svg");
+      }
+
+      .replace-color input {
+        background-image: url("../images/replace.svg");
       }
 
       .history {

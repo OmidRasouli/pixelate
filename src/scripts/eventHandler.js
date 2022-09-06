@@ -15,6 +15,18 @@ function startupEvents() {
   document
     .querySelector("#closeOptions")
     .addEventListener("click", () => (optionsWindow.style.display = "none"));
+  //Click on close replace color window
+  document
+    .querySelector("#closeReplaceColor")
+    .addEventListener(
+      "click",
+      () => (replaceColorWindow.style.display = "none")
+    );
+  //Click on replace color window
+  document.querySelector("#saveReplaceColor").addEventListener("click", () => {
+    replaceColorWindow.style.display = "none";
+    palette.ReplaceColor();
+  });
   //Click on close options window
   document.querySelector("#saveOptions").addEventListener("click", () => {
     thicknessEl.value = thicknessOpt.value;
@@ -33,9 +45,9 @@ function startupEvents() {
     crop.SaveChanges(false);
   });
   //Click on eye dropper tools
-  document
-    .querySelector("#eyedropper")
-    .addEventListener("click", () => tools.PickTools(tools.Types.EyeDropper));
+  document.querySelector("#eyedropper").addEventListener("click", () => {
+    tools.PickTools(tools.Types.EyeDropper);
+  });
   //Click on fill tools
   document.querySelector("#fill").addEventListener("click", () => {
     tools.PickTools(tools.Types.Fill);
@@ -59,6 +71,12 @@ function startupEvents() {
   document
     .querySelector("#redo")
     .addEventListener("click", () => histories.Redo());
+
+  //Click on replace color
+  document.querySelector("#replaceColor").addEventListener("click", () => {
+    replaceColorWindow.style.display = "";
+    palette.CheckColors();
+  });
 
   //Click on accept crop
   document

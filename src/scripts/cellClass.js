@@ -26,6 +26,10 @@ class Cell {
     this.#col = newCell.col;
     this.#index = newCell.index;
     this.#id = newCell.id;
+    if (this.#cellElement === null) {
+      this.CreateCell(newCell.index);
+      board.AddToCanvas(this.Element);
+    }
     tools.Draw(this, this.BackgroundColor, "mousedown", tools.Types.Pencil);
     return this;
   }
@@ -79,6 +83,7 @@ class Cell {
     //Set id for each cell(pixel)
     cellElement.id = `cell${index}`;
     this.#id = `cell${index}`;
+    cellElement.innerHTML = index;
 
     //Add class
     cellElement.classList.add("cell");

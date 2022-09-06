@@ -7,6 +7,12 @@ class Board {
     ToJSON: function () {
       const stringCells = {};
       const functions = {};
+      const config = {
+        width: board.Width,
+        height: board.Height,
+        thickness: board.Thickness,
+        roundness: board.Roundness,
+      };
       for (const cell of Object.keys(this)) {
         if (typeof this[cell] != "function") {
           stringCells[cell] = this[cell].ToJSON();
@@ -17,15 +23,24 @@ class Board {
       const data = {
         cells: JSON.stringify(stringCells),
         functions: { ...functions },
+        config: { ...config },
       };
       return data;
     },
-    FromJSON: function (json) {
+    FromJSON: function (json, config) {
+      console.log(config);
+      board.DefineSize(
+        config.width,
+        config.height,
+        config.thickness,
+        config.roundness
+      );
       const cells = JSON.parse(json);
       for (const cell of Object.keys(cells)) {
         const newCell = new Cell();
         board.cells[cell] = newCell.FromJSON(cells[cell]);
       }
+      board.UpdateStyle();
     },
   };
 
@@ -42,7 +57,7 @@ class Board {
    * @param {int} thickness
    * @param {int} roundness
    */
-  DefineSize(width, height, thickness, roundness) {
+  DefineSize(width, height, thickness, roundness = 0) {
     this.Width = width;
     this.Height = height;
     this.Thickness = thickness;
@@ -135,10 +150,14 @@ class Board {
       const cell = new Cell();
       cell.CreateCell(i);
       this.cells[cell.ID] = cell;
-      this.canvas.append(cell.Element);
+      this.AddToCanvas(cell.Element);
     }
 
     histories.SaveHistory(this.cells);
+  }
+
+  AddToCanvas(Element) {
+    this.canvas.append(Element);
   }
 
   ChangeCanvasStyle(property, style) {
@@ -146,9 +165,10 @@ class Board {
   }
 
   UpdateStyle() {
-    board.ChangeCanvasStyle(
-      ["width", "height", "background-size"],
+    this.ChangeCanvasStyle(
+      ["grid-template-columns", "width", "height", "background-size"],
       [
+        `repeat(${this.Width},auto)`,
         `${this.Width * this.Thickness + this.Width - 1}px`,
         `${this.Height * this.Thickness + this.Height - 1}px`,
         `${this.Thickness + 1}px ${this.Thickness + 1}px`,
@@ -205,5 +225,34 @@ class Board {
     if (direction !== "Right") {
       this.FindCells(row, col - 1, color, indexes, "Left", index);
     }
+  }
+
+  CropCells(from, to) {
+    const cellsInRange = new Set();
+    const row = to.row - from.row + 1;
+    const col = to.col - from.col + 1;
+
+    for (let i = 0; i < row; i++) {
+      for (let j = 0; j < col; j++) {
+        const currentCol = from.col + j;
+        const currentRow = from.row + i;
+        const index = currentRow * this.Width + currentCol;
+        const id = `cell${index}`;
+        cellsInRange.add(id);
+      }
+    }
+
+    for (const cell of Object.keys(this.cells)) {
+      if (typeof this.cells[cell] != "function" && !cellsInRange.has(cell)) {
+        cellsInRange.delete(cell);
+        this.cells[cell].Element.remove();
+        delete this.cells[cell];
+      }
+    }
+
+    this.DefineSize(col, row, this.Thickness);
+    this.UpdateStyle();
+    exportAndShow();
+    histories.SaveHistory(this.cells);
   }
 }

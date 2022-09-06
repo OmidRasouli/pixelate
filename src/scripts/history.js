@@ -13,7 +13,10 @@ class History {
     const lastAction = this.#historyStack.pop();
     const currentAction = this.#historyStack[this.#historyStack.length - 1];
     this.#tempHistoryStack.push(lastAction);
-    return currentAction.functions.FromJSON(currentAction.cells);
+    return currentAction.functions.FromJSON(
+      currentAction.cells,
+      currentAction.config
+    );
   }
 
   Redo() {
@@ -21,7 +24,7 @@ class History {
 
     const lastAction = this.#tempHistoryStack.pop();
     this.#historyStack.push(lastAction);
-    return lastAction.functions.FromJSON(lastAction.cells);
+    return lastAction.functions.FromJSON(lastAction.cells, lastAction.config);
   }
 
   SaveHistory(action) {

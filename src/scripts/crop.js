@@ -1,5 +1,6 @@
 class Crop {
   #fromCell;
+  #toCell;
   #cropperHint;
 
   constructor(cropperHint) {
@@ -14,6 +15,7 @@ class Crop {
       setStyle(document.querySelector("#confirmCrop"), ["display"], [""]);
       setStyle(this.#cropperHint, ["display"], ["block"]);
     } else if (state === "end") {
+      this.#toCell = cell;
       this.UpdateHint(cell);
     } else if (state === "move") {
       this.UpdateHint(cell);
@@ -72,7 +74,17 @@ class Crop {
     setStyle(this.#cropperHint, ["display"], ["none"]);
     setStyle(document.querySelector("#confirmCrop"), ["display"], ["none"]);
     if (trim) {
-      console.log("remove elements");
+      let from = { row: this.#fromCell.Row, col: this.#fromCell.Col };
+      let to = { row: this.#toCell.Row, col: this.#toCell.Col };
+      if (from.row > to.row || from.col > to.col) {
+        let temp = { ...from };
+        to = { ...from };
+        from = { ...temp };
+      }
+      board.CropCells(from, to);
+    } else {
+      this.#fromCell = null;
+      this.#toCell = null;
     }
   }
 }

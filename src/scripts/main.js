@@ -23,7 +23,6 @@ const crop = new Crop(
 );
 
 (function () {
-  cleanData();
   startupEvents();
   board = new Board(width(), height(), thickness(), roundness(), document.querySelector("#canvas"));
 })();

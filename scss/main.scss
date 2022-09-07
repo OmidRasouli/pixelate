@@ -404,7 +404,7 @@ body {
             border-radius: 3px;
             justify-content: space-evenly;
 
-            & ~ .confirm {
+            &.confirm {
               .accept,
               .cancel {
                 height: 100%;

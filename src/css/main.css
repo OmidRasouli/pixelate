@@ -352,9 +352,9 @@ body main.main .toolbar .tools input[type=radio]:checked ~ .confirm, body main.m
   border-radius: 3px;
   justify-content: space-evenly;
 }
-body main.main .toolbar .tools input[type=radio]:checked ~ .confirm ~ .confirm .accept,
-body main.main .toolbar .tools input[type=radio]:checked ~ .confirm ~ .confirm .cancel, body main.main .toolbar .tools input[type=radio]:checked ~ .rotate-mode ~ .confirm .accept,
-body main.main .toolbar .tools input[type=radio]:checked ~ .rotate-mode ~ .confirm .cancel {
+body main.main .toolbar .tools input[type=radio]:checked ~ .confirm.confirm .accept,
+body main.main .toolbar .tools input[type=radio]:checked ~ .confirm.confirm .cancel, body main.main .toolbar .tools input[type=radio]:checked ~ .rotate-mode.confirm .accept,
+body main.main .toolbar .tools input[type=radio]:checked ~ .rotate-mode.confirm .cancel {
   height: 100%;
   cursor: pointer;
   background-size: 18px;
@@ -362,10 +362,10 @@ body main.main .toolbar .tools input[type=radio]:checked ~ .rotate-mode ~ .confi
   background-position: center center;
   flex-basis: 30px;
 }
-body main.main .toolbar .tools input[type=radio]:checked ~ .confirm ~ .confirm .accept, body main.main .toolbar .tools input[type=radio]:checked ~ .rotate-mode ~ .confirm .accept {
+body main.main .toolbar .tools input[type=radio]:checked ~ .confirm.confirm .accept, body main.main .toolbar .tools input[type=radio]:checked ~ .rotate-mode.confirm .accept {
   background-image: url("../images/check.svg");
 }
-body main.main .toolbar .tools input[type=radio]:checked ~ .confirm ~ .confirm .cancel, body main.main .toolbar .tools input[type=radio]:checked ~ .rotate-mode ~ .confirm .cancel {
+body main.main .toolbar .tools input[type=radio]:checked ~ .confirm.confirm .cancel, body main.main .toolbar .tools input[type=radio]:checked ~ .rotate-mode.confirm .cancel {
   background-image: url("../images/xmark.svg");
 }
 body main.main .toolbar .tools input[type=radio]:checked ~ .rotate-mode {

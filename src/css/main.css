@@ -309,7 +309,7 @@ body main.main .toolbar .tools {
   flex-basis: 30px;
   position: relative;
 }
-body main.main .toolbar .tools:has(.confirm)::after {
+body main.main .toolbar .tools.extra-tools::after {
   content: "";
   border-bottom: 3px solid #fff;
   border-left: 3px solid transparent;
@@ -381,6 +381,9 @@ body main.main .toolbar .fill label {
 }
 body main.main .toolbar .crop label {
   background-image: url("../images/crop.svg");
+}
+body main.main .toolbar .rotate label {
+  background-image: url("../images/rotate.svg");
 }
 body main.main .toolbar .replace-color input {
   background-image: url("../images/replace.svg");

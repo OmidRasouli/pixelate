@@ -156,7 +156,7 @@ body {
             justify-content: center;
             cursor: default;
 
-            &:hover .palettes{
+            &:hover .palettes {
               display: flex;
             }
 
@@ -354,7 +354,7 @@ body {
         flex-basis: 30px;
         position: relative;
 
-        &:has(.confirm)::after {
+        &.extra-tools::after {
           content: "";
           border-bottom: 3px solid $main_f;
           border-left: 3px solid transparent;
@@ -442,6 +442,10 @@ body {
 
       .crop label {
         background-image: url("../images/crop.svg");
+      }
+
+      .rotate label {
+        background-image: url("../images/rotate.svg");
       }
 
       .replace-color input {

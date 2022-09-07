@@ -28,7 +28,7 @@ class Board {
       return data;
     },
     FromJSON: function (json, config) {
-      canvas.innerHTML = "";
+      clearElement(canvas);
       board.DefineSize(
         config.width,
         config.height,
@@ -247,7 +247,7 @@ class Board {
   }
 
   Clear() {
-    this.canvas.innerHTML = "";
+    clearElement(this.canvas);
     this.cells = { ToJSON: this.cells.ToJSON, FromJSON: this.cells.FromJSON };
   }
 

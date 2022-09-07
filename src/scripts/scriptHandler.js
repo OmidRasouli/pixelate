@@ -24,3 +24,9 @@ function hex(x) {
 function findInex(i, j, width) {
   return (i * width + j).toString();
 }
+
+function clearElement(parent){
+  while(parent.firstElementChild) {
+    parent.firstElementChild.remove();
+  }
+}

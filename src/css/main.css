@@ -374,7 +374,7 @@ body main.main .toolbar .tools input[type=radio]:checked ~ .rotate-mode {
 body main.main .toolbar .tools input[type=radio]:checked ~ .rotate-mode div {
   flex-basis: 30px;
   cursor: pointer;
-  background-size: 22px;
+  background-size: 15px;
   background-repeat: no-repeat;
   background-position: center center;
 }
@@ -386,7 +386,6 @@ body main.main .toolbar .tools input[type=radio]:checked ~ .rotate-mode .rotate-
   text-align: center;
   justify-content: center;
   align-items: center;
-  background-size: 15px;
 }
 body main.main .toolbar .tools input[type=radio]:checked ~ .rotate-mode .rotate-right {
   background-image: url("../images/redo.svg");

@@ -15,8 +15,8 @@ class Color {
   }
 
   #CreatePalette() {
-    this.#palette.innerHTML = "";
-    
+    clearElement(this.#palette);
+
     for (const color of this.#colors) {
       if (color === "transparent") continue;
 

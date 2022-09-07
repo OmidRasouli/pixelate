@@ -297,7 +297,7 @@ body main.main .toolbar input[type=button] {
   border: none;
   cursor: pointer;
   border-radius: 3px;
-  background-size: 18px;
+  background-size: 22px;
   background-repeat: no-repeat;
   background-position: center center;
 }
@@ -309,7 +309,7 @@ body main.main .toolbar .tools {
   flex-basis: 30px;
   position: relative;
 }
-body main.main .toolbar .tools:has(.confirm)::after {
+body main.main .toolbar .tools.extra-tools::after {
   content: "";
   border-bottom: 3px solid #fff;
   border-left: 3px solid transparent;
@@ -340,7 +340,7 @@ body main.main .toolbar .tools label:hover {
 body main.main .toolbar .tools input[type=radio]:checked + label {
   background-color: #171717;
 }
-body main.main .toolbar .tools input[type=radio]:checked ~ .confirm {
+body main.main .toolbar .tools input[type=radio]:checked ~ .confirm, body main.main .toolbar .tools input[type=radio]:checked ~ .rotate-mode {
   height: 100%;
   background-color: #171717;
   box-sizing: border-box;
@@ -352,8 +352,9 @@ body main.main .toolbar .tools input[type=radio]:checked ~ .confirm {
   border-radius: 3px;
   justify-content: space-evenly;
 }
-body main.main .toolbar .tools input[type=radio]:checked ~ .confirm .accept,
-body main.main .toolbar .tools input[type=radio]:checked ~ .confirm .cancel {
+body main.main .toolbar .tools input[type=radio]:checked ~ .confirm ~ .confirm .accept,
+body main.main .toolbar .tools input[type=radio]:checked ~ .confirm ~ .confirm .cancel, body main.main .toolbar .tools input[type=radio]:checked ~ .rotate-mode ~ .confirm .accept,
+body main.main .toolbar .tools input[type=radio]:checked ~ .rotate-mode ~ .confirm .cancel {
   height: 100%;
   cursor: pointer;
   background-size: 18px;
@@ -361,11 +362,42 @@ body main.main .toolbar .tools input[type=radio]:checked ~ .confirm .cancel {
   background-position: center center;
   flex-basis: 30px;
 }
-body main.main .toolbar .tools input[type=radio]:checked ~ .confirm .accept {
+body main.main .toolbar .tools input[type=radio]:checked ~ .confirm ~ .confirm .accept, body main.main .toolbar .tools input[type=radio]:checked ~ .rotate-mode ~ .confirm .accept {
   background-image: url("../images/check.svg");
 }
-body main.main .toolbar .tools input[type=radio]:checked ~ .confirm .cancel {
+body main.main .toolbar .tools input[type=radio]:checked ~ .confirm ~ .confirm .cancel, body main.main .toolbar .tools input[type=radio]:checked ~ .rotate-mode ~ .confirm .cancel {
   background-image: url("../images/xmark.svg");
+}
+body main.main .toolbar .tools input[type=radio]:checked ~ .rotate-mode {
+  width: 120px;
+}
+body main.main .toolbar .tools input[type=radio]:checked ~ .rotate-mode div {
+  flex-basis: 30px;
+  cursor: pointer;
+  background-size: 15px;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+body main.main .toolbar .tools input[type=radio]:checked ~ .rotate-mode .rotate-right,
+body main.main .toolbar .tools input[type=radio]:checked ~ .rotate-mode .rotate-left {
+  font-size: 0.4em;
+  display: flex;
+  color: #fff;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+body main.main .toolbar .tools input[type=radio]:checked ~ .rotate-mode .rotate-right {
+  background-image: url("../images/redo.svg");
+}
+body main.main .toolbar .tools input[type=radio]:checked ~ .rotate-mode .rotate-left {
+  background-image: url("../images/undo.svg");
+}
+body main.main .toolbar .tools input[type=radio]:checked ~ .rotate-mode .mirror-vertical {
+  background-image: url("../images/mirror-ver.svg");
+}
+body main.main .toolbar .tools input[type=radio]:checked ~ .rotate-mode .mirror-horizontal {
+  background-image: url("../images/mirror-hor.svg");
 }
 body main.main .toolbar .pen label {
   background-image: url("../images/pen.svg");
@@ -381,6 +413,9 @@ body main.main .toolbar .fill label {
 }
 body main.main .toolbar .crop label {
   background-image: url("../images/crop.svg");
+}
+body main.main .toolbar .rotate label {
+  background-image: url("../images/rotate.svg");
 }
 body main.main .toolbar .replace-color input {
   background-image: url("../images/replace.svg");

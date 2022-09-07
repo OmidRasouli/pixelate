@@ -38,25 +38,30 @@ function startupEvents() {
   document.querySelector("#pen").addEventListener("click", () => {
     tools.PickTools(tools.Types.Pencil);
     crop.SaveChanges(false);
+    document.querySelector("#rotateMode").style.display = "none";
   });
   //Click on eraser tools
   document.querySelector("#eraser").addEventListener("click", () => {
     tools.PickTools(tools.Types.Eraser);
     crop.SaveChanges(false);
+    document.querySelector("#rotateMode").style.display = "none";
   });
   //Click on eye dropper tools
   document.querySelector("#eyedropper").addEventListener("click", () => {
     tools.PickTools(tools.Types.EyeDropper);
+    document.querySelector("#rotateMode").style.display = "none";
   });
   //Click on fill tools
   document.querySelector("#fill").addEventListener("click", () => {
     tools.PickTools(tools.Types.Fill);
     crop.SaveChanges(false);
+    document.querySelector("#rotateMode").style.display = "none";
   });
   //Click on cropper tools
-  document
-    .querySelector("#crop")
-    .addEventListener("click", () => tools.PickTools(tools.Types.Crop));
+  document.querySelector("#crop").addEventListener("click", () => {
+    tools.PickTools(tools.Types.Crop);
+    document.querySelector("#rotateMode").style.display = "none";
+  });
   //Mouse up anywhere on document
   document.addEventListener("mouseup", () => {
     tools.IsDrawing(false);
@@ -72,9 +77,46 @@ function startupEvents() {
     .querySelector("#redo")
     .addEventListener("click", () => histories.Redo());
 
+  //Click on rotate
+  document
+    .querySelector("#rotate")
+    .addEventListener(
+      "click",
+      () => (document.querySelector("#rotateMode").style.display = "")
+    );
+
+  //Click on rotate right
+  document
+    .querySelector("#rotateRight")
+    .addEventListener("click", () =>
+      rotation.Rotate(rotation.rotateMode.Right)
+    );
+
+  //Click on rotate left
+  document
+    .querySelector("#rotateLeft")
+    .addEventListener("click", () =>
+      rotation.Rotate(rotation.rotateMode.Left)
+    );
+
+  //Click on mirror vertically
+  document
+    .querySelector("#mirrorVer")
+    .addEventListener("click", () =>
+      rotation.Rotate(rotation.rotateMode.MirrorVertical)
+    );
+
+  //Click on rotate left 180
+  document
+    .querySelector("#mirrorHor")
+    .addEventListener("click", () =>
+      rotation.Rotate(rotation.rotateMode.MirrorHorizontal)
+    );
+
   //Click on replace color
   document.querySelector("#replaceColor").addEventListener("click", () => {
     replaceColorWindow.style.display = "";
+    document.querySelector("#rotateMode").style.display = "none";
     palette.CheckColors();
   });
 

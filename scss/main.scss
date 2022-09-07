@@ -156,7 +156,7 @@ body {
             justify-content: center;
             cursor: default;
 
-            &:hover .palettes{
+            &:hover .palettes {
               display: flex;
             }
 
@@ -340,7 +340,7 @@ body {
         border: none;
         cursor: pointer;
         border-radius: 3px;
-        background-size: 18px;
+        background-size: 22px;
         background-repeat: no-repeat;
         background-position: center center;
 
@@ -354,7 +354,7 @@ body {
         flex-basis: 30px;
         position: relative;
 
-        &:has(.confirm)::after {
+        &.extra-tools::after {
           content: "";
           border-bottom: 3px solid $main_f;
           border-left: 3px solid transparent;
@@ -391,7 +391,8 @@ body {
             background-color: $selected_tools;
           }
 
-          & ~ .confirm {
+          & ~ .confirm,
+          & ~ .rotate-mode {
             height: 100%;
             background-color: $selected_tools;
             box-sizing: border-box;
@@ -403,22 +404,58 @@ body {
             border-radius: 3px;
             justify-content: space-evenly;
 
-            .accept,
-            .cancel {
-              height: 100%;
+            & ~ .confirm {
+              .accept,
+              .cancel {
+                height: 100%;
+                cursor: pointer;
+                background-size: 18px;
+                background-repeat: no-repeat;
+                background-position: center center;
+                flex-basis: 30px;
+              }
+
+              .accept {
+                background-image: url("../images/check.svg");
+              }
+
+              .cancel {
+                background-image: url("../images/xmark.svg");
+              }
+            }
+          }
+
+          & ~ .rotate-mode {
+            width: 120px;
+
+            div {
+              flex-basis: 30px;
               cursor: pointer;
-              background-size: 18px;
+              background-size: 15px;
               background-repeat: no-repeat;
               background-position: center center;
-              flex-basis: 30px;
             }
 
-            .accept {
-              background-image: url("../images/check.svg");
+            .rotate-right,
+            .rotate-left {
+              font-size: 0.4em;
+              display: flex;
+              color: $main_f;
+              text-align: center;
+              justify-content: center;
+              align-items: center;
             }
-
-            .cancel {
-              background-image: url("../images/xmark.svg");
+            .rotate-right {
+              background-image: url("../images/redo.svg");
+            }
+            .rotate-left {
+              background-image: url("../images/undo.svg");
+            }
+            .mirror-vertical {
+              background-image: url("../images/mirror-ver.svg");
+            }
+            .mirror-horizontal {
+              background-image: url("../images/mirror-hor.svg");
             }
           }
         }
@@ -442,6 +479,10 @@ body {
 
       .crop label {
         background-image: url("../images/crop.svg");
+      }
+
+      .rotate label {
+        background-image: url("../images/rotate.svg");
       }
 
       .replace-color input {

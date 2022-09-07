@@ -117,7 +117,7 @@
         <input type="radio" name="draw" id="fill" />
         <label for="fill"></label>
       </div>
-      <div class="crop tools">
+      <div class="crop tools extra-tools">
         <input type="radio" name="draw" id="crop" />
         <label for="crop"></label>
         <div class="confirm" id="confirmCrop">
@@ -133,6 +133,16 @@
       </div>
       <div class="replace-color tools">
         <input type="button" class="replace-color" id="replaceColor" />
+      </div>
+      <div class="rotate tools extra-tools">
+        <input type="radio" name="draw" id="rotate" />
+        <label for="rotate"></label>
+        <div class="rotate-mode" id="rotateMode">
+          <div class="rotate-right" id="rotateRight"></div>
+          <div class="rotate-left" id="rotateLeft"></div>
+          <div class="mirror-vertical" id="mirrorVer"></div>
+          <div class="mirror-horizontal" id="mirrorHor"></div>
+        </div>
       </div>
       <div class="color-picker">
         <input type="color" class="colorPicker" name="color" id="color" value="#000000" />
@@ -155,6 +165,7 @@
   <script src="./scripts/scriptHandler.js"></script>
   <script src="./scripts/history.js"></script>
   <script src="./scripts/crop.js"></script>
+  <script src="./scripts/rotation.js"></script>
   <script src="./scripts/colorPalette.js"></script>
   <script src="./scripts/tools.js"></script>
   <script src="./scripts/cellClass.js"></script>

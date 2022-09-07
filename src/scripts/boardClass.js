@@ -148,23 +148,27 @@ class Board {
       ]
     );
 
+    this.CreateCells(this.cells);
+
+    histories.SaveHistory(this.cells);
+  }
+
+  CreateCells(cellsObj) {
     const count = this.Width * this.Height;
 
     //Create cells(pixels)
     for (let i = 0; i < count; i++) {
       const cell = new Cell();
       cell.CreateCell(i);
-      this.cells[cell.ID] = cell;
+      cellsObj[cell.ID] = cell;
       this.AddToCanvas(cell);
     }
-
-    histories.SaveHistory(this.cells);
   }
 
   AddToCanvas(cell) {
     const sibling = this.canvas.querySelector(`#cell${cell.Index - 1}`);
     if (sibling === null) {
-      if (this.canvas.lastChild === null) {
+      if (this.canvas.lastChild === null || cell.Index === 0) {
         this.canvas.prepend(cell.Element);
       } else {
         this.canvas.append(cell.Element);
@@ -242,6 +246,11 @@ class Board {
     }
   }
 
+  Clear() {
+    this.canvas.innerHTML = "";
+    this.cells = { ToJSON: this.cells.ToJSON, FromJSON: this.cells.FromJSON };
+  }
+
   CropCells(from, to) {
     const cellsInRange = new Set();
     const row = Math.abs(to.row - from.row) + 1;
@@ -309,6 +318,60 @@ class Board {
     }
 
     exportAndShow();
-    histories.SaveHistory(this.cells)
+    histories.SaveHistory(this.cells);
+  }
+
+  Rotate(mode) {
+    if (this.cells === null) return;
+
+    const newCells = {
+      ToJSON: this.cells.ToJSON,
+      FromJSON: this.cells.FromJSON,
+    };
+
+    if (
+      mode === rotation.rotateMode.Right ||
+      mode === rotation.rotateMode.Left
+    ) {
+      this.DefineSize(this.Height, this.Width, this.Thickness, this.Roundness);
+      this.UpdateStyle();
+    }
+
+    this.CreateCells(newCells);
+
+    for (const cell of Object.keys(this.cells)) {
+      if (typeof this.cells[cell] != "function") {
+        const index = this.GetIndex(this.cells[cell], mode);
+
+        this.cells[cell].Element.remove();
+        newCells[`cell${index}`].Assign(index);
+        newCells[`cell${index}`].ChangeColor(this.cells[cell].BackgroundColor);
+      }
+    }
+
+    this.cells = newCells;
+    exportAndShow();
+    histories.SaveHistory(this.cells);
+  }
+
+  GetIndex(cell, mode) {
+    switch (mode) {
+      case rotation.rotateMode.Right:
+        const rowRight = cell.Col;
+        const colRight = this.Width - cell.Row - 1;
+        return this.Width * rowRight + colRight;
+      case rotation.rotateMode.Left:
+        const rowLeft = this.Height - cell.Col - 1;
+        const colLeft = cell.Row;
+        return this.Width * rowLeft + colLeft;
+      case rotation.rotateMode.MirrorVertical:
+        const col = this.Width - cell.Col - 1;
+        return this.Width * cell.Row + col;
+      case rotation.rotateMode.MirrorHorizontal:
+        const row = this.Height - cell.Row - 1;
+        return this.Width * row + cell.Col;
+      default:
+        return null;
+    }
   }
 }

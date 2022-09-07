@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect y="245" x="118.093" height="10" width="263.814" rx="3" ry="3" fill="#ffffff"></rect>
+  <path d="M 277.204 170 L 437.204 330 L 277.204 330 L 277.204 170 Z" data-bx-shape="triangle 277.204 170 160 160 0 0 1@e1702138" fill="#ffffff" transform="matrix(0, 1, -1, 0, 499.999512, 0.000496)"></path>
+  <path d="M 222.795 170 L 222.795 330 L 62.795 330 L 222.795 170 Z" data-bx-shape="triangle 62.795 170 160 160 1 0 1@ba5a5f28" fill="#ffffff" transform="matrix(0, 1, -1, 0, 499.999512, 0.000496)"></path>
+</svg>

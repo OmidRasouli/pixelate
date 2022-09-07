@@ -369,7 +369,7 @@ body main.main .toolbar .tools input[type=radio]:checked ~ .confirm ~ .confirm .
   background-image: url("../images/xmark.svg");
 }
 body main.main .toolbar .tools input[type=radio]:checked ~ .rotate-mode {
-  width: 200px;
+  width: 120px;
 }
 body main.main .toolbar .tools input[type=radio]:checked ~ .rotate-mode div {
   flex-basis: 30px;
@@ -378,16 +378,21 @@ body main.main .toolbar .tools input[type=radio]:checked ~ .rotate-mode div {
   background-repeat: no-repeat;
   background-position: center center;
 }
-body main.main .toolbar .tools input[type=radio]:checked ~ .rotate-mode .rotate-right-90,
-body main.main .toolbar .tools input[type=radio]:checked ~ .rotate-mode .rotate-right-180,
-body main.main .toolbar .tools input[type=radio]:checked ~ .rotate-mode .rotate-left-90,
-body main.main .toolbar .tools input[type=radio]:checked ~ .rotate-mode .rotate-left-180 {
+body main.main .toolbar .tools input[type=radio]:checked ~ .rotate-mode .rotate-right,
+body main.main .toolbar .tools input[type=radio]:checked ~ .rotate-mode .rotate-left {
   font-size: 0.4em;
   display: flex;
   color: #fff;
   text-align: center;
   justify-content: center;
   align-items: center;
+  background-size: 15px;
+}
+body main.main .toolbar .tools input[type=radio]:checked ~ .rotate-mode .rotate-right {
+  background-image: url("../images/redo.svg");
+}
+body main.main .toolbar .tools input[type=radio]:checked ~ .rotate-mode .rotate-left {
+  background-image: url("../images/undo.svg");
 }
 body main.main .toolbar .tools input[type=radio]:checked ~ .rotate-mode .mirror-vertical {
   background-image: url("../images/mirror-ver.svg");

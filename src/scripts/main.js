@@ -10,7 +10,6 @@ const createWindow = document.querySelector("#createWindow");
 const optionsWindow = document.querySelector("#optionsWindow");
 const replaceColorWindow = document.querySelector("#replaceColorWindow");
 const colorPicker = document.querySelector("#color");
-const canvas = document.querySelector("#canvas");
 const sample = document.querySelector("#sample");
 const output = document.querySelector("#output");
 const histories = new History();
@@ -26,11 +25,11 @@ const crop = new Crop(
 (function () {
   cleanData();
   startupEvents();
-  board = new Board(width(), height(), thickness(), roundness(), canvas);
+  board = new Board(width(), height(), thickness(), roundness(), document.querySelector("#canvas"));
 })();
 
 function cleanData() {
   histories.Clear();
-  canvas.innerHTML = "";
+  board.Clear();
   exportAndShow();
 }

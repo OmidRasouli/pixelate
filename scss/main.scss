@@ -426,7 +426,7 @@ body {
           }
 
           & ~ .rotate-mode {
-            width: 200px;
+            width: 120px;
 
             div {
               flex-basis: 30px;
@@ -436,16 +436,21 @@ body {
               background-position: center center;
             }
 
-            .rotate-right-90,
-            .rotate-right-180,
-            .rotate-left-90,
-            .rotate-left-180 {
+            .rotate-right,
+            .rotate-left {
               font-size: 0.4em;
               display: flex;
               color: $main_f;
               text-align: center;
               justify-content: center;
               align-items: center;
+              background-size: 15px;
+            }
+            .rotate-right {
+              background-image: url("../images/redo.svg");
+            }
+            .rotate-left {
+              background-image: url("../images/undo.svg");
             }
             .mirror-vertical {
               background-image: url("../images/mirror-ver.svg");

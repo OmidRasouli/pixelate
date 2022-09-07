@@ -85,6 +85,34 @@ function startupEvents() {
       () => (document.querySelector("#rotateMode").style.display = "")
     );
 
+  //Click on rotate right
+  document
+    .querySelector("#rotateRight")
+    .addEventListener("click", () =>
+      rotation.Rotate(rotation.rotateMode.Right)
+    );
+
+  //Click on rotate left
+  document
+    .querySelector("#rotateLeft")
+    .addEventListener("click", () =>
+      rotation.Rotate(rotation.rotateMode.Left)
+    );
+
+  //Click on mirror vertically
+  document
+    .querySelector("#mirrorVer")
+    .addEventListener("click", () =>
+      rotation.Rotate(rotation.rotateMode.MirrorVertical)
+    );
+
+  //Click on rotate left 180
+  document
+    .querySelector("#mirrorHor")
+    .addEventListener("click", () =>
+      rotation.Rotate(rotation.rotateMode.MirrorHorizontal)
+    );
+
   //Click on replace color
   document.querySelector("#replaceColor").addEventListener("click", () => {
     replaceColorWindow.style.display = "";

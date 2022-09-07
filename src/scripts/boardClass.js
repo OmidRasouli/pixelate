@@ -343,8 +343,6 @@ class Board {
       if (typeof this.cells[cell] != "function") {
         const index = this.GetIndex(this.cells[cell], mode);
 
-        console.log(index, cell);
-
         this.cells[cell].Element.remove();
         newCells[`cell${index}`].Assign(index);
         newCells[`cell${index}`].ChangeColor(this.cells[cell].BackgroundColor);
@@ -364,7 +362,7 @@ class Board {
         return this.Width * rowRight + colRight;
       case rotation.rotateMode.Left:
         const rowLeft = this.Height - cell.Col - 1;
-        const colLeft = this.Width - cell.Row - 1;
+        const colLeft = cell.Row;
         return this.Width * rowLeft + colLeft;
       case rotation.rotateMode.MirrorVertical:
         const col = this.Width - cell.Col - 1;

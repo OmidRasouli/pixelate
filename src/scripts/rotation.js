@@ -8,7 +8,9 @@ class Rotation {
     MirrorHorizontal: "horizontal",
   };
 
-  constructor() {}
+  constructor() {
+    setStyle(document.querySelector("#rotateMode"), ["display"], ["none"]);
+  }
 
   Rotate(mode) {
     switch (mode) {
@@ -29,6 +31,4 @@ class Rotation {
         break;
     }
   }
-
-  
 }

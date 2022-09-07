@@ -38,25 +38,30 @@ function startupEvents() {
   document.querySelector("#pen").addEventListener("click", () => {
     tools.PickTools(tools.Types.Pencil);
     crop.SaveChanges(false);
+    document.querySelector("#rotateMode").style.display = "none";
   });
   //Click on eraser tools
   document.querySelector("#eraser").addEventListener("click", () => {
     tools.PickTools(tools.Types.Eraser);
     crop.SaveChanges(false);
+    document.querySelector("#rotateMode").style.display = "none";
   });
   //Click on eye dropper tools
   document.querySelector("#eyedropper").addEventListener("click", () => {
     tools.PickTools(tools.Types.EyeDropper);
+    document.querySelector("#rotateMode").style.display = "none";
   });
   //Click on fill tools
   document.querySelector("#fill").addEventListener("click", () => {
     tools.PickTools(tools.Types.Fill);
     crop.SaveChanges(false);
+    document.querySelector("#rotateMode").style.display = "none";
   });
   //Click on cropper tools
-  document
-    .querySelector("#crop")
-    .addEventListener("click", () => tools.PickTools(tools.Types.Crop));
+  document.querySelector("#crop").addEventListener("click", () => {
+    tools.PickTools(tools.Types.Crop);
+    document.querySelector("#rotateMode").style.display = "none";
+  });
   //Mouse up anywhere on document
   document.addEventListener("mouseup", () => {
     tools.IsDrawing(false);
@@ -72,9 +77,18 @@ function startupEvents() {
     .querySelector("#redo")
     .addEventListener("click", () => histories.Redo());
 
+  //Click on rotate
+  document
+    .querySelector("#rotate")
+    .addEventListener(
+      "click",
+      () => (document.querySelector("#rotateMode").style.display = "")
+    );
+
   //Click on replace color
   document.querySelector("#replaceColor").addEventListener("click", () => {
     replaceColorWindow.style.display = "";
+    document.querySelector("#rotateMode").style.display = "none";
     palette.CheckColors();
   });
 

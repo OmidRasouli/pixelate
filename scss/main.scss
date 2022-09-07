@@ -391,7 +391,8 @@ body {
             background-color: $selected_tools;
           }
 
-          & ~ .confirm {
+          & ~ .confirm,
+          & ~ .rotate-mode {
             height: 100%;
             background-color: $selected_tools;
             box-sizing: border-box;
@@ -403,22 +404,54 @@ body {
             border-radius: 3px;
             justify-content: space-evenly;
 
-            .accept,
-            .cancel {
-              height: 100%;
+            & ~ .confirm {
+              .accept,
+              .cancel {
+                height: 100%;
+                cursor: pointer;
+                background-size: 18px;
+                background-repeat: no-repeat;
+                background-position: center center;
+                flex-basis: 30px;
+              }
+
+              .accept {
+                background-image: url("../images/check.svg");
+              }
+
+              .cancel {
+                background-image: url("../images/xmark.svg");
+              }
+            }
+          }
+
+          & ~ .rotate-mode {
+            width: 200px;
+
+            div {
+              flex-basis: 30px;
               cursor: pointer;
-              background-size: 18px;
+              background-size: 22px;
               background-repeat: no-repeat;
               background-position: center center;
-              flex-basis: 30px;
             }
 
-            .accept {
-              background-image: url("../images/check.svg");
+            .rotate-right-90,
+            .rotate-right-180,
+            .rotate-left-90,
+            .rotate-left-180 {
+              font-size: 0.4em;
+              display: flex;
+              color: $main_f;
+              text-align: center;
+              justify-content: center;
+              align-items: center;
             }
-
-            .cancel {
-              background-image: url("../images/xmark.svg");
+            .mirror-vertical {
+              background-image: url("../images/mirror-ver.svg");
+            }
+            .mirror-horizontal {
+              background-image: url("../images/mirror-hor.svg");
             }
           }
         }

@@ -31,7 +31,7 @@ function clearElement(parent) {
   }
 }
 
-function loadImage(event, img, callback) {
+function loadImage(event, callback) {
   let target = event.target;
   let files = target.files;
 
@@ -39,8 +39,7 @@ function loadImage(event, img, callback) {
   if (FileReader && files && files.length) {
     let fr = new FileReader();
     fr.onload = function () {
-      img.src = fr.result;
-      callback;
+      importer.LoadImage(fr.result, callback);
     };
     fr.readAsDataURL(files[0]);
   }

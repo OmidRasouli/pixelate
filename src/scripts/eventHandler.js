@@ -8,9 +8,9 @@ function startupEvents() {
     .querySelector("#options")
     .addEventListener("click", () => (optionsWindow.style.display = ""));
   //Click on submenu (import)
-  document
-    .querySelector("#import")
-    .addEventListener("click", () => (importWindow.style.display = ""));
+  document.querySelector("#import").addEventListener("click", () => {
+    importWindow.style.display = "";
+  });
   //Click on close create window
   document
     .querySelector("#closeWindow")
@@ -32,11 +32,10 @@ function startupEvents() {
     );
   //Change image importer
   document.querySelector("#image").addEventListener("change", (e) => {
-    loadImage(
-      e,
-      document.querySelector("#importImg"),
-      importPreview(document.querySelector("#pixelSize").value)
-    );
+    const pixelSize = document.querySelector("#pixelSize").value;
+    thicknessEl.value = pixelSize;
+    thicknessOpt.value = pixelSize;
+    loadImage(e, importPreview(pixelSize));
   });
   //Change border size (image importer)
   document
@@ -53,6 +52,12 @@ function startupEvents() {
     roundnessEl.value = roundnessOpt.value;
     UpdateOptions();
     optionsWindow.style.display = "none";
+  });
+  //Click on import image
+  document.querySelector("#importImage").addEventListener("click", () => {
+    importer.Import(
+      document.querySelector("#pixelSize").value
+    );
   });
   //Click on pen tools
   document.querySelector("#pen").addEventListener("click", () => {

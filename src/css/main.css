@@ -98,7 +98,7 @@ body .popup-window .window .body .input.preview {
   position: relative;
 }
 body .popup-window .window .body .input.preview .preview-grid {
-  background-image: repeating-linear-gradient(rgb(0, 200, 255) 0 1px, transparent 1px 100%), repeating-linear-gradient(90deg, rgb(0, 200, 255) 0 1px, transparent 1px 100%);
+  background-image: repeating-linear-gradient(rgba(0, 200, 255, 0.3) 0 1px, transparent 1px 100%), repeating-linear-gradient(90deg, rgba(0, 200, 255, 0.3) 0 1px, transparent 1px 100%);
   position: absolute;
 }
 body .popup-window .window .body .input label {

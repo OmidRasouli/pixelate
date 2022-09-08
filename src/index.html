@@ -19,6 +19,7 @@
           <ul>
             <li id="new">New</li>
             <li id="options">Options</li>
+            <li id="import">Import</li>
             <li>Export</li>
           </ul>
         </li>
@@ -73,6 +74,31 @@
       </div>
       <div class="footer">
         <button class="button" id="saveOptions">Save</button>
+      </div>
+    </div>
+  </div>
+  <div id="importWindow" class="popup-window" style="display: none;">
+    <div class="window">
+      <div class="header">
+        <div class="title">Import</div>
+        <div class="close" id="closeImportWindow"></div>
+      </div>
+      <div class="body">
+        <div class="input">
+          <label for="width">Image:</label>
+          <input type="file" id="image" />
+        </div>
+        <div class="input">
+          <label for="pixelSize">Pixel size</label>
+          <input type="number" id="pixelSize" value="1" min="1" />
+        </div>
+        <div class="input preview">
+          <img src="" id="importImg" height="200" alt="importer" />
+          <div class="preview-grid" id="previewGrid"></div>
+        </div>
+      </div>
+      <div class="footer">
+        <button class="button" id="import">Import</button>
       </div>
     </div>
   </div>

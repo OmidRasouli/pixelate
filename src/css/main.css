@@ -90,6 +90,17 @@ body .popup-window .window .body .input {
   align-items: center;
   height: 40px;
 }
+body .popup-window .window .body .input.preview {
+  height: auto;
+  padding: 20px 30px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+body .popup-window .window .body .input.preview .preview-grid {
+  background-image: repeating-linear-gradient(rgb(0, 200, 255) 0 1px, transparent 1px 100%), repeating-linear-gradient(90deg, rgb(0, 200, 255) 0 1px, transparent 1px 100%);
+  position: absolute;
+}
 body .popup-window .window .body .input label {
   font-size: 0.6em;
   color: #fff;

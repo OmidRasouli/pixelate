@@ -7,6 +7,10 @@ function startupEvents() {
   document
     .querySelector("#options")
     .addEventListener("click", () => (optionsWindow.style.display = ""));
+  //Click on submenu (import)
+  document
+    .querySelector("#import")
+    .addEventListener("click", () => (importWindow.style.display = ""));
   //Click on close create window
   document
     .querySelector("#closeWindow")
@@ -15,6 +19,10 @@ function startupEvents() {
   document
     .querySelector("#closeOptions")
     .addEventListener("click", () => (optionsWindow.style.display = "none"));
+  //Click on close import window
+  document
+    .querySelector("#closeImportWindow")
+    .addEventListener("click", () => (importWindow.style.display = "none"));
   //Click on close replace color window
   document
     .querySelector("#closeReplaceColor")
@@ -22,6 +30,15 @@ function startupEvents() {
       "click",
       () => (replaceColorWindow.style.display = "none")
     );
+  //Change image importer
+  document.querySelector("#image").addEventListener("change", (e) => {
+    loadImage(e, document.querySelector("#importImg"));
+    importPreview(document.querySelector("#pixelSize").value);
+  });
+  //Change border size (image importer)
+  document
+    .querySelector("#pixelSize")
+    .addEventListener("keyup", (e) => importPreview(e.target.value));
   //Click on replace color window
   document.querySelector("#saveReplaceColor").addEventListener("click", () => {
     replaceColorWindow.style.display = "none";
@@ -95,9 +112,7 @@ function startupEvents() {
   //Click on rotate left
   document
     .querySelector("#rotateLeft")
-    .addEventListener("click", () =>
-      rotation.Rotate(rotation.rotateMode.Left)
-    );
+    .addEventListener("click", () => rotation.Rotate(rotation.rotateMode.Left));
 
   //Click on mirror vertically
   document
@@ -167,4 +182,20 @@ function UpdateOptions() {
 
   //Export them, then show the sample and replace the code
   exportAndShow();
+}
+
+function importPreview(value) {
+  {
+    const gridPreview = document.querySelector("#previewGrid");
+    const importImg = document.querySelector("#importImg");
+    setStyle(
+      gridPreview,
+      ["background-size", "width", "height"],
+      [
+        `${value}px ${value}px`,
+        `${importImg.clientWidth}px`,
+        `${importImg.clientHeight}px`,
+      ]
+    );
+  }
 }

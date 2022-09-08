@@ -8,6 +8,7 @@ const thicknessOpt = document.querySelector("#thicknessOpt");
 const roundnessOpt = document.querySelector("#roundnessOpt");
 const createWindow = document.querySelector("#createWindow");
 const optionsWindow = document.querySelector("#optionsWindow");
+const importWindow = document.querySelector("#importWindow");
 const replaceColorWindow = document.querySelector("#replaceColorWindow");
 const colorPicker = document.querySelector("#color");
 const sample = document.querySelector("#sample");
@@ -24,7 +25,13 @@ const crop = new Crop(
 
 (function () {
   startupEvents();
-  board = new Board(width(), height(), thickness(), roundness(), document.querySelector("#canvas"));
+  board = new Board(
+    width(),
+    height(),
+    thickness(),
+    roundness(),
+    document.querySelector("#canvas")
+  );
 })();
 
 function cleanData() {

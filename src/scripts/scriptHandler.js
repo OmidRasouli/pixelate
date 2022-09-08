@@ -25,8 +25,22 @@ function findInex(i, j, width) {
   return (i * width + j).toString();
 }
 
-function clearElement(parent){
-  while(parent.firstElementChild) {
+function clearElement(parent) {
+  while (parent.firstElementChild) {
     parent.firstElementChild.remove();
+  }
+}
+
+function loadImage(event, img) {
+  let target = event.target;
+  let files = target.files;
+
+  // FileReader support
+  if (FileReader && files && files.length) {
+    let fr = new FileReader();
+    fr.onload = function () {
+      img.src = fr.result;
+    };
+    fr.readAsDataURL(files[0]);
   }
 }

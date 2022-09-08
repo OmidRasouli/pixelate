@@ -100,6 +100,21 @@ body {
           align-items: center;
           height: 40px;
 
+          input[type="file"] {
+            width: 95px;
+          }
+            input[type="file"]::file-selector-button {
+            font-weight: bold;
+            padding: 7px;
+            width: 95px;
+            text-align: center;
+            box-sizing: border-box;
+            font-size: 0.5em;
+            background-color: $body_bg;
+            color: $main_f;
+            font-family: "Press Start 2P";
+          }
+
           &.preview {
             height: auto;
             padding: 20px 30px;
@@ -117,7 +132,7 @@ body {
                   rgba(0, 200, 255, 0.3) 0 1px,
                   transparent 1px 100%
                 );
-                position: absolute;
+              position: absolute;
             }
           }
 

@@ -8,6 +8,7 @@ const thicknessOpt = document.querySelector("#thicknessOpt");
 const roundnessOpt = document.querySelector("#roundnessOpt");
 const createWindow = document.querySelector("#createWindow");
 const optionsWindow = document.querySelector("#optionsWindow");
+const importWindow = document.querySelector("#importWindow");
 const replaceColorWindow = document.querySelector("#replaceColorWindow");
 const colorPicker = document.querySelector("#color");
 const sample = document.querySelector("#sample");
@@ -16,6 +17,7 @@ const histories = new History();
 const tools = new Tools();
 let board = new Board();
 const rotation = new Rotation();
+const importer = new Importer(document.querySelector("#importImg"));
 let palette = new Color(document.querySelector("#palettes"));
 const crop = new Crop(
   document.querySelector("#cropperHint"),
@@ -24,7 +26,13 @@ const crop = new Crop(
 
 (function () {
   startupEvents();
-  board = new Board(width(), height(), thickness(), roundness(), document.querySelector("#canvas"));
+  board = new Board(
+    width(),
+    height(),
+    thickness(),
+    roundness(),
+    document.querySelector("#canvas")
+  );
 })();
 
 function cleanData() {

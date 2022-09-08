@@ -292,6 +292,12 @@ class Board {
     histories.SaveHistory(this.cells);
   }
 
+  ColorCells(cells) {
+    for (const cell of Object.entries(cells)) {
+      this.cells[cell[0]].ChangeColor(cell[1]);
+    }
+  }
+
   GetColors() {
     const colors = new Set();
     for (const cell of Object.keys(this.cells)) {

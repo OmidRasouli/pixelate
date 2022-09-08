@@ -90,6 +90,42 @@ body .popup-window .window .body .input {
   align-items: center;
   height: 40px;
 }
+body .popup-window .window .body .input input[type=file] {
+  width: 95px;
+}
+body .popup-window .window .body .input input[type=file]::-webkit-file-upload-button {
+  font-weight: bold;
+  padding: 7px;
+  width: 95px;
+  text-align: center;
+  box-sizing: border-box;
+  font-size: 0.5em;
+  background-color: #404040;
+  color: #fff;
+  font-family: "Press Start 2P";
+}
+body .popup-window .window .body .input input[type=file]::file-selector-button {
+  font-weight: bold;
+  padding: 7px;
+  width: 95px;
+  text-align: center;
+  box-sizing: border-box;
+  font-size: 0.5em;
+  background-color: #404040;
+  color: #fff;
+  font-family: "Press Start 2P";
+}
+body .popup-window .window .body .input.preview {
+  height: auto;
+  padding: 20px 30px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+body .popup-window .window .body .input.preview .preview-grid {
+  background-image: repeating-linear-gradient(rgba(0, 200, 255, 0.3) 0 1px, transparent 1px 100%), repeating-linear-gradient(90deg, rgba(0, 200, 255, 0.3) 0 1px, transparent 1px 100%);
+  position: absolute;
+}
 body .popup-window .window .body .input label {
   font-size: 0.6em;
   color: #fff;

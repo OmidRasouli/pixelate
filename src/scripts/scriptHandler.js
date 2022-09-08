@@ -12,8 +12,7 @@ function setStyle(element, property, style) {
 function rgb2hex(rgb) {
   const regex = new RegExp(/^rgba?/);
   if (!regex.test(rgb)) return rgb;
-
-  rgb = rgb.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(,\s*\d+\.*\d+)?\)$/);
+  rgb = rgb.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(,\s*\d+(\.*\d+)?)?\)$/);
   return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
 }
 
@@ -25,8 +24,22 @@ function findInex(i, j, width) {
   return (i * width + j).toString();
 }
 
-function clearElement(parent){
-  while(parent.firstElementChild) {
+function clearElement(parent) {
+  while (parent.firstElementChild) {
     parent.firstElementChild.remove();
+  }
+}
+
+function loadImage(event, callback) {
+  let target = event.target;
+  let files = target.files;
+
+  // FileReader support
+  if (FileReader && files && files.length) {
+    let fr = new FileReader();
+    fr.onload = function () {
+      importer.LoadImage(fr.result, callback);
+    };
+    fr.readAsDataURL(files[0]);
   }
 }

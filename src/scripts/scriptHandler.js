@@ -31,7 +31,7 @@ function clearElement(parent) {
   }
 }
 
-function loadImage(event, img) {
+function loadImage(event, img, callback) {
   let target = event.target;
   let files = target.files;
 
@@ -40,6 +40,7 @@ function loadImage(event, img) {
     let fr = new FileReader();
     fr.onload = function () {
       img.src = fr.result;
+      callback();
     };
     fr.readAsDataURL(files[0]);
   }

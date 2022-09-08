@@ -32,8 +32,11 @@ function startupEvents() {
     );
   //Change image importer
   document.querySelector("#image").addEventListener("change", (e) => {
-    loadImage(e, document.querySelector("#importImg"));
-    importPreview(document.querySelector("#pixelSize").value);
+    loadImage(
+      e,
+      document.querySelector("#importImg"),
+      importPreview(document.querySelector("#pixelSize").value)
+    );
   });
   //Change border size (image importer)
   document

@@ -17,12 +17,12 @@ function shadowCalculation() {
       y: board.cells[shadow].Row * board.Thickness + board.Thickness,
       color: board.cells[shadow].BackgroundColor,
       join: function () {
-        return `${this.x}px ${this.y}px 0 0 ${this.color},`;
+        return `${this.x}px ${this.y}px ${this.color},`;
       },
       scaleAndJoin: function (ratio) {
         const x = Math.max(this.x * ratio, 1);
         const y = Math.max(this.y * ratio, 1);
-        return `${x}px ${y}px 0 0 ${this.color},`;
+        return `${x}px ${y}px ${this.color},`;
       },
     });
   }

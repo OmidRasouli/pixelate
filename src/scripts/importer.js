@@ -32,7 +32,6 @@ class Importer {
         importer.Canvas.width = image.width;
       }
 
-      console.log(image.width, image.height);
       importer.Context.drawImage(
         image,
         0,

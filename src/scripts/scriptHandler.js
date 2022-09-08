@@ -40,7 +40,7 @@ function loadImage(event, img, callback) {
     let fr = new FileReader();
     fr.onload = function () {
       img.src = fr.result;
-      callback();
+      callback;
     };
     fr.readAsDataURL(files[0]);
   }

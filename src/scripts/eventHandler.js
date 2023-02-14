@@ -15,6 +15,10 @@ function startupEvents() {
   document.querySelector("#export-svg").addEventListener("click", () => {
     exportSVG();
   });
+  //Click on submenu (export -> JSON)
+  document.querySelector("#export-json").addEventListener("click", () => {
+    exportJSON();
+  });
   //Click on close create window
   document
     .querySelector("#closeWindow")

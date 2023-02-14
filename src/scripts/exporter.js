@@ -39,6 +39,12 @@ function exportSVG() {
   download("image/svg+xml", "svg", svg.outerHTML);
 }
 
+function exportJSON(){
+  const data = shadowCalculation(false);
+
+  download("application/json", "json", JSON.stringify(data));
+}
+
 function download(MIME, type, data) {
   var element = document.createElement('a');
   element.setAttribute('href', `data:${MIME};base64,${btoa(data)}`);

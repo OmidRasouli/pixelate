@@ -30,6 +30,10 @@ function shadowCalculation() {
   return data;
 }
 
+function exportSVG() {
+  
+}
+
 function exportPixelArt() {
   const data = shadowCalculation();
 
@@ -59,9 +63,8 @@ function showSample(data) {
 
   const boxShadow = shadows.length === 0 ? "" : `box-shadow: ${shadows}`;
 
-  let style = `width: ${scaledPixel}px;height: ${scaledPixel}px;border-radius: ${
-    board.Roundness % 101
-  }%;${boxShadow};`;
+  let style = `width: ${scaledPixel}px;height: ${scaledPixel}px;border-radius: ${board.Roundness % 101
+    }%;${boxShadow};`;
 
   const width = 150 - board.Width * 0.5 * scaledPixel - scaledPixel;
   const height = 150 - board.Height * 0.5 * scaledPixel - scaledPixel;

@@ -2,7 +2,7 @@ const exportAndShow = debounce(() => {
   exportPixelArt();
 });
 
-function shadowCalculation() {
+function shadowCalculation(extraSpace) {
   let data = [];
 
   for (const shadow of Object.keys(board.cells)) {
@@ -12,9 +12,11 @@ function shadowCalculation() {
     )
       continue;
 
+    const space = extraSpace ? board.Thickness : 0;
+
     data.push({
-      x: board.cells[shadow].Col * board.Thickness + board.Thickness,
-      y: board.cells[shadow].Row * board.Thickness + board.Thickness,
+      x: board.cells[shadow].Col * board.Thickness + space,
+      y: board.cells[shadow].Row * board.Thickness + space,
       color: board.cells[shadow].BackgroundColor,
       join: function () {
         return `${this.x}px ${this.y}px ${this.color},`;
@@ -31,11 +33,12 @@ function shadowCalculation() {
 }
 
 function exportSVG() {
-  
+  const data = shadowCalculation(false);
+  svgCreator({ ...board.Size, "borderRadius": board.Roundness }, data);
 }
 
 function exportPixelArt() {
-  const data = shadowCalculation();
+  const data = shadowCalculation(true);
 
   const shadows = data.reduce((prev, current) => prev + current.join(), "");
 

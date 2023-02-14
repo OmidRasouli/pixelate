@@ -47,7 +47,6 @@ function exportPixelArt() {
   if (board.Roundness > 0) {
     style += `\nborder-radius: ${board.Roundness}%;`;
   }
-  output.textContent = style;
 
   showSample(data);
 }

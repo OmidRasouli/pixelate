@@ -546,19 +546,4 @@ body main.main .result > div:before {
   top: 30px;
   box-sizing: border-box;
   background-color: #171717;
-}
-body main.main .result #output {
-  flex-grow: 1;
-  color: #fff;
-  background-color: transparent;
-  border: none;
-  resize: none;
-  background-color: #171717;
-  font-size: 0.7em;
-  line-height: 1.7em;
-  padding: 10px;
-}
-body main.main .result #output:focus {
-  border-radius: 0;
-  outline: none;
 }/*# sourceMappingURL=main.css.map */

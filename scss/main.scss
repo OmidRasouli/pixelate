@@ -654,23 +654,6 @@ body {
           background-color: $selected_tools;
         }
       }
-
-      #output {
-        flex-grow: 1;
-        color: $main_f;
-        background-color: transparent;
-        border: none;
-        resize: none;
-        background-color: $selected_tools;
-        font-size: 0.7em;
-        line-height: 1.7em;
-        padding: 10px;
-
-        &:focus {
-          border-radius: 0;
-          outline: none;
-        }
-      }
     }
   }
 

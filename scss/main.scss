@@ -103,7 +103,7 @@ body {
           input[type="file"] {
             width: 95px;
           }
-            input[type="file"]::file-selector-button {
+          input[type="file"]::file-selector-button {
             font-weight: bold;
             padding: 7px;
             width: 95px;
@@ -283,6 +283,28 @@ body {
         position: relative;
         & > li {
           border-bottom: 1px solid $separator;
+
+          & > ul > li {
+            position: relative;
+
+            & > ul {
+              position: absolute;
+              left: 100%;
+              top: 0;
+            }
+          }
+        }
+
+        .expand-menu {
+          width: 5px;
+          height: 10px;
+          background-image: url("../images/caret-right.svg");
+          display: inline-block;
+          position: absolute;
+          right: 10px;
+          top: 0;
+          bottom: 0;
+          margin: auto;
         }
       }
 
@@ -299,6 +321,11 @@ body {
           height: 25px;
           line-height: 25px;
           font-size: 0.7em;
+
+          & > a{
+            color: $header_f;
+            text-decoration: none;
+          }
 
           & > span {
             height: 20px;
@@ -325,7 +352,7 @@ body {
           &:hover {
             background-color: $submenu_hover_bg;
 
-            ul {
+            & > ul {
               display: block;
             }
           }

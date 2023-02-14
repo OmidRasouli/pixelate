@@ -242,6 +242,25 @@ body header.header nav.nav-menu > ul {
 body header.header nav.nav-menu > ul > li {
   border-bottom: 1px solid #171717;
 }
+body header.header nav.nav-menu > ul > li > ul > li {
+  position: relative;
+}
+body header.header nav.nav-menu > ul > li > ul > li > ul {
+  position: absolute;
+  left: 100%;
+  top: 0;
+}
+body header.header nav.nav-menu > ul .expand-menu {
+  width: 5px;
+  height: 10px;
+  background-image: url("../images/caret-right.svg");
+  display: inline-block;
+  position: absolute;
+  right: 10px;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
 body header.header nav.nav-menu ul {
   padding: 0;
   margin: 0;
@@ -255,6 +274,10 @@ body header.header nav.nav-menu ul > li {
   height: 25px;
   line-height: 25px;
   font-size: 0.7em;
+}
+body header.header nav.nav-menu ul > li > a {
+  color: #fff;
+  text-decoration: none;
 }
 body header.header nav.nav-menu ul > li > span {
   height: 20px;
@@ -278,7 +301,7 @@ body header.header nav.nav-menu ul > li ul li {
 body header.header nav.nav-menu ul > li:hover {
   background-color: #4f4f4f;
 }
-body header.header nav.nav-menu ul > li:hover ul {
+body header.header nav.nav-menu ul > li:hover > ul {
   display: block;
 }
 body main.main {

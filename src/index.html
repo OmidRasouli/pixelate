@@ -1,205 +1,255 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pixelate</title>
+    <link rel="stylesheet" href="./css/main.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pixelate</title>
-  <link rel="stylesheet" href="./css/main.css" />
-</head>
-
-<body>
-  <header class="header">
-    <span>Pixelate</span>
-    <nav class="nav-menu">
-      <ul>
-        <li>
-          <span>File</span>
-          <ul>
-            <li id="new">New</li>
-            <li id="options">Options</li>
-            <li id="import">Import</li>
-            <li id="export">Export</li>
-          </ul>
-        </li>
-        <li><span>About</span></li>
-      </ul>
-    </nav>
-  </header>
-  <div id="createWindow" class="popup-window" style="display: none;">
-    <div class="window">
-      <div class="header">
-        <div class="title">Create new board</div>
-        <div class="close" id="closeWindow"></div>
-      </div>
-      <div class="body">
-        <div class="input">
-          <label for="width">Cells in a row</label>
-          <input type="number" id="width" placeholder="Width" value="10" min="1" max="100" />
+  <body>
+    <header class="header">
+      <span>Pixelate</span>
+      <nav class="nav-menu">
+        <ul>
+          <li>
+            <span>File</span>
+            <ul>
+              <li id="new">New</li>
+              <li id="options">Options</li>
+              <li id="import">Import</li>
+              <li>
+                <a href="#">Export</a>
+                <i class="expand-menu"></i>
+                <ul>
+                  <li id="export-svg">SVG</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li><span>About</span></li>
+        </ul>
+      </nav>
+    </header>
+    <div id="createWindow" class="popup-window" style="display: none">
+      <div class="window">
+        <div class="header">
+          <div class="title">Create new board</div>
+          <div class="close" id="closeWindow"></div>
         </div>
-        <div class="input">
-          <label for="height">Cells in a column</label>
-          <input type="number" id="height" placeholder="Height" value="10" min="1" max="100" />
-        </div>
-        <div class="input">
-          <label for="thickness">Cell size</label>
-          <input type="number" id="thickness" placeholder="Thickness" value="1" min="1" />
-        </div>
-        <div class="input">
-          <label for="roundness">Border radius</label>
-          <input type="number" id="roundness" placeholder="Roundness" value="0" min="0" max="100" />
-        </div>
-      </div>
-      <div class="footer">
-        <button class="button" id="create">Create</button>
-      </div>
-    </div>
-  </div>
-  <div id="optionsWindow" class="popup-window" style="display: none;">
-    <div class="window">
-      <div class="header">
-        <div class="title">Options</div>
-        <div class="close" id="closeOptions"></div>
-      </div>
-      <div class="body">
-        <div class="input">
-          <label for="thickness">Cell size</label>
-          <input type="number" id="thicknessOpt" placeholder="Thickness" value="1" min="1" />
-        </div>
-        <div class="input">
-          <label for="roundness">Border radius</label>
-          <input type="number" id="roundnessOpt" placeholder="Roundness" value="0" min="0" max="100" />
-        </div>
-      </div>
-      <div class="footer">
-        <button class="button" id="saveOptions">Save</button>
-      </div>
-    </div>
-  </div>
-  <div id="importWindow" class="popup-window" style="display: none;">
-    <div class="window">
-      <div class="header">
-        <div class="title">Import</div>
-        <div class="close" id="closeImportWindow"></div>
-      </div>
-      <div class="body">
-        <div class="input">
-          <label for="width">Image</label>
-          <input type="file" id="image" />
-        </div>
-        <div class="input">
-          <label for="pixelSize">Pixel size</label>
-          <input type="number" id="pixelSize" value="1" min="1" />
-        </div>
-        <div class="input preview">
-          <canvas id="importImg"></canvas>
-          <div class="preview-grid" id="previewGrid"></div>
-        </div>
-      </div>
-      <div class="footer">
-        <button class="button" id="importImage">Import</button>
-      </div>
-    </div>
-  </div>
-  <div id="replaceColorWindow" class="popup-window" style="display: none;">
-    <div class="window">
-      <div class="header">
-        <div class="title">Replace color</div>
-        <div class="close" id="closeReplaceColor"></div>
-      </div>
-      <div class="body">
-        <div class="input color-picker">
-          <label for="fromColor">From:</label>
-          <div class="replacePalette" id="replacePalette">
-            <div class="palettes" id="palettes"></div>
+        <div class="body">
+          <div class="input">
+            <label for="width">Cells in a row</label>
+            <input
+              type="number"
+              id="width"
+              placeholder="Width"
+              value="10"
+              min="1"
+              max="100"
+            />
+          </div>
+          <div class="input">
+            <label for="height">Cells in a column</label>
+            <input
+              type="number"
+              id="height"
+              placeholder="Height"
+              value="10"
+              min="1"
+              max="100"
+            />
+          </div>
+          <div class="input">
+            <label for="thickness">Cell size</label>
+            <input
+              type="number"
+              id="thickness"
+              placeholder="Thickness"
+              value="1"
+              min="1"
+            />
+          </div>
+          <div class="input">
+            <label for="roundness">Border radius</label>
+            <input
+              type="number"
+              id="roundness"
+              placeholder="Roundness"
+              value="0"
+              min="0"
+              max="100"
+            />
           </div>
         </div>
-        <div class="input color-picker">
-          <label for="toColor">To:</label>
-          <input type="color" name="color" id="toColor" value="#000000" />
+        <div class="footer">
+          <button class="button" id="create">Create</button>
         </div>
       </div>
-      <div class="footer">
-        <button class="button" id="saveReplaceColor">Replace</button>
-      </div>
     </div>
-  </div>
-  <main class="main">
-    <div class="toolbar">
-      <div class="pen tools">
-        <input type="radio" checked name="draw" id="pen" />
-        <label for="pen"></label>
-      </div>
-      <div class="eraser tools">
-        <input type="radio" name="draw" id="eraser" />
-        <label for="eraser"></label>
-      </div>
-      <div class="eyedropper tools">
-        <input type="radio" name="draw" id="eyedropper" />
-        <label for="eyedropper"></label>
-      </div>
-      <div class="fill tools">
-        <input type="radio" name="draw" id="fill" />
-        <label for="fill"></label>
-      </div>
-      <div class="crop tools extra-tools">
-        <input type="radio" name="draw" id="crop" />
-        <label for="crop"></label>
-        <div class="confirm" id="confirmCrop">
-          <div class="accept" id="acceptCrop"></div>
-          <div class="cancel" id="cancelCrop"></div>
+    <div id="optionsWindow" class="popup-window" style="display: none">
+      <div class="window">
+        <div class="header">
+          <div class="title">Options</div>
+          <div class="close" id="closeOptions"></div>
+        </div>
+        <div class="body">
+          <div class="input">
+            <label for="thickness">Cell size</label>
+            <input
+              type="number"
+              id="thicknessOpt"
+              placeholder="Thickness"
+              value="1"
+              min="1"
+            />
+          </div>
+          <div class="input">
+            <label for="roundness">Border radius</label>
+            <input
+              type="number"
+              id="roundnessOpt"
+              placeholder="Roundness"
+              value="0"
+              min="0"
+              max="100"
+            />
+          </div>
+        </div>
+        <div class="footer">
+          <button class="button" id="saveOptions">Save</button>
         </div>
       </div>
-      <div class="history">
-        <input type="button" class="undo" id="undo" />
-      </div>
-      <div class="history">
-        <input type="button" class="redo" id="redo" />
-      </div>
-      <div class="replace-color tools">
-        <input type="button" class="replace-color" id="replaceColor" />
-      </div>
-      <div class="rotate tools extra-tools">
-        <input type="radio" name="draw" id="rotate" />
-        <label for="rotate"></label>
-        <div class="rotate-mode" id="rotateMode">
-          <div class="rotate-right" id="rotateRight"></div>
-          <div class="rotate-left" id="rotateLeft"></div>
-          <div class="mirror-vertical" id="mirrorVer"></div>
-          <div class="mirror-horizontal" id="mirrorHor"></div>
+    </div>
+    <div id="importWindow" class="popup-window" style="display: none">
+      <div class="window">
+        <div class="header">
+          <div class="title">Import</div>
+          <div class="close" id="closeImportWindow"></div>
+        </div>
+        <div class="body">
+          <div class="input">
+            <label for="width">Image</label>
+            <input type="file" id="image" />
+          </div>
+          <div class="input">
+            <label for="pixelSize">Pixel size</label>
+            <input type="number" id="pixelSize" value="1" min="1" />
+          </div>
+          <div class="input preview">
+            <canvas id="importImg"></canvas>
+            <div class="preview-grid" id="previewGrid"></div>
+          </div>
+        </div>
+        <div class="footer">
+          <button class="button" id="importImage">Import</button>
         </div>
       </div>
-      <div class="color-picker">
-        <input type="color" class="colorPicker" name="color" id="color" value="#000000" />
+    </div>
+    <div id="replaceColorWindow" class="popup-window" style="display: none">
+      <div class="window">
+        <div class="header">
+          <div class="title">Replace color</div>
+          <div class="close" id="closeReplaceColor"></div>
+        </div>
+        <div class="body">
+          <div class="input color-picker">
+            <label for="fromColor">From:</label>
+            <div class="replacePalette" id="replacePalette">
+              <div class="palettes" id="palettes"></div>
+            </div>
+          </div>
+          <div class="input color-picker">
+            <label for="toColor">To:</label>
+            <input type="color" name="color" id="toColor" value="#000000" />
+          </div>
+        </div>
+        <div class="footer">
+          <button class="button" id="saveReplaceColor">Replace</button>
+        </div>
       </div>
     </div>
-    <div class="artboard" id="artboard">
-      <div class="cropperHint" id="cropperHint"></div>
-      <div class="canvas" id="canvas"></div>
-    </div>
-    <div class="result">
-      <div>
-        <div>Sample:</div>
-        <div class="sample" id="sample"></div>
+    <main class="main">
+      <div class="toolbar">
+        <div class="pen tools">
+          <input type="radio" checked name="draw" id="pen" />
+          <label for="pen"></label>
+        </div>
+        <div class="eraser tools">
+          <input type="radio" name="draw" id="eraser" />
+          <label for="eraser"></label>
+        </div>
+        <div class="eyedropper tools">
+          <input type="radio" name="draw" id="eyedropper" />
+          <label for="eyedropper"></label>
+        </div>
+        <div class="fill tools">
+          <input type="radio" name="draw" id="fill" />
+          <label for="fill"></label>
+        </div>
+        <div class="crop tools extra-tools">
+          <input type="radio" name="draw" id="crop" />
+          <label for="crop"></label>
+          <div class="confirm" id="confirmCrop">
+            <div class="accept" id="acceptCrop"></div>
+            <div class="cancel" id="cancelCrop"></div>
+          </div>
+        </div>
+        <div class="history">
+          <input type="button" class="undo" id="undo" />
+        </div>
+        <div class="history">
+          <input type="button" class="redo" id="redo" />
+        </div>
+        <div class="replace-color tools">
+          <input type="button" class="replace-color" id="replaceColor" />
+        </div>
+        <div class="rotate tools extra-tools">
+          <input type="radio" name="draw" id="rotate" />
+          <label for="rotate"></label>
+          <div class="rotate-mode" id="rotateMode">
+            <div class="rotate-right" id="rotateRight"></div>
+            <div class="rotate-left" id="rotateLeft"></div>
+            <div class="mirror-vertical" id="mirrorVer"></div>
+            <div class="mirror-horizontal" id="mirrorHor"></div>
+          </div>
+        </div>
+        <div class="color-picker">
+          <input
+            type="color"
+            class="colorPicker"
+            name="color"
+            id="color"
+            value="#000000"
+          />
+        </div>
       </div>
-    </div>
-  </main>
-  <footer class="footer"></footer>
+      <div class="artboard" id="artboard">
+        <div class="cropperHint" id="cropperHint"></div>
+        <div class="canvas" id="canvas"></div>
+      </div>
+      <div class="result">
+        <div>
+          <div>Sample:</div>
+          <div class="sample" id="sample"></div>
+        </div>
+      </div>
+    </main>
+    <footer class="footer"></footer>
 
-  <script src="./scripts/scriptHandler.js"></script>
-  <script src="./scripts/history.js"></script>
-  <script src="./scripts/crop.js"></script>
-  <script src="./scripts/rotation.js"></script>
-  <script src="./scripts/colorPalette.js"></script>
-  <script src="./scripts/tools.js"></script>
-  <script src="./scripts/importer.js"></script>
-  <script src="./scripts/cellClass.js"></script>
-  <script src="./scripts/boardClass.js"></script>
-  <script src="./scripts/eventHandler.js"></script>
-  <script src="./scripts/svgExporter.js"></script>
-  <script src="./scripts/exporter.js"></script>
-  <script src="./scripts/main.js"></script>
-</body>
-
+    <script src="./scripts/scriptHandler.js"></script>
+    <script src="./scripts/history.js"></script>
+    <script src="./scripts/crop.js"></script>
+    <script src="./scripts/rotation.js"></script>
+    <script src="./scripts/colorPalette.js"></script>
+    <script src="./scripts/tools.js"></script>
+    <script src="./scripts/importer.js"></script>
+    <script src="./scripts/cellClass.js"></script>
+    <script src="./scripts/boardClass.js"></script>
+    <script src="./scripts/eventHandler.js"></script>
+    <script src="./scripts/svgExporter.js"></script>
+    <script src="./scripts/exporter.js"></script>
+    <script src="./scripts/main.js"></script>
+  </body>
 </html>

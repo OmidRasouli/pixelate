@@ -2,7 +2,7 @@ const exportAndShow = debounce(() => {
   exportPixelArt();
 });
 
-function shadowCalculation() {
+function shadowCalculation(extraSpace) {
   let data = [];
 
   for (const shadow of Object.keys(board.cells)) {
@@ -12,9 +12,11 @@ function shadowCalculation() {
     )
       continue;
 
+    const space = extraSpace ? board.Thickness : 0;
+
     data.push({
-      x: board.cells[shadow].Col * board.Thickness + board.Thickness,
-      y: board.cells[shadow].Row * board.Thickness + board.Thickness,
+      x: board.cells[shadow].Col * board.Thickness + space,
+      y: board.cells[shadow].Row * board.Thickness + space,
       color: board.cells[shadow].BackgroundColor,
       join: function () {
         return `${this.x}px ${this.y}px ${this.color},`;
@@ -30,8 +32,41 @@ function shadowCalculation() {
   return data;
 }
 
+function exportSVG() {
+  const data = shadowCalculation(false);
+  svgCreator({ ...board.Size, "borderRadius": board.Roundness }, data);
+
+  download("image/svg+xml", "svg", svg.outerHTML);
+}
+
+function exportJSON() {
+  const data = shadowCalculation(false);
+
+  download("application/json", "json", JSON.stringify(data));
+}
+
+function exportPNG() {
+  const data = shadowCalculation(false);
+
+  pngCreator({ ...board.Size, "borderRadius": board.Roundness }, data);
+  download("image/png", "png", canvasExporter.toDataURL("image/png"), true);
+}
+
+function download(MIME, type, data, isBase64 = false) {
+  var element = document.createElement('a');
+  element.setAttribute('href', isBase64 ? data : `data:${MIME};base64, ${btoa(data)}`);
+  element.setAttribute('download', `pixelate.${type}`);
+
+  element.style.display = 'none';
+  document.body.appendChild(element);
+
+  element.click();
+
+  document.body.removeChild(element);
+}
+
 function exportPixelArt() {
-  const data = shadowCalculation();
+  const data = shadowCalculation(true);
 
   const shadows = data.reduce((prev, current) => prev + current.join(), "");
 
@@ -43,7 +78,6 @@ function exportPixelArt() {
   if (board.Roundness > 0) {
     style += `\nborder-radius: ${board.Roundness}%;`;
   }
-  output.textContent = style;
 
   showSample(data);
 }
@@ -59,9 +93,8 @@ function showSample(data) {
 
   const boxShadow = shadows.length === 0 ? "" : `box-shadow: ${shadows}`;
 
-  let style = `width: ${scaledPixel}px;height: ${scaledPixel}px;border-radius: ${
-    board.Roundness % 101
-  }%;${boxShadow};`;
+  let style = `width: ${scaledPixel}px;height: ${scaledPixel}px;border-radius: ${board.Roundness % 101
+    }%;${boxShadow};`;
 
   const width = 150 - board.Width * 0.5 * scaledPixel - scaledPixel;
   const height = 150 - board.Height * 0.5 * scaledPixel - scaledPixel;

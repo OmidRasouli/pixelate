@@ -12,7 +12,6 @@ const importWindow = document.querySelector("#importWindow");
 const replaceColorWindow = document.querySelector("#replaceColorWindow");
 const colorPicker = document.querySelector("#color");
 const sample = document.querySelector("#sample");
-const output = document.querySelector("#output");
 const histories = new History();
 const tools = new Tools();
 let board = new Board();

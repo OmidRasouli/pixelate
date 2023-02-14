@@ -126,6 +126,13 @@ class Board {
   }
 
   /**
+   * return {width, height}
+   */
+  get Size() {
+    return { "width": this.#width * this.#thickness, "height": this.#height * this.#thickness };
+  }
+
+  /**
    * Create board and cells
    */
   BoardCreator() {

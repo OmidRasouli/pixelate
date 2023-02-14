@@ -11,6 +11,18 @@ function startupEvents() {
   document.querySelector("#import").addEventListener("click", () => {
     importWindow.style.display = "";
   });
+  //Click on submenu (export -> SVG)
+  document.querySelector("#export-svg").addEventListener("click", () => {
+    exportSVG();
+  });
+  //Click on submenu (export -> JSON)
+  document.querySelector("#export-json").addEventListener("click", () => {
+    exportJSON();
+  });
+  //Click on submenu (export -> PNG)
+  document.querySelector("#export-png").addEventListener("click", () => {
+    exportPNG();
+  });
   //Click on close create window
   document
     .querySelector("#closeWindow")

@@ -169,7 +169,6 @@ body {
             width: 50px;
             height: 27px;
             box-sizing: border-box;
-            -webkit-appearance: none;
             outline: 1px solid $color_outline;
             border: 2px solid $color_border;
             border-radius: 3px;
@@ -563,7 +562,6 @@ body {
 
         input[type="color"] {
           width: 100%;
-          -webkit-appearance: none;
           height: 100%;
           outline: 1px solid $color_outline;
           border: 2px solid $color_border;

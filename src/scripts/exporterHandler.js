@@ -1,6 +1,6 @@
 const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-const canvas = document.createElement("canvas");
-const context = canvas.getContext("2d");
+const canvasExporter = document.createElement("canvas");
+const context = canvasExporter.getContext("2d");
 
 function svgCreator(boardConfig, rects) {
     cleanSVG();
@@ -29,4 +29,11 @@ function cleanSVG() {
 }
 
 
-function pngCreator(boardConfig, rects) { }
+function pngCreator(boardConfig, rects) {
+    canvasExporter.setAttribute("width", boardConfig.width);
+    canvasExporter.setAttribute("height", boardConfig.height);
+    rects.forEach(rect => {
+        context.fillStyle = rect.color;
+        context.fillRect(rect.x, rect.y, board.Thickness, board.Thickness);
+    });
+}

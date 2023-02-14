@@ -39,15 +39,22 @@ function exportSVG() {
   download("image/svg+xml", "svg", svg.outerHTML);
 }
 
-function exportJSON(){
+function exportJSON() {
   const data = shadowCalculation(false);
 
   download("application/json", "json", JSON.stringify(data));
 }
 
-function download(MIME, type, data) {
+function exportPNG() {
+  const data = shadowCalculation(false);
+
+  pngCreator({ ...board.Size, "borderRadius": board.Roundness }, data);
+  download("image/png", "png", canvasExporter.toDataURL("image/png"), true);
+}
+
+function download(MIME, type, data, isBase64 = false) {
   var element = document.createElement('a');
-  element.setAttribute('href', `data:${MIME};base64,${btoa(data)}`);
+  element.setAttribute('href', isBase64 ? data : `data:${MIME};base64, ${btoa(data)}`);
   element.setAttribute('download', `pixelate.${type}`);
 
   element.style.display = 'none';

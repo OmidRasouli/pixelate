@@ -19,6 +19,10 @@ function startupEvents() {
   document.querySelector("#export-json").addEventListener("click", () => {
     exportJSON();
   });
+  //Click on submenu (export -> PNG)
+  document.querySelector("#export-png").addEventListener("click", () => {
+    exportPNG();
+  });
   //Click on close create window
   document
     .querySelector("#closeWindow")
